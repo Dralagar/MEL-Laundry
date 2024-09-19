@@ -1,0 +1,154 @@
+.serviceRoot {
+  --primary-green: #2ecc71;
+  --dark-green: #27ae60;
+  --light-green: #e8f6e8;
+  --faint-green: #f0f8f0;
+  --white: #ffffff;
+  --off-white: #fafafa;
+  --text-dark: #333333;
+  --text-light: #666666;
+  --font-primary: 'Arial', sans-serif;
+  --font-secondary: 'Helvetica', sans-serif;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 6rem 2rem 4rem;
+  font-family: var(--font-primary);
+  color: var(--text-dark);
+  line-height: 1.6;
+  background-color: var(--off-white);
+}
+
+.title {
+  font-size: 2.75rem;
+  font-weight: 700;
+  color: var(--dark-green);
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.serviceButtons {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  margin-bottom: 3rem;
+}
+
+.serviceButton {
+  display: flex;
+  align-items: center;
+  padding: 0.875rem 1.75rem;
+  background-color: var(--faint-green);
+  border: 1px solid var(--light-green);
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: var(--text-dark);
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.serviceButton.active {
+  background-color: var(--light-green);
+  color: var(--dark-green);
+}
+
+.serviceIcon {
+  margin-right: 0.75rem;
+  font-size: 1.4rem;
+  color: var(--primary-green);
+}
+
+.serviceDetails {
+  background-color: var(--white);
+  padding: 2.5rem;
+  border-radius: 15px;
+  margin-bottom: 3rem;
+  border: 1px solid var(--light-green);
+}
+
+.serviceDetails h2 {
+  color: var(--dark-green);
+  margin-bottom: 1.25rem;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.featureList {
+  list-style-type: none;
+  padding: 0;
+}
+
+.featureList li {
+  margin-bottom: 0.75rem;
+  padding-left: 1.75rem;
+  position: relative;
+  font-family: var(--font-secondary);
+  font-size: 1.1rem;
+  color: var(--text-light);
+}
+
+.featureList li::before {
+  content: '✓';
+  color: var(--primary-green);
+  position: absolute;
+  left: 0;
+  font-weight: bold;
+}
+
+.cta {
+  text-align: center;
+  background-color: var(--light-green);
+  padding: 3rem 2rem;
+  border-radius: 15px;
+}
+
+.cta h2 {
+  color: var(--dark-green);
+  margin-bottom: 1.75rem;
+  font-size: 2.25rem;
+  font-weight: 700;
+}
+
+.ctaButton {
+  background-color: var(--primary-green);
+  color: var(--white);
+  border: none;
+  padding: 1rem 2rem;
+  font-size: 1.2rem;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding-top: 5rem;
+    padding-bottom: 3rem;
+  }
+
+  .serviceButtons {
+    flex-direction: column;
+  }
+
+  .serviceButton {
+    width: 100%;
+  }
+
+  .title {
+    font-size: 2.25rem;
+  }
+
+  .cta h2 {
+    font-size: 2rem;
+  }
+
+  .ctaButton {
+    padding: 0.875rem 1.75rem;
+    font-size: 1.1rem;
+  }
+}
