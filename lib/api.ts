@@ -1,3 +1,4 @@
+"use client"
 export const getLocations = async () => {
     try {
       const response = await fetch('/api/locations');
