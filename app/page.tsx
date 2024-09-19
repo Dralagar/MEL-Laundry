@@ -8,6 +8,7 @@ import { MdLocalLaundryService } from 'react-icons/md';
 import { motion } from 'framer-motion';
 import styles from './styless/Home.module.css';
 
+// Motion variants
 const fadeInUp = {
   initial: { y: 60, opacity: 0 },
   animate: { y: 0, opacity: 1 },
@@ -21,6 +22,57 @@ const staggerChildren = {
     }
   }
 };
+
+// Define the types for sections and features
+interface Feature {
+  title: string;
+  description: string;
+  img: string;
+}
+
+interface Step {
+  icon: React.ComponentType<{ className?: string }>;
+  title: string;
+  description: string;
+}
+
+interface PricingPlan {
+  title: string;
+  price: string;
+  capacity: string;
+}
+
+interface Testimonial {
+  id: string;
+  content: string;
+  author: string;
+}
+
+// Data arrays
+const features: Feature[] = [
+  { title: 'Affordable Rates', description: 'Enjoy self-service laundry at rates that fit your budget.', img: '/images/Affordable.png' },
+  { title: 'Fast & Efficient', description: 'Get your laundry done quickly with our high-speed machines.', img: '/images/first.png' },
+  { title: 'Convenient Locations', description: 'Find us easily across Nairobi with locations close to you.', img: '/images/servicelogo.png' },
+  { title: '24/7 Availability', description: 'Do your laundry on your schedule, anytime, day or night.', img: '/images/24hour.png' },
+];
+
+const steps: Step[] = [
+  { icon: FaTshirt, title: 'Bring Your Laundry', description: 'Bring your dirty clothes to any MEL Laundry location.' },
+  { icon: FaWater, title: 'Wash', description: 'Use our high-efficiency washing machines to clean your clothes.' },
+  { icon: MdLocalLaundryService, title: 'Dry', description: 'Dry your clothes quickly with our powerful dryers.' },
+];
+
+const pricingPlans: PricingPlan[] = [
+  { title: 'Quick wash 15 mins', price: 'KSh 500', capacity: 'Up to 8 kg' },
+  { title: '30 min wash', price: 'KSh 700', capacity: 'Up to 12 kg' },
+  { title: 'Large Load', price: 'KSh 1000', capacity: 'Up to 16 kg' },
+];
+
+const testimonials: Testimonial[] = [
+  { id: '1', content: 'MEL Laundry has made my life so much easier. Clean clothes, no hassle!', author: 'Dralagar George.' },
+  { id: '2', content: 'The 24/7 availability is a game-changer. I can do laundry on my schedule.', author: 'Christine.' },
+  { id: '3', content: 'Affordable and efficient. MEL Laundry is my go-to for all my laundry needs.', author: 'Dodo.' },
+];
 
 const Home: React.FC = () => {
     return (
@@ -70,12 +122,7 @@ const Home: React.FC = () => {
             >
                 <motion.h2 className={styles.sectionTitle} variants={fadeInUp}>Why Choose MEL Laundry?</motion.h2>
                 <div className={styles.featuresGrid}>
-                    {[
-                        { title: 'Affordable Rates', description: 'Enjoy self-service laundry at rates that fit your budget.', img: '/images/Affordable.png' },
-                        { title: 'Fast & Efficient', description: 'Get your laundry done quickly with our high-speed machines.', img: '/images/first.png' },
-                        { title: 'Convenient Locations', description: 'Find us easily across Nairobi with locations close to you.', img: '/images/servicelogo.png' },
-                        { title: '24/7 Availability', description: 'Do your laundry on your schedule, anytime, day or night.', img: '/images/24hour.png' },
-                    ].map((feature, index) => (
+                    {features.map((feature, index) => (
                         <motion.div key={index} className={styles.featureItem} variants={fadeInUp}>
                             <Image src={feature.img} alt={feature.title} width={64} height={64} className={styles.featureImage} />
                             <h3 className={styles.itemTitle}>{feature.title}</h3>
@@ -94,11 +141,7 @@ const Home: React.FC = () => {
             >
                 <motion.h2 className={styles.sectionTitle} variants={fadeInUp}>How It Works</motion.h2>
                 <div className={styles.stepsGrid}>
-                    {[
-                        { icon: FaTshirt, title: 'Bring Your Laundry', description: 'Bring your dirty clothes to any MEL Laundry location.' },
-                        { icon: FaWater, title: 'Wash', description: 'Use our high-efficiency washing machines to clean your clothes.' },
-                        { icon: MdLocalLaundryService, title: 'Dry', description: 'Dry your clothes quickly with our powerful dryers.' },
-                    ].map((step, index) => (
+                    {steps.map((step, index) => (
                         <motion.div key={index} className={styles.stepItem} variants={fadeInUp}>
                             {React.createElement(step.icon, { className: styles.icon })}
                             <h3 className={styles.itemTitle}>{step.title}</h3>
@@ -117,11 +160,7 @@ const Home: React.FC = () => {
             >
                 <motion.h2 className={styles.sectionTitle} variants={fadeInUp}>Our Pricing</motion.h2>
                 <div className={styles.pricingGrid}>
-                    {[
-                        { title: 'Quick wash 15 mins', price: 'KSh 500', capacity: 'Up to 8 kg' },
-                        { title: '30 min wash', price: 'KSh 700', capacity: 'Up to 12 kg' },
-                        { title: 'Large Load', price: 'KSh 1000', capacity: 'Up to 16 kg' },
-                    ].map((plan, index) => (
+                    {pricingPlans.map((plan, index) => (
                         <motion.div key={index} className={styles.pricingItem} variants={fadeInUp}>
                             <h3 className={styles.itemTitle}>{plan.title}</h3>
                             <p className={styles.price}>{plan.price}</p>
@@ -140,11 +179,7 @@ const Home: React.FC = () => {
             >
                 <motion.h2 className={styles.sectionTitle} variants={fadeInUp}>What Our Customers Say</motion.h2>
                 <div className={styles.testimonialsGrid}>
-                    {[
-                        { id: '1', content: 'MEL Laundry has made my life so much easier. Clean clothes, no hassle!', author: 'Dralagar George.' },
-                        { id: '2', content: 'The 24/7 availability is a game-changer. I can do laundry on my schedule.', author: 'Christine.' },
-                        { id: '3', content: 'Affordable and efficient. MEL Laundry is my go-to for all my laundry needs.', author: 'Dodo.' },
-                    ].map((testimonial) => (
+                    {testimonials.map((testimonial) => (
                         <motion.div key={testimonial.id} className={styles.testimonialItem} variants={fadeInUp}>
                             <p>"{testimonial.content}"</p>
                             <h4 className={styles.itemTitle}>{testimonial.author}</h4>
