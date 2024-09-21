@@ -1,9 +1,10 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import styles from '../styless/Blog.module.css'; // Fixed typo: 'styless' to 'styles'
+import styles from '../styles/Blog.module.css'; // Fixed typo: 'styless' to 'styles'
 import { FaCalendarAlt, FaArrowRight, FaSearch, FaTags } from 'react-icons/fa';
 import { motion } from 'framer-motion';
+import Image from 'next/image'; // Import Image component
 
 const BlogPage: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -89,7 +90,15 @@ const BlogPage: React.FC = () => {
               transition={{ duration: 0.5, delay: index * 0.1 }}
             >
               <div className={styles.blogPostImageContainer}>
-                <img src={post.image} alt={post.title} className={styles.blogPostImage} />
+                <Image 
+                  src={post.image} 
+                  alt={post.title} 
+                  className={styles.blogPostImage} 
+                  layout="responsive" 
+                  width={500} // Adjust these values as necessary
+                  height={300} // Adjust these values as necessary
+                  quality={100} // Optional: adjust for image quality
+                />
               </div>
               <div className={styles.blogPostContent}>
                 <h3 className={styles.blogPostTitle}>{post.title}</h3>

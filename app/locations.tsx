@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image'; // Import Image component
 import { getLocations } from "../lib/api"; // Ensure this path is correct
 
 interface Location {
@@ -45,7 +46,15 @@ const Locations: React.FC = () => {
             <div key={location.id}>
               <h2>{location.name}</h2>
               <p>{location.address}</p>
-              {location.image && <img src={location.image} alt={location.name} style={{ width: '100px', height: '100px' }} />}
+              {location.image && (
+                <Image 
+                  src={location.image} 
+                  alt={location.name} 
+                  width={100} // Set the desired width
+                  height={100} // Set the desired height
+                  style={{ objectFit: 'cover' }} // Optional: maintain aspect ratio
+                />
+              )}
             </div>
           ))}
         </div>

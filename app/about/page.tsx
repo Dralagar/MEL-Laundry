@@ -1,8 +1,10 @@
-"use client"
+"use client";
+
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { FaCheckCircle } from 'react-icons/fa';
+import Image from 'next/image';  // Import Image component
 import styles from '../styless/About.module.css';
 
 interface TabContent {
@@ -120,7 +122,14 @@ const AboutPage: React.FC<AboutPageProps> = ({ tab }) => {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: index * 0.1 }}
           >
-            <img src={image} alt={`MEL Laundry Image ${index + 1}`} />
+            <Image 
+              src={image} 
+              alt={`MEL Laundry Image ${index + 1}`} 
+              layout="responsive" 
+              width={500} // Set appropriate width
+              height={300} // Set appropriate height
+              quality={100} // Optional: adjust for image quality
+            />
           </motion.div>
         ))}
       </div>
