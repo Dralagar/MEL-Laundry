@@ -181,7 +181,7 @@ const Home: React.FC = () => {
                 <div className={styles.testimonialsGrid}>
                     {testimonials.map((testimonial) => (
                         <motion.div key={testimonial.id} className={styles.testimonialItem} variants={fadeInUp}>
-                            <p>"{testimonial.content}"</p>
+                            <p>&quot;{testimonial.content}&quot;</p>
                             <h4 className={styles.itemTitle}>{testimonial.author}</h4>
                         </motion.div>
                     ))}
