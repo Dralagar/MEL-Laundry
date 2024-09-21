@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { FaCheckCircle } from 'react-icons/fa';
-import Image from 'next/image';  // Import Image component
+import Image from 'next/image';  
 import styles from '../styless/About.module.css';
 
 interface TabContent {
@@ -17,12 +17,12 @@ interface AboutPageProps {
   tab?: 'mission' | 'vision' | 'values';
 }
 
-const AboutPage: React.FC<AboutPageProps> = ({ tab }) => {
+const AboutPage: React.FC<AboutPageProps> = ({ tab = 'mission' }) => {
   const router = useRouter();
-  const [activeTab, setActiveTab] = useState<'mission' | 'vision' | 'values'>('mission');
+  const [activeTab, setActiveTab] = useState<'mission' | 'vision' | 'values'>(tab);
 
   useEffect(() => {
-    if (tab && ['mission', 'vision', 'values'].includes(tab)) {
+    if (['mission', 'vision', 'values'].includes(tab || '')) {
       setActiveTab(tab as 'mission' | 'vision' | 'values');
     }
   }, [tab]);
@@ -126,9 +126,9 @@ const AboutPage: React.FC<AboutPageProps> = ({ tab }) => {
               src={image} 
               alt={`MEL Laundry Image ${index + 1}`} 
               layout="responsive" 
-              width={500} // Set appropriate width
-              height={300} // Set appropriate height
-              quality={100} // Optional: adjust for image quality
+              width={500} 
+              height={300} 
+              quality={100} 
             />
           </motion.div>
         ))}
