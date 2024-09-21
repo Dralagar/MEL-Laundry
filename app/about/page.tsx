@@ -1,11 +1,9 @@
 "use client";
-
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { FaCheckCircle } from 'react-icons/fa';
-import Image from 'next/image';  
-import styles from '../styless/About.module.css'; // Corrected path
+import styles from '../styless/About.module.css';
 
 interface TabContent {
   title: string;
@@ -14,7 +12,7 @@ interface TabContent {
 }
 
 interface AboutPageProps {
-  tab?: 'mission' | 'vision' | 'values'; // Ensure tab only accepts these values
+  tab?: 'mission' | 'vision' | 'values'; // Optional prop with specific string values
 }
 
 const AboutPage: React.FC<AboutPageProps> = ({ tab = 'mission' }) => {
@@ -22,7 +20,7 @@ const AboutPage: React.FC<AboutPageProps> = ({ tab = 'mission' }) => {
   const [activeTab, setActiveTab] = useState<'mission' | 'vision' | 'values'>(tab);
 
   useEffect(() => {
-    if (['mission', 'vision', 'values'].includes(tab)) {
+    if (tab && ['mission', 'vision', 'values'].includes(tab)) {
       setActiveTab(tab as 'mission' | 'vision' | 'values');
     }
   }, [tab]);
@@ -122,16 +120,9 @@ const AboutPage: React.FC<AboutPageProps> = ({ tab = 'mission' }) => {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: index * 0.1 }}
           >
-            <Image 
-              src={image} 
-              alt={`MEL Laundry Image ${index + 1}`} 
-              layout="responsive" 
-              width={500} 
-              height={300} 
-              quality={100} 
-            />
+            <img src={image} alt={`MEL Laundry Image ${index + 1}`} />
           </motion.div>
-        ))} 
+        ))}
       </div>
     </div>
   );
