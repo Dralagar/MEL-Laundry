@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { FaCheckCircle } from 'react-icons/fa';
 import Image from 'next/image';  
-import styles from '../styles/About.module.css'; // Corrected path
+import styles from '../styless/About.module.css'; // Corrected path
 
 interface TabContent {
   title: string;
