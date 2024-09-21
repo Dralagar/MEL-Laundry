@@ -1,4 +1,3 @@
-// Import required modules and types
 import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
@@ -11,7 +10,7 @@ interface Location {
   state: string;
   zipCode: string;
   isOpen?: boolean;
-  status?: string; // Optional based on schema and usage
+  status?: string; 
 }
 
 // Function to fetch all locations
@@ -29,13 +28,10 @@ export const getLocations = async (): Promise<Location[]> => {
       },
     });
 
-    // Add status based on isOpen field
-    const locationsWithStatus: Location[] = locations.map(location => ({
+    return locations.map(location => ({
       ...location,
       status: location.isOpen ? 'Open' : 'Not yet launched',
     }));
-
-    return locationsWithStatus;
   } catch (error) {
     console.error('Error fetching locations:', error);
     throw new Error('Failed to fetch locations. Please try again later.');
@@ -70,7 +66,10 @@ export const addLocation = async (newLocation: {
       },
     });
 
-    return location;
+    return {
+      ...location,
+      status: location.isOpen ? 'Open' : 'Not yet launched',
+    };
   } catch (error) {
     console.error('Error adding location:', error);
     throw new Error('Failed to add location. Please try again later.');
@@ -95,9 +94,13 @@ export const updateLocation = async (
       data: updatedData,
     });
 
-    return location;
+    return {
+      ...location,
+      status: location.isOpen ? 'Open' : 'Not yet launched',
+    };
   } catch (error) {
     console.error('Error updating location:', error);
     throw new Error('Failed to update location. Please try again later.');
   }
 };
+

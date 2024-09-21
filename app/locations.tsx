@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { getLocations } from "../lib/api";
+import { getLocations } from "../../mel/lib/api";
 
 interface Location {
   id: string;
