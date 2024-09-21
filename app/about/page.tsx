@@ -1,16 +1,13 @@
-"use client"; // Required for client-side components in Next.js
+"use client"; // Ensure this is included for client components
 
-import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { FaCheckCircle } from 'react-icons/fa';
-import styles from '../styless/About.module.css';
+import styles from '../styless/About.module.css'; // Adjust the path as needed
 
-const AboutPage = () => {
-  const router = useRouter();
+const AboutPage: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'mission' | 'vision' | 'values'>('mission');
 
-  // Tab content data
   const tabContent = {
     mission: {
       title: "Our Mission",
@@ -44,7 +41,6 @@ const AboutPage = () => {
     }
   };
 
-  // Images for the grid
   const images = [
     "/images/redwhite.png", 
     "/images/iron.jpg",
