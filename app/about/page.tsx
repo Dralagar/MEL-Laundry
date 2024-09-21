@@ -1,31 +1,17 @@
-"use client";
+"use client"; // Required for client-side components in Next.js
+
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { FaCheckCircle } from 'react-icons/fa';
 import styles from '../styless/About.module.css';
 
-interface TabContent {
-  title: string;
-  content: string;
-  list: string[];
-}
-
-interface AboutPageProps {
-  tab?: 'mission' | 'vision' | 'values'; // Optional prop with specific string values
-}
-
-const AboutPage: React.FC<AboutPageProps> = ({ tab = 'mission' }) => {
+const AboutPage = () => {
   const router = useRouter();
-  const [activeTab, setActiveTab] = useState<'mission' | 'vision' | 'values'>(tab);
+  const [activeTab, setActiveTab] = useState<'mission' | 'vision' | 'values'>('mission');
 
-  useEffect(() => {
-    if (tab && ['mission', 'vision', 'values'].includes(tab)) {
-      setActiveTab(tab as 'mission' | 'vision' | 'values');
-    }
-  }, [tab]);
-
-  const tabContent: Record<'mission' | 'vision' | 'values', TabContent> = {
+  // Tab content data
+  const tabContent = {
     mission: {
       title: "Our Mission",
       content: "At MEL Laundry, we're committed to revolutionizing the laundry experience.",
@@ -58,6 +44,7 @@ const AboutPage: React.FC<AboutPageProps> = ({ tab = 'mission' }) => {
     }
   };
 
+  // Images for the grid
   const images = [
     "/images/redwhite.png", 
     "/images/iron.jpg",
@@ -81,7 +68,7 @@ const AboutPage: React.FC<AboutPageProps> = ({ tab = 'mission' }) => {
           <button
             key={tabKey}
             className={`${styles.tabButton} ${activeTab === tabKey ? styles.activeTab : ''}`}
-            onClick={() => router.push(`/about/${tabKey}`)}
+            onClick={() => setActiveTab(tabKey as 'mission' | 'vision' | 'values')}
           >
             {tabContent[tabKey as keyof typeof tabContent].title}
           </button>
