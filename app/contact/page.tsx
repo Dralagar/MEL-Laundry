@@ -111,7 +111,6 @@ export default function Contact() {
             <div className={styles.card}>
               <FaMapMarkerAlt className={styles.icon} />
               <h3 className={styles.cardHeading}>Our Office</h3>
-              <p className={styles.cardText}>123 MEL Laundry Street, Nairobi, Kenya</p>
             </div>
             <div className={styles.card}>
               <FaEnvelope className={styles.icon} />
@@ -121,7 +120,7 @@ export default function Contact() {
             <div className={styles.card}>
               <FaPhone className={styles.icon} />
               <h3 className={styles.cardHeading}>Call Us</h3>
-              <p className={styles.cardText}>+254 123 456 789</p>
+              <p className={styles.cardText}>0757495125</p>
             </div>
             <div className={styles.mapContainer}>
               <iframe

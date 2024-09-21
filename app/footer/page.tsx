@@ -28,7 +28,7 @@ const Footer = () => {
           <h3>Contact Us</h3>
           <ul>
             <li><FaMapMarkerAlt /> Donholm CFF, Nairobi, Kenya</li>
-            <li><FaPhone /> +254 7024855568</li>
+            <li><FaPhone /> +254757495125</li>
             <li><FaEnvelope /> info@mellaundry.com</li>
           </ul>
         </div>

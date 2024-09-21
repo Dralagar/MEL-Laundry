@@ -13,8 +13,8 @@ export default function UserTable() {
           {/* Example rows, you can replace with dynamic data */}
           <tr>
             <td className="py-2 px-4 border-b">1</td>
-            <td className="py-2 px-4 border-b">John Doe</td>
-            <td className="py-2 px-4 border-b">johndoe@example.com</td>
+            <td className="py-2 px-4 border-b">Dralagar George</td>
+            <td className="py-2 px-4 border-b">gdralagar@gmail.com</td>
           </tr>
           <tr>
             <td className="py-2 px-4 border-b">2</td>

@@ -3,6 +3,7 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
+// Handle GET requests to fetch all locations
 export async function GET() {
   try {
     const locations = await prisma.location.findMany({
@@ -17,6 +18,7 @@ export async function GET() {
       },
     });
 
+    // Add a `status` field based on `isOpen` status
     const locationsWithStatus = locations.map(location => ({
       ...location,
       status: location.isOpen ? 'Open' : 'Not yet launched',
@@ -29,10 +31,16 @@ export async function GET() {
   }
 }
 
+// Handle POST requests to create a new location
 export async function POST(request: Request) {
   try {
     const body = await request.json();
     const { name, address, city, state, zipCode, isOpen } = body;
+
+    // Validate incoming data
+    if (!name || !address || !city || !state || !zipCode) {
+      return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
+    }
 
     const newLocation = await prisma.location.create({
       data: {
@@ -41,7 +49,7 @@ export async function POST(request: Request) {
         city,
         state,
         zipCode,
-        isOpen: isOpen || false,
+        isOpen: isOpen || false, // Default to false if not provided
       },
     });
 

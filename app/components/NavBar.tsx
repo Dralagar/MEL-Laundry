@@ -2,65 +2,59 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import styles from '../styless/Navbar.module.css';
+import Image from 'next/image';
+import styles from '../styless/Navbar.module.css'; // Corrected path if necessary
 
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
-  };
-
-  const closeMenu = () => {
-    setIsOpen(false);
-  };
-
-  const toggleDropdown = () => {
-    setIsDropdownOpen(!isDropdownOpen);
-  };
+  const toggleMenu = () => setIsOpen((prev) => !prev);
+  const closeMenu = () => setIsOpen(false);
 
   return (
     <nav className={styles.nav}>
+      {/* Logo Section */}
       <div className={styles.logo}>
-        <Link href="/">MEL Laundry</Link>
+        <Link href="/" aria-label="Homepage">
+          <Image
+            src="/images/MEL__1.png"
+            alt="MEL Logo"
+            width={150}
+            height={50}
+            priority
+          />
+        </Link>
       </div>
-      <button className={styles.toggleButton} onClick={toggleMenu}>
+
+      {/* Menu Toggle Button */}
+      <button
+        className={styles.toggleButton}
+        onClick={toggleMenu}
+        aria-label={isOpen ? 'Close menu' : 'Open menu'}
+      >
         {isOpen ? '✕' : '☰'}
       </button>
-      <ul className={`${styles.navList} ${isOpen ? styles.show : ''}`}>
-        <li key="/" onClick={closeMenu}>
-          <Link href="/">Home</Link>
+
+      {/* Navigation List */}
+      <ul className={`${styles.navList} ${isOpen ? styles.show : ''}`} aria-hidden={!isOpen}>
+        <li>
+          <Link href="/" onClick={closeMenu} aria-label="Home">Home</Link>
+        </li>
+        
+        {/* About Link */}
+        <li>
+          <Link href="/about" onClick={closeMenu} aria-label="About">About</Link>
         </li>
 
-        {/* Dropdown for About */}
-        <li
-          className={styles.dropdown}
-          onMouseEnter={toggleDropdown}
-          onMouseLeave={toggleDropdown}
-        >
-          <span className={styles.navLink}>About</span>
-          <ul className={`${styles.dropdownMenu} ${isDropdownOpen ? styles.showDropdown : ''}`}>
-            <li key="/about/mission">
-              <Link href="/about/mission" onClick={closeMenu}>Our Mission</Link>
-            </li>
-            <li key="/about/vision">
-              <Link href="/about/vision" onClick={closeMenu}>Our Vision</Link>
-            </li>
-            <li key="/about/values">
-              <Link href="/about/values" onClick={closeMenu}>Our Values</Link>
-            </li>
-          </ul>
+        {/* Other Links */}
+        <li>
+          <Link href="/service" onClick={closeMenu} aria-label="Services">Services</Link>
         </li>
-
-        <li key="/service">
-          <Link href="/service" onClick={closeMenu}>Services</Link>
+        <li>
+          <Link href="/blog" onClick={closeMenu} aria-label="Blog">Blog</Link>
         </li>
-        <li key="/blog">
-          <Link href="/blog" onClick={closeMenu}>Blog</Link>
-        </li>
-        <li key="/contact">
-          <Link href="/contact" onClick={closeMenu}>Contact</Link>
+        <li>
+          <Link href="/contact" onClick={closeMenu} aria-label="Contact">Contact</Link>
         </li>
       </ul>
     </nav>

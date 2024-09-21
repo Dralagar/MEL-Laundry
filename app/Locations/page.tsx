@@ -1,138 +1,87 @@
 "use client";
 
 import { useState, useEffect } from 'react';
-import { getLocations, addLocation, updateLocation } from '../../lib/api';
-
-import styles from '../styless/Locations.module.css';
+import Link from 'next/link';
+import { getLocations, updateLocation } from '../../lib/api';
 
 interface Location {
   id: string;
   name: string;
   address: string;
-  image: string;
+  city: string;
+  state: string;
+  zipCode: string;
+  image?: string; // Optional if your schema allows it
+  status?: string; // Optional based on your schema
 }
 
-function Locations() {
-  const [locations, setLocations] = useState<Location[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [newLocation, setNewLocation] = useState({ name: '', address: '', image: '' });
+const LocationCard: React.FC<{ location: Location; onUpdate: (id: string, newName: string) => void }> = ({ location, onUpdate }) => {
+  return (
+    <div key={location.id} style={{ border: '1px solid #ddd', padding: '16px', marginBottom: '12px' }}>
+      <h2>{location.name}</h2>
+      <p>{location.address}</p>
+      <p>{location.city}, {location.state} {location.zipCode}</p>
+      <p>Status: {location.status}</p>
+      {location.image && <img src={location.image} alt={location.name} style={{ width: '100px', height: '100px' }} />}
+      <button onClick={() => onUpdate(location.id, 'Updated Name')}>Update Name</button>
+    </div>
+  );
+};
 
-  // Fetch locations on component mount
+const Locations: React.FC = () => {
+  const [locations, setLocations] = useState<Location[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+
   useEffect(() => {
+    const fetchLocations = async () => {
+      try {
+        const fetchedLocations: Location[] = await getLocations();
+        setLocations(fetchedLocations);
+      } catch (err) {
+        setError('Failed to fetch locations. Please try again later.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
     fetchLocations();
   }, []);
 
-  // Fetch locations from API
-  const fetchLocations = async () => {
+  const handleUpdate = async (id: string, newName: string) => {
     try {
-      setLoading(true);
-      const fetchedLocations = await getLocations();
-      setLocations(fetchedLocations);
-    } catch (err) {
-      setError('Failed to fetch locations. Please try again later.');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  // Handle adding a new location
-  const handleAddLocation = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!newLocation.name || !newLocation.address || !newLocation.image) {
-      setError('Please fill out all fields.');
-      return;
-    }
-
-    try {
-      const addedLocation = await addLocation(newLocation);
-      setLocations((prevLocations) => [...prevLocations, addedLocation]);
-      setNewLocation({ name: '', address: '', image: '' });
-      setError(null); // Clear any previous errors
-    } catch (err) {
-      setError('Failed to add location. Please try again.');
-    }
-  };
-
-  // Handle updating an existing location
-  const handleUpdateLocation = async (locationId: string, updatedData: Partial<Location>) => {
-    try {
-      const updatedLocation = await updateLocation(locationId, updatedData);
+      await updateLocation(id, { name: newName });
       setLocations((prevLocations) =>
-        prevLocations.map((loc) => (loc.id === locationId ? { ...loc, ...updatedLocation } : loc))
+        prevLocations.map((location) =>
+          location.id === id ? { ...location, name: newName } : location
+        )
       );
-      setError(null); // Clear any previous errors
     } catch (err) {
-      setError('Failed to update location. Please try again.');
+      setError('Failed to update location. Please try again later.');
     }
   };
 
-  // Handle input change for adding a new location
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setNewLocation((prev) => ({ ...prev, [name]: value }));
-  };
-
-  if (loading) return <div className={styles.loading}>Loading...</div>;
-  if (error) return <div className={styles.error}>{error}</div>;
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>{error}</div>;
 
   return (
-    <div className={styles.locationsContainer}>
-      <h1 className={styles.title}>Our Locations</h1>
-
-      <form className={styles.addLocationForm} onSubmit={handleAddLocation}>
-        <h2>Add New Location</h2>
-        <input
-          type="text"
-          name="name"
-          value={newLocation.name}
-          onChange={handleInputChange}
-          placeholder="Location Name"
-          required
-        />
-        <input
-          type="text"
-          name="address"
-          value={newLocation.address}
-          onChange={handleInputChange}
-          placeholder="Address"
-          required
-        />
-        <input
-          type="text"
-          name="image"
-          value={newLocation.image}
-          onChange={handleInputChange}
-          placeholder="Image URL"
-          required
-        />
-        <button type="submit">Add Location</button>
-      </form>
-
+    <div>
+      <h1>Our Locations</h1>
+      <p>Here you can find information about our laundry locations.</p>
+      
       {locations.length === 0 ? (
-        <div className={styles.noLocations}>No locations found.</div>
+        <p>No locations found.</p>
       ) : (
-        <div className={styles.locationGrid}>
+        <div>
           {locations.map((location) => (
-            <div key={location.id} className={styles.locationCard}>
-              <img
-                src={location.image}
-                alt={`Image of ${location.name}`}
-                className={styles.locationImage}
-              />
-              <h2 className={styles.locationName}>{location.name}</h2>
-              <p className={styles.locationAddress}>{location.address}</p>
-              <button
-                onClick={() => handleUpdateLocation(location.id, { name: 'Updated Name' })}
-              >
-                Update Name
-              </button>
-            </div>
+            <LocationCard key={location.id} location={location} onUpdate={handleUpdate} />
           ))}
         </div>
       )}
+      
+      <Link href="/">Back to Home</Link>
     </div>
   );
-}
+};
 
 export default Locations;

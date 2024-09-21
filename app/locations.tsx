@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { getLocations } from '../lib/api'; 
+import { getLocations } from "../lib/api";
 
 interface Location {
   id: string;
   name: string;
   address: string;
-  image?: string; // Optional, adjust according to your schema
+  image?: string; // Optional if your schema allows it
 }
 
 const Locations: React.FC = () => {
@@ -17,7 +17,7 @@ const Locations: React.FC = () => {
   useEffect(() => {
     const fetchLocations = async () => {
       try {
-        const fetchedLocations = await getLocations();
+        const fetchedLocations: Location[] = await getLocations();
         setLocations(fetchedLocations);
       } catch (err) {
         setError('Failed to fetch locations. Please try again later.');

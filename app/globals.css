@@ -53,9 +53,15 @@ p {
   margin-bottom: 1rem;
 }
 
-img {
+img, .logo {
   max-width: 100%;
   height: auto;
+  display: block;
+}
+
+.logo {
+  max-width: 150px; /* Adjust logo size */
+  margin: 0 auto; /* Center logo */
 }
 
 button, .button {
@@ -84,6 +90,27 @@ button:hover, .button:hover {
 
 .section {
   padding: 4rem 0;
+  background-color: var(--gray);
+  text-align: center;
+}
+
+.section.bg-image {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.background-image {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.background-image-cover {
+  width: 100%;
+  height: 400px;
+  background-size: cover;
+  background-position: center;
 }
 
 /* Utility classes */
@@ -115,5 +142,13 @@ button:hover, .button:hover {
 
   .section {
     padding: 3rem 0;
+  }
+
+  .logo {
+    max-width: 100px; /* Resize logo for mobile */
+  }
+
+  .background-image-cover {
+    height: 250px; /* Reduce background image size on smaller screens */
   }
 }
