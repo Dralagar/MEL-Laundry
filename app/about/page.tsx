@@ -131,7 +131,7 @@ const AboutPage: React.FC<AboutPageProps> = ({ tab = 'mission' }) => {
               quality={100} 
             />
           </motion.div>
-        ))}
+        ))} 
       </div>
     </div>
   );
