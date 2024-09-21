@@ -14,7 +14,7 @@ interface TabContent {
 }
 
 interface AboutPageProps {
-  tab?: 'mission' | 'vision' | 'values';
+  tab?: 'mission' | 'vision' | 'values'; // Ensure tab only accepts these values
 }
 
 const AboutPage: React.FC<AboutPageProps> = ({ tab = 'mission' }) => {
@@ -22,7 +22,7 @@ const AboutPage: React.FC<AboutPageProps> = ({ tab = 'mission' }) => {
   const [activeTab, setActiveTab] = useState<'mission' | 'vision' | 'values'>(tab);
 
   useEffect(() => {
-    if (['mission', 'vision', 'values'].includes(tab || '')) {
+    if (['mission', 'vision', 'values'].includes(tab)) {
       setActiveTab(tab as 'mission' | 'vision' | 'values');
     }
   }, [tab]);
