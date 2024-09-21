@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { getLocations } from "../../mel/lib/api";
+import { getLocations } from "../lib/api"; // Ensure this path is correct
 
 interface Location {
   id: string;
