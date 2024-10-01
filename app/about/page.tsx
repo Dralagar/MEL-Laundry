@@ -2,8 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
-import { FaTshirt, FaWater, FaMapMarkerAlt } from 'react-icons/fa';
+import { FaTshirt, FaMapMarkerAlt } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 import styles from '../styless/About.module.css';
 
@@ -64,14 +63,14 @@ const tabContents: Record<string, TabContent> = {
 };
 
 interface AboutPageProps {
-  tab?: string;
+  tab?: keyof typeof tabContents; // Restrict to keys of tabContents
 }
 
 const AboutPage: React.FC<AboutPageProps> = ({ tab = 'mission' }) => {
   const [activeTab, setActiveTab] = useState<string>(tab);
 
   useEffect(() => {
-    if (tabContents[tab]) {
+    if (tab in tabContents) {
       setActiveTab(tab);
     } else {
       setActiveTab('mission'); // Default to mission if invalid
@@ -104,41 +103,42 @@ const AboutPage: React.FC<AboutPageProps> = ({ tab = 'mission' }) => {
       </div>
 
       <motion.div
-        className={styles.content}
-        key={activeTab}
+        className={styles.gridContainer} // New grid container
         initial={{ opacity: 0, x: 20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <h2>{tabContents[activeTab].title}</h2>
-        <p>{tabContents[activeTab].content}</p>
-        <ul className={styles.checkList}>
-          {tabContents[activeTab].list.map((item, index) => (
-            <motion.li
-              key={index}
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: index * 0.1 }}
-            >
-              <FaTshirt className={styles.checkIcon} /> {item}
-            </motion.li>
-          ))}
-        </ul>
-      </motion.div>
-
-      <motion.section
-        className={styles.mapSection}
-        initial="initial"
-        whileInView="animate"
-        viewport={{ once: true }}
-        variants={staggerChildren}
-      >
-        <motion.h2 className={styles.sectionTitle} variants={fadeInUp}>Find Us Near You</motion.h2>
-        <motion.div className={styles.mapPlaceholder} variants={fadeInUp}>
-          <FaMapMarkerAlt className={styles.icon} />
-          <p>We have multiple convenient locations across Nairobi</p>
+        <motion.div className={styles.content} key={activeTab}>
+          <h2>{tabContents[activeTab].title}</h2>
+          <p>{tabContents[activeTab].content}</p>
+          <ul className={styles.checkList}>
+            {tabContents[activeTab].list.map((item, index) => (
+              <motion.li
+                key={index}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: index * 0.1 }}
+              >
+                <FaTshirt className={styles.checkIcon} /> {item}
+              </motion.li>
+            ))}
+          </ul>
         </motion.div>
-      </motion.section>
+
+        <motion.section
+          className={styles.mapSection}
+          initial="initial"
+          whileInView="animate"
+          viewport={{ once: true }}
+          variants={staggerChildren}
+        >
+          <motion.h2 className={styles.sectionTitle} variants={fadeInUp}>Find Us Near You</motion.h2>
+          <motion.div className={styles.mapPlaceholder} variants={fadeInUp}>
+            <FaMapMarkerAlt className={styles.icon} />
+            <p>We have multiple convenient locations across Nairobi</p>
+          </motion.div>
+        </motion.section>
+      </motion.div>
 
       <motion.section
         className={styles.footerCta}

@@ -24,7 +24,7 @@ const ServicePage: React.FC = () => {
       ],
       image: (
         <Image
-          src="/images/washer.png" 
+          src="/images/download.jpeg" 
           alt="MEL Laundry Hero"
           fill
           style={{ objectFit: 'cover' }}

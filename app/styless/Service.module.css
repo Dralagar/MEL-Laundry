@@ -7,14 +7,16 @@
   justify-content: center;
   align-items: center;
   overflow: hidden;
-  background-color: var(--dark-green); /* Use global variable */
+ /* background-color: var(--dark-green); /* Use global variable */
 }
 
 .bgImage {
-  position: absolute;
+  position: relative;
   top: 0;
   left: 0;
   width: 100%;
+  /*max-width: fit-content;*/
+  max-height: fit-content;
   height: 100%;
   z-index: -1;
   object-fit: cover;
@@ -23,13 +25,14 @@
 
 .title {
   font-size: 2rem;
-  color: white;
-  text-align: center;
+  color: rgba(255, 255, 255, 0.521);
+  text-align:center;
   font-weight: bold;
   z-index: 1;
   padding: 1rem;
+  padding-top: 0cap;
   border-radius: 8px;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(14, 155, 54, 0.605);
 }
 
 .serviceButtons {

@@ -17,7 +17,7 @@ const NavBar = () => {
       <div className={styles.logo}>
         <Link href="/" aria-label="Homepage">
           <Image
-            src="/images/MEL__1.png"
+            src="/images/MELLOGO3.png"
             alt="MEL Logo"
             width={150}
             height={50}
