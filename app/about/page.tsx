@@ -28,8 +28,7 @@ interface TabContent {
   list: string[];
 }
 
-// Data for the About page
-const tabContents: Record<string, TabContent> = {
+const tabContents = {
   mission: {
     title: "Our Mission",
     content: "At MEL Laundry, we're committed to revolutionizing the laundry experience.",
@@ -60,18 +59,19 @@ const tabContents: Record<string, TabContent> = {
       "Community engagement"
     ]
   }
-};
+} as const;
 
-// TypeScript interface for page props
+type TabKey = keyof typeof tabContents;
+
 interface AboutPageProps {
-  tab?: keyof typeof tabContents; // Ensure tab is restricted to keys of tabContents
+  tab?: TabKey; // Restrict the tab to keys of tabContents
 }
 
 const AboutPage: React.FC<AboutPageProps> = ({ tab = 'mission' }) => {
-  const [activeTab, setActiveTab] = useState<keyof typeof tabContents>('mission'); // Initialize with 'mission'
+  const [activeTab, setActiveTab] = useState<TabKey>(tab);
 
   useEffect(() => {
-    if (tab && tab in tabContents) {
+    if (tab in tabContents) {
       setActiveTab(tab);
     } else {
       setActiveTab('mission'); // Default to mission if invalid
@@ -94,11 +94,11 @@ const AboutPage: React.FC<AboutPageProps> = ({ tab = 'mission' }) => {
           <button
             key={key}
             className={`${styles.tabButton} ${activeTab === key ? styles.activeTab : ''}`}
-            onClick={() => setActiveTab(key as keyof typeof tabContents)} // Ensure key type is handled
+            onClick={() => setActiveTab(key as TabKey)}
             aria-selected={activeTab === key}
             role="tab"
           >
-            {tabContents[key as keyof typeof tabContents].title}
+            {tabContents[key as TabKey].title}
           </button>
         ))}
       </div>
@@ -165,4 +165,5 @@ const AboutPage: React.FC<AboutPageProps> = ({ tab = 'mission' }) => {
 };
 
 export default AboutPage;
+
 
