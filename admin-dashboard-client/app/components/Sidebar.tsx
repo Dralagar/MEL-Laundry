@@ -4,11 +4,12 @@ import React from 'react';
 interface SidebarProps {
   activePage: string;
   onMenuClick: (page: string) => void; // Function type for handling menu clicks
+  className?: string; // Make className optional
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ activePage, onMenuClick }) => {
+const Sidebar: React.FC<SidebarProps> = ({ activePage, onMenuClick, className }) => {
   return (
-    <aside className="bg-gray-800 text-white w-full lg:w-64 h-full fixed lg:relative lg:flex lg:flex-col">
+    <aside className={`${className} bg-gray-800 text-white w-full lg:w-64 h-full fixed lg:relative lg:flex lg:flex-col`}>
       <div className="p-4">
         <h2 className="text-2xl font-semibold">Admin Dashboard</h2>
       </div>
