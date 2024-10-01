@@ -3,7 +3,7 @@
 .nav {
   background-color: rgba(26, 152, 26, 0.479);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  padding: 0.75rem 1.5rem; /* Reduced padding for a more compact look */
+  padding: 0.75rem 1.5rem; /* Maintain compact padding */
   position: fixed;
   top: 0;
   left: 0;
@@ -13,21 +13,36 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-family: var(--font-family);
-  height: 70px; /* Set a consistent height for the Navbar */
+  height: 70px; /* Consistent height for Navbar */
 }
 
 .nav:hover {
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
 }
 
+/* Logo styling */
+.logo {
+  display: flex;
+  align-items: center; /* Ensures the logo is vertically centered */
+  justify-content: flex-start; /* Aligns logo to the left */
+}
+
+.logo img {
+  width: 120px; /* Adjust the width of the logo */
+  height: auto; /* Maintain aspect ratio */
+  max-height: 50px; /* Ensure logo height fits within Navbar */
+  padding: 5px;
+}
+
 .logo a {
+  display: flex; /* Makes the link a flex container */
   color: var(--white);
-  font-size: 1.75rem; /* Slightly reduced font size for a balanced look */
+  font-size: 1.75rem;
   font-weight: bold;
   text-decoration: none;
-  letter-spacing: 0.5px; /* Slightly reduced letter spacing */
+  letter-spacing: 0.5px;
   transition: color 0.3s ease;
+  margin: 0;
 }
 
 .logo a:hover {
@@ -44,14 +59,14 @@
 }
 
 .navList li {
-  margin: 0 1rem; /* Reduced margin for closer link spacing */
+  margin: 0 1rem; /* Consistent spacing between links */
 }
 
 .navList li a {
   color: var(--white);
   text-decoration: none;
   font-weight: 500;
-  font-size: 1rem; /* Standardized font size */
+  font-size: 1rem; /* Standard font size */
   transition: all 0.3s ease;
   position: relative;
   padding: 0.5rem 0;
@@ -65,8 +80,8 @@
   content: '';
   position: absolute;
   width: 100%;
-  height: 2px; /* Slightly thinner underline */
-  bottom: -4px; /* Adjusted position for subtlety */
+  height: 2px;
+  bottom: -4px;
   left: 0;
   background-color: var(--light-green);
   visibility: hidden;
@@ -97,7 +112,7 @@
 /* Mobile Responsive Styles */
 @media (max-width: 768px) {
   .nav {
-    padding: 0.5rem 1rem; /* Further reduced padding for mobile */
+    padding: 0.5rem 1rem; /* Adjust padding for mobile */
   }
 
   .toggleButton {
@@ -114,7 +129,7 @@
     background-color: var(--dark-green);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     padding: 1rem;
-    border-radius: 5px; /* Rounded corners for mobile menu */
+    border-radius: 5px;
   }
 
   .navList.show {
@@ -122,7 +137,7 @@
   }
 
   .navList li {
-    margin: 0.5rem 0; /* Reduced margin for better spacing */
+    margin: 0.5rem 0;
   }
 
   .navList li a {
@@ -135,7 +150,6 @@
   }
 }
 
-/* Keyframe Animation */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -150,3 +164,4 @@
 .show {
   animation: fadeIn 0.3s ease-out forwards;
 }
+

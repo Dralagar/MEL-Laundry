@@ -57,16 +57,15 @@ interface TeamMember {
 
 // Data arrays
 const features: Feature[] = [
-  { title: 'Affordable Rates', description: 'Enjoy self-service laundry at rates that fit your budget.', img: '/images/Affordable.png' },
-  { title: 'Fast & Efficient', description: 'Get your laundry done quickly with our high-speed machines.', img: '/images/first.png' },
-  { title: 'Convenient Locations', description: 'Find us easily across Nairobi with locations close to you.', img: '/images/servicelogo.png' },
-  { title: '24/7 Availability', description: 'Do your laundry on your schedule, anytime, day or night.', img: '/images/24hour.png' },
+  { title: 'Fast & Efficient',  img: '/images/first.png', description: 'Get your laundry done quickly with our high-speed machines.' },
+  { title: 'Convenient Locations',  img: '/images/servicelogo.png', description: 'Find us easily across Nairobi with locations close to you.'},
+  { title: '24/7 Availability', img: '/images/24hour.png', description: 'Do your laundry on your schedule, anytime, day or night.' },
 ];
 
 const steps: Step[] = [
-  { icon: FaTshirt, title: 'Bring Your Laundry', description: 'Bring your dirty clothes to any MEL Laundry location.', img: '/images/stophanging.png' },
-  { icon: FaWater, title: 'Wash', description: 'Use our high-efficiency washing machines to clean your clothes.', img: '/images/24hour.png' },
-  { icon: MdLocalLaundryService, title: 'Dry', description: 'Dry your clothes quickly with our powerful dryers.', img: '/images/24hour.png' },
+  { icon: FaTshirt, title: 'Bring Your Laundry', img: '/images/stophanging.png', description: 'Bring your dirty clothes to any MEL Laundry location.' },
+  { icon: FaWater, title: 'Wash', img: '/images/24hour.png',  description: 'Use our high-efficiency washing machines to clean your clothes.'},
+  { icon: MdLocalLaundryService, title: 'Dry', img: '/images/24hour.png',  description: 'Dry your clothes quickly with our powerful dryers.'},
 ];
 
 const pricingPlans: PricingPlan[] = [
