@@ -7,10 +7,25 @@ import { GiWashingMachine } from 'react-icons/gi';
 import Image from 'next/image';
 import styles from '../styless/Service.module.css';
 
-const ServicePage: React.FC = () => {
-  const [activeService, setActiveService] = useState('self-service');
+interface Service {
+  icon: React.ComponentType;
+  title: string;
+  description: string;
+  features: string[];
+  image?: React.ReactNode;
+}
 
-  const services = {
+type Services = {
+  'self-service': Service;
+  'dry-cleaning': Service;
+  'pickup-delivery': Service;
+  'commercial': Service;
+}
+
+const ServicePage: React.FC = () => {
+  const [activeService, setActiveService] = useState<keyof Services>('self-service');
+
+  const services: Services = {
     'self-service': {
       icon: GiWashingMachine,
       title: "Self-Service Laundry",
@@ -80,7 +95,7 @@ const ServicePage: React.FC = () => {
   return (
     <div>
       <div className={styles.heroContainer}>
-        {services['self-service'].image} {/* Background Image */}
+        {services['self-service'].image}
         <motion.h1
           className={styles.title}
           initial={{ opacity: 0, y: -20 }}
@@ -92,17 +107,17 @@ const ServicePage: React.FC = () => {
       </div>
 
       <div className={styles.serviceButtons}>
-        {Object.entries(services).map(([key, service]) => (
+        {(Object.keys(services) as Array<keyof Services>).map((key) => (
           <motion.button
             key={key}
             className={`${styles.serviceButton} ${activeService === key ? styles.active : ""}`}
             onClick={() => setActiveService(key)}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            aria-label={`Select ${service.title}`}
+            aria-label={`Select ${services[key].title}`}
           >
-            {React.createElement(service.icon, { className: styles.serviceIcon })}
-            {service.title}
+            {React.createElement(services[key].icon, { className: styles.serviceIcon })}
+            {services[key].title}
           </motion.button>
         ))}
       </div>
