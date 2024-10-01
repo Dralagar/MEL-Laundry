@@ -62,15 +62,16 @@ const tabContents: Record<string, TabContent> = {
   }
 };
 
+// TypeScript interface for page props
 interface AboutPageProps {
-  tab?: keyof typeof tabContents; // Restrict to keys of tabContents
+  tab?: keyof typeof tabContents; // Ensure tab is restricted to keys of tabContents
 }
 
 const AboutPage: React.FC<AboutPageProps> = ({ tab = 'mission' }) => {
-  const [activeTab, setActiveTab] = useState<string>(tab);
+  const [activeTab, setActiveTab] = useState<keyof typeof tabContents>('mission'); // Initialize with 'mission'
 
   useEffect(() => {
-    if (tab in tabContents) {
+    if (tab && tab in tabContents) {
       setActiveTab(tab);
     } else {
       setActiveTab('mission'); // Default to mission if invalid
@@ -93,17 +94,17 @@ const AboutPage: React.FC<AboutPageProps> = ({ tab = 'mission' }) => {
           <button
             key={key}
             className={`${styles.tabButton} ${activeTab === key ? styles.activeTab : ''}`}
-            onClick={() => setActiveTab(key)}
+            onClick={() => setActiveTab(key as keyof typeof tabContents)} // Ensure key type is handled
             aria-selected={activeTab === key}
             role="tab"
           >
-            {tabContents[key].title}
+            {tabContents[key as keyof typeof tabContents].title}
           </button>
         ))}
       </div>
 
       <motion.div
-        className={styles.gridContainer} // New grid container
+        className={styles.gridContainer}
         initial={{ opacity: 0, x: 20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.5 }}
@@ -164,3 +165,4 @@ const AboutPage: React.FC<AboutPageProps> = ({ tab = 'mission' }) => {
 };
 
 export default AboutPage;
+
