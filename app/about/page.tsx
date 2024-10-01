@@ -103,10 +103,30 @@ const AboutPage: React.FC = () => {
           initial="initial"
           whileInView="animate"
           viewport={{ once: true }}
-          variants={fadeInUp}
+          variants={{
+            initial: { y: 20, opacity: 0 },
+            animate: { y: 0, opacity: 1 }
+          }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
         >
-          <motion.h2 className={styles.sectionTitle} variants={fadeInUp}>Find Us Near You</motion.h2>
-          <motion.div className={styles.mapPlaceholder} variants={fadeInUp}>
+          <motion.h2 
+            className={styles.sectionTitle}
+            variants={{
+              initial: { y: 20, opacity: 0 },
+              animate: { y: 0, opacity: 1 }
+            }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+          >
+            Find Us Near You
+          </motion.h2>
+          <motion.div 
+            className={styles.mapPlaceholder} 
+            variants={{
+              initial: { y: 20, opacity: 0 },
+              animate: { y: 0, opacity: 1 }
+            }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+          >
             <FaMapMarkerAlt className={styles.icon} />
             <p>We have multiple convenient locations across Nairobi</p>
           </motion.div>
@@ -118,12 +138,35 @@ const AboutPage: React.FC = () => {
         initial="initial"
         whileInView="animate"
         viewport={{ once: true }}
-        variants={fadeInUp}
+        variants={{
+          initial: { y: 20, opacity: 0 },
+          animate: { y: 0, opacity: 1 },
+          transition: { duration: 0.5, ease: "easeOut" }
+        }}
       >
-        <motion.h2 className={styles.sectionTitle} variants={fadeInUp}>Ready to Experience the Convenience?</motion.h2>
-        <motion.p variants={fadeInUp}>Visit MEL Laundry today for fast and efficient self-service washing.</motion.p>
+        <motion.h2 
+          className={styles.sectionTitle} 
+          variants={{
+            initial: { y: 20, opacity: 0 },
+            animate: { y: 0, opacity: 1 },
+            transition: { duration: 0.5, ease: "easeOut" }
+          }}
+        >
+          Ready to Experience the Convenience?
+        </motion.h2>
+        <motion.p 
+          variants={{
+            initial: { y: 20, opacity: 0 },
+            animate: { y: 0, opacity: 1 }
+          }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+        >
+          Visit MEL Laundry today for fast and efficient self-service washing.
+        </motion.p>
         <motion.div
-          variants={fadeInUp}
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >

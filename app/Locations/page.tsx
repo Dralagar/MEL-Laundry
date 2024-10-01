@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image'; // Import the Image component from next/image
 import { getLocations, updateLocation } from '../../lib/api';
 
 interface Location {
@@ -22,7 +23,15 @@ const LocationCard: React.FC<{ location: Location; onUpdate: (id: string, newNam
       <p>{location.address}</p>
       <p>{location.city}, {location.state} {location.zipCode}</p>
       <p>Status: {location.status}</p>
-      {location.image && <img src={location.image} alt={location.name} style={{ width: '100px', height: '100px' }} />}
+      {location.image && (
+        <Image
+          src={location.image}
+          alt={location.name}
+          width={100} // Specify width
+          height={100} // Specify height
+          style={{ objectFit: 'cover' }} // Maintain aspect ratio
+        />
+      )}
       <button onClick={() => onUpdate(location.id, 'Updated Name')}>Update Name</button>
     </div>
   );
