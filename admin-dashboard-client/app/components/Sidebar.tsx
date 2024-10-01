@@ -1,7 +1,12 @@
-// Inside app/components/Sidebar.tsx
 import React from 'react';
 
-const Sidebar = ({ activePage, onMenuClick }) => {
+// Define the prop types
+interface SidebarProps {
+  activePage: string;
+  onMenuClick: (page: string) => void; // Function type for handling menu clicks
+}
+
+const Sidebar: React.FC<SidebarProps> = ({ activePage, onMenuClick }) => {
   return (
     <aside className="bg-gray-800 text-white w-full lg:w-64 h-full fixed lg:relative lg:flex lg:flex-col">
       <div className="p-4">
