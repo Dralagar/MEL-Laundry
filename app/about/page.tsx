@@ -1,27 +1,17 @@
 "use client";
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { FaTshirt, FaMapMarkerAlt } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 import styles from '../styless/About.module.css';
 
-// Motion variants
 const fadeInUp = {
   initial: { y: 60, opacity: 0 },
   animate: { y: 0, opacity: 1 },
   transition: { duration: 0.6, ease: "easeOut" }
 };
 
-const staggerChildren = {
-  animate: {
-    transition: {
-      staggerChildren: 0.1
-    }
-  }
-};
-
-// Define valid sections and their content
 const tabContents = {
   mission: {
     title: "Our Mission",
@@ -57,20 +47,8 @@ const tabContents = {
 
 type TabKey = keyof typeof tabContents;
 
-interface AboutPageProps {
-  tab?: TabKey;  // Ensure tab is optional and strictly typed
-}
-
-const AboutPage: React.FC<AboutPageProps> = ({ tab = 'mission' }) => {
-  const [activeTab, setActiveTab] = useState<TabKey>(tab);
-
-  useEffect(() => {
-    if (tab in tabContents) {
-      setActiveTab(tab as TabKey);
-    } else {
-      setActiveTab('mission'); // Default to mission if invalid
-    }
-  }, [tab]);
+const AboutPage: React.FC = () => {
+  const [activeTab, setActiveTab] = useState<TabKey>('mission');
 
   return (
     <div className={styles.container}>
@@ -125,7 +103,7 @@ const AboutPage: React.FC<AboutPageProps> = ({ tab = 'mission' }) => {
           initial="initial"
           whileInView="animate"
           viewport={{ once: true }}
-          variants={staggerChildren}
+          variants={fadeInUp}
         >
           <motion.h2 className={styles.sectionTitle} variants={fadeInUp}>Find Us Near You</motion.h2>
           <motion.div className={styles.mapPlaceholder} variants={fadeInUp}>
@@ -140,7 +118,7 @@ const AboutPage: React.FC<AboutPageProps> = ({ tab = 'mission' }) => {
         initial="initial"
         whileInView="animate"
         viewport={{ once: true }}
-        variants={staggerChildren}
+        variants={fadeInUp}
       >
         <motion.h2 className={styles.sectionTitle} variants={fadeInUp}>Ready to Experience the Convenience?</motion.h2>
         <motion.p variants={fadeInUp}>Visit MEL Laundry today for fast and efficient self-service washing.</motion.p>
@@ -159,6 +137,7 @@ const AboutPage: React.FC<AboutPageProps> = ({ tab = 'mission' }) => {
 };
 
 export default AboutPage;
+
 
 
 
