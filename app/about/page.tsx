@@ -21,13 +21,7 @@ const staggerChildren = {
   }
 };
 
-// Define the types for sections and features
-interface TabContent {
-  title: string;
-  content: string;
-  list: string[];
-}
-
+// Define valid sections and their content
 const tabContents = {
   mission: {
     title: "Our Mission",
@@ -59,12 +53,12 @@ const tabContents = {
       "Community engagement"
     ]
   }
-} as const;
+};
 
 type TabKey = keyof typeof tabContents;
 
 interface AboutPageProps {
-  tab?: TabKey; // Restrict the tab to keys of tabContents
+  tab?: TabKey;  // Ensure tab is optional and strictly typed
 }
 
 const AboutPage: React.FC<AboutPageProps> = ({ tab = 'mission' }) => {
@@ -72,7 +66,7 @@ const AboutPage: React.FC<AboutPageProps> = ({ tab = 'mission' }) => {
 
   useEffect(() => {
     if (tab in tabContents) {
-      setActiveTab(tab);
+      setActiveTab(tab as TabKey);
     } else {
       setActiveTab('mission'); // Default to mission if invalid
     }
@@ -165,5 +159,7 @@ const AboutPage: React.FC<AboutPageProps> = ({ tab = 'mission' }) => {
 };
 
 export default AboutPage;
+
+
 
 
