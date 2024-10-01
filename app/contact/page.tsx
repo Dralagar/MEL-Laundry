@@ -126,7 +126,7 @@ export default function Contact() {
               <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.818917120402!2d36.81985631475815!3d-1.2833309990629!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f10d22f28f0c1%3A0x3b1b3b1b3b1b3b1b!2sNairobi%2C%20Kenya!5e0!3m2!1sen!2sus!4v1633022921234!5m2!1sen!2sus"
                 className={styles.map}
-                allowFullScreen=""
+                allowFullScreen={true}
                 loading="lazy"
                 title="MEL Laundry Location"
               ></iframe>

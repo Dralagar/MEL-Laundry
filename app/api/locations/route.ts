@@ -19,7 +19,7 @@ export async function GET() {
     });
 
     // Add a `status` field based on `isOpen` status
-    const locationsWithStatus = locations.map(location => ({
+    const locationsWithStatus = locations.map((location: { isOpen: boolean }) => ({
       ...location,
       status: location.isOpen ? 'Open' : 'Not yet launched',
     }));

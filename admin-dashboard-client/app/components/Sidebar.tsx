@@ -1,10 +1,10 @@
-import React from 'react';
+import React from "react";
 
-// Define the prop types
+// Define the prop types, including the optional className prop
 interface SidebarProps {
   activePage: string;
   onMenuClick: (page: string) => void; // Function type for handling menu clicks
-  className?: string; // Make className optional
+  className?: string; // Optional className prop
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ activePage, onMenuClick, className }) => {

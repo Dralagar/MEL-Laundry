@@ -1,4 +1,4 @@
-"use client";
+"use client"; // Mark this as a client component
 
 import React, { useState } from 'react';
 import Link from 'next/link';
@@ -140,19 +140,19 @@ const AboutPage: React.FC = () => {
         viewport={{ once: true }}
         variants={{
           initial: { y: 20, opacity: 0 },
-          animate: { y: 0, opacity: 1 },
-          transition: { duration: 0.5, ease: "easeOut" }
+          animate: { y: 0, opacity: 1 }
         }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
       >
         <motion.h2 
           className={styles.sectionTitle} 
           variants={{
             initial: { y: 20, opacity: 0 },
-            animate: { y: 0, opacity: 1 },
-            transition: { duration: 0.5, ease: "easeOut" }
+            animate: { y: 0, opacity: 1 }
           }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
         >
-          Ready to Experience the Convenience?
+          Join us today!
         </motion.h2>
         <motion.p 
           variants={{
@@ -180,8 +180,3 @@ const AboutPage: React.FC = () => {
 };
 
 export default AboutPage;
-
-
-
-
-

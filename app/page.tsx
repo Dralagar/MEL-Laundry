@@ -5,17 +5,16 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { FaTshirt, FaWater, FaMapMarkerAlt } from 'react-icons/fa';
 import { MdLocalLaundryService } from 'react-icons/md';
-import { motion } from 'framer-motion';
+import { motion, Variants } from 'framer-motion';
 import styles from './styless/Home.module.css';
 
 // Motion variants
-const fadeInUp = {
+const fadeInUp: Variants = {
   initial: { y: 60, opacity: 0 },
   animate: { y: 0, opacity: 1 },
-  transition: { duration: 0.6, ease: "easeOut" },
 };
 
-const staggerChildren = {
+const staggerChildren: Variants = {
   animate: {
     transition: {
       staggerChildren: 0.1,
