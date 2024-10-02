@@ -4,11 +4,12 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { FaTshirt, FaTruck, FaWind } from 'react-icons/fa';
 import { GiWashingMachine } from 'react-icons/gi';
+import { IconType } from 'react-icons';
 import Image from 'next/image';
 import styles from '../styless/Service.module.css';
 
 interface Service {
-  icon: React.ComponentType;
+  icon: IconType;
   title: string;
   description: string;
   features: string[];

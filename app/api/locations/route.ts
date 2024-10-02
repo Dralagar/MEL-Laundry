@@ -1,7 +1,17 @@
 import { NextResponse } from 'next/server';
 import { PrismaClient } from '@prisma/client';
 
-const prisma = new PrismaClient();
+// Initialize PrismaClient
+let prisma: PrismaClient;
+
+if (process.env.NODE_ENV === 'production') {
+  prisma = new PrismaClient();
+} else {
+  if (!(global as any).prisma) {
+    (global as any).prisma = new PrismaClient();
+  }
+  prisma = (global as any).prisma;
+}
 
 // Handle GET requests to fetch all locations
 export async function GET() {
@@ -49,7 +59,7 @@ export async function POST(request: Request) {
         city,
         state,
         zipCode,
-        isOpen: isOpen || false, // Default to false if not provided
+        isOpen: isOpen ?? false, // Default to false if not provided
       },
     });
 

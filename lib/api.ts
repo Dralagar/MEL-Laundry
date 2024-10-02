@@ -28,7 +28,15 @@ export const getLocations = async (): Promise<Location[]> => {
       },
     });
 
-    return locations.map(location => ({
+    return locations.map((location: {
+      id: string;
+      name: string;
+      address: string;
+      city: string;
+      state: string;
+      zipCode: string;
+      isOpen: boolean;
+    }) => ({
       ...location,
       status: location.isOpen ? 'Open' : 'Not yet launched',
     }));
@@ -103,4 +111,3 @@ export const updateLocation = async (
     throw new Error('Failed to update location. Please try again later.');
   }
 };
-
