@@ -50,7 +50,7 @@ const Footer = () => {
               </Link>
             </li>
             <li>
-              <Link href="https://wa.me/254757495125" target="_blank" rel="noopener noreferrer">
+              <Link href="https://wa.me/+254740630890" target="_blank" rel="noopener noreferrer">
                 <FaPhone /> WhatsApp Us
               </Link>
             </li>

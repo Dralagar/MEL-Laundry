@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
-import mongoose from 'mongoose';
-import BlogPost from '../../models/BlogPost';
+import mongoose, { ConnectOptions, Error } from 'mongoose';
+import BlogPost from '../../server/models/BlogPost';
 
 const connectDB = async () => {
   if (mongoose.connections[0].readyState) return;
@@ -8,7 +8,7 @@ const connectDB = async () => {
     await mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/blogDB', {
       useNewUrlParser: true,
       useUnifiedTopology: true,
-    });
+    } as ConnectOptions);
     console.log('MongoDB connected');
   } catch (error) {
     console.error('MongoDB connection error:', error);
@@ -21,16 +21,26 @@ export async function GET() {
   try {
     const blogs = await BlogPost.find();
     return NextResponse.json(blogs);
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Failed to fetch blogs:', error);
-    return NextResponse.json({ error: 'Failed to fetch blogs' }, { status: 500 });
+    if (error instanceof Error) {
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+    return NextResponse.json({ error: 'An unknown error occurred' }, { status: 500 });
   }
 }
 
-export async function POST(request) {
+interface BlogPostRequestBody {
+  title: string;
+  content: string;
+  author: string;
+  image?: string;
+}
+
+export async function POST(request: Request) {
   await connectDB();
   try {
-    const body = await request.json();
+    const body: BlogPostRequestBody = await request.json();
     const { title, content, author, image } = body;
 
     if (!title || !content || !author) {
@@ -45,16 +55,22 @@ export async function POST(request) {
     });
 
     return NextResponse.json(newBlog, { status: 201 });
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Failed to create blog:', error);
-    return NextResponse.json({ error: 'Failed to create blog' }, { status: 500 });
+    if (error instanceof Error.ValidationError) {
+      return NextResponse.json({ error: error.message }, { status: 400 });
+    }
+    if (error instanceof Error) {
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+    return NextResponse.json({ error: 'An unknown error occurred' }, { status: 500 });
   }
 }
 
-export async function PUT(request) {
+export async function PUT(request: Request) {
   await connectDB();
   try {
-    const body = await request.json();
+    const body: BlogPostRequestBody & { id: string } = await request.json();
     const { id, title, content, author, image } = body;
 
     if (!id || !title || !content || !author) {
@@ -72,13 +88,19 @@ export async function PUT(request) {
     }
 
     return NextResponse.json(updatedBlog);
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Failed to update blog:', error);
-    return NextResponse.json({ error: 'Failed to update blog' }, { status: 500 });
+    if (error instanceof Error.ValidationError) {
+      return NextResponse.json({ error: error.message }, { status: 400 });
+    }
+    if (error instanceof Error) {
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+    return NextResponse.json({ error: 'An unknown error occurred' }, { status: 500 });
   }
 }
 
-export async function DELETE(request) {
+export async function DELETE(request: Request) {
   await connectDB();
   try {
     const { searchParams } = new URL(request.url);
@@ -95,8 +117,11 @@ export async function DELETE(request) {
     }
 
     return NextResponse.json({ message: 'Blog post deleted successfully' });
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Failed to delete blog:', error);
-    return NextResponse.json({ error: 'Failed to delete blog' }, { status: 500 });
+    if (error instanceof Error) {
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+    return NextResponse.json({ error: 'An unknown error occurred' }, { status: 500 });
   }
 }

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import styles from '../styless/Blog.module.css'; // Fixed typo: 'styless' to 'styles'
+import styles from '../styless/Blog.module.css';
 import { FaCalendarAlt, FaArrowRight, FaSearch, FaTags } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 import Image from 'next/image';

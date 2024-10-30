@@ -1,113 +1,36 @@
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient();
-
-interface Location {
-  id: string;
+export interface Location {
+  _id: string;
   name: string;
   address: string;
   city: string;
   state: string;
   zipCode: string;
-  isOpen?: boolean;
-  status?: string; 
+  image?: string;
+  status?: string;
 }
 
-// Function to fetch all locations
-export const getLocations = async (): Promise<Location[]> => {
-  try {
-    const locations = await prisma.location.findMany({
-      select: {
-        id: true,
-        name: true,
-        address: true,
-        city: true,
-        state: true,
-        zipCode: true,
-        isOpen: true,
-      },
-    });
-
-    return locations.map((location: {
-      id: string;
-      name: string;
-      address: string;
-      city: string;
-      state: string;
-      zipCode: string;
-      isOpen: boolean;
-    }) => ({
-      ...location,
-      status: location.isOpen ? 'Open' : 'Not yet launched',
-    }));
-  } catch (error) {
-    console.error('Error fetching locations:', error);
-    throw new Error('Failed to fetch locations. Please try again later.');
+export async function getLocations(): Promise<Location[]> {
+  const response = await fetch('/api/locations');
+  if (!response.ok) {
+    throw new Error('Failed to fetch locations');
   }
-};
+  return response.json();
+}
 
-// Function to add a new location
-export const addLocation = async (newLocation: {
-  name: string;
-  address: string;
-  city: string;
-  state: string;
-  zipCode: string;
-  isOpen?: boolean;
-}): Promise<Location> => {
-  try {
-    const { name, address, city, state, zipCode, isOpen } = newLocation;
+export async function updateLocation(
+  id: string,
+  data: Partial<Omit<Location, '_id' | 'status'>>
+): Promise<Location> {
+  const response = await fetch(`/api/locations/${id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  });
 
-    // Validate input
-    if (!name || !address || !city || !state || !zipCode) {
-      throw new Error('Missing required fields.');
-    }
-
-    const location = await prisma.location.create({
-      data: {
-        name,
-        address,
-        city,
-        state,
-        zipCode,
-        isOpen: isOpen || false,
-      },
-    });
-
-    return {
-      ...location,
-      status: location.isOpen ? 'Open' : 'Not yet launched',
-    };
-  } catch (error) {
-    console.error('Error adding location:', error);
-    throw new Error('Failed to add location. Please try again later.');
+  if (!response.ok) {
+    throw new Error('Failed to update location');
   }
-};
-
-// Function to update an existing location
-export const updateLocation = async (
-  locationId: string,
-  updatedData: Partial<{
-    name: string;
-    address: string;
-    city: string;
-    state: string;
-    zipCode: string;
-    isOpen: boolean;
-  }>
-): Promise<Location> => {
-  try {
-    const location = await prisma.location.update({
-      where: { id: locationId },
-      data: updatedData,
-    });
-
-    return {
-      ...location,
-      status: location.isOpen ? 'Open' : 'Not yet launched',
-    };
-  } catch (error) {
-    console.error('Error updating location:', error);
-    throw new Error('Failed to update location. Please try again later.');
-  }
-};
+  return response.json();
+}

@@ -1,47 +1,40 @@
 import { NextResponse } from 'next/server';
-import { PrismaClient } from '@prisma/client';
 
-// Initialize PrismaClient
-let prisma: PrismaClient;
+// Mock data for testing - replace with your actual MongoDB connection later
+const mockLocations = [
+  {
+    _id: '1',
+    name: 'Downtown Location',
+    address: '123 Main St',
+    city: 'Anytown',
+    state: 'ST',
+    zipCode: '12345',
+    status: 'Open',
+  },
+  {
+    _id: '2',
+    name: 'Westside Location',
+    address: '456 West Ave',
+    city: 'Anytown',
+    state: 'ST',
+    zipCode: '12346',
+    status: 'Not yet launched',
+  },
+];
 
-if (process.env.NODE_ENV === 'production') {
-  prisma = new PrismaClient();
-} else {
-  if (!(global as any).prisma) {
-    (global as any).prisma = new PrismaClient();
-  }
-  prisma = (global as any).prisma;
-}
-
-// Handle GET requests to fetch all locations
 export async function GET() {
   try {
-    const locations = await prisma.location.findMany({
-      select: {
-        id: true,
-        name: true,
-        address: true,
-        city: true,
-        state: true,
-        zipCode: true,
-        isOpen: true,
-      },
-    });
-
-    // Add a `status` field based on `isOpen` status
-    const locationsWithStatus = locations.map((location: { isOpen: boolean }) => ({
-      ...location,
-      status: location.isOpen ? 'Open' : 'Not yet launched',
-    }));
-
-    return NextResponse.json(locationsWithStatus);
+    // Return mock data for now
+    return NextResponse.json(mockLocations);
   } catch (error) {
     console.error('Failed to fetch locations:', error);
-    return NextResponse.json({ error: 'Failed to fetch locations' }, { status: 500 });
+    return NextResponse.json(
+      { error: 'Failed to fetch locations' },
+      { status: 500 }
+    );
   }
 }
 
-// Handle POST requests to create a new location
 export async function POST(request: Request) {
   try {
     const body = await request.json();
@@ -52,18 +45,25 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
 
-    const newLocation = await prisma.location.create({
-      data: {
-        name,
-        address,
-        city,
-        state,
-        zipCode,
-        isOpen: isOpen ?? false, // Default to false if not provided
-      },
+    const { MongoClient } = require('mongodb');
+    const client = await MongoClient.connect(process.env.MONGODB_URI);
+    const db = client.db('mel');
+    const collection = db.collection('locations');
+    const newLocation = await collection.insertOne({
+      name,
+      address,
+      city,
+      state,
+      zipCode,
+      isOpen: isOpen ?? false,
+      createdAt: new Date(),
+      updatedAt: new Date()
     });
 
-    return NextResponse.json(newLocation, { status: 201 });
+    return NextResponse.json(
+      { ...body, _id: newLocation.insertedId }, 
+      { status: 201 }
+    );
   } catch (error) {
     console.error('Failed to create location:', error);
     return NextResponse.json({ error: 'Failed to create location' }, { status: 500 });

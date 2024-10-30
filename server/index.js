@@ -5,7 +5,7 @@ import dotenv from 'dotenv';
 import multer from 'multer';
 import path from 'path';
 import BlogPost from './models/BlogPost.js';
-import Location from './models/Location.js'; // Default import
+import Location from './models/Location.js';
 
 dotenv.config();
 
@@ -32,10 +32,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 // Connect to MongoDB
-mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/Mel.blog', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-})
+mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/MEL')
   .then(() => console.log('MongoDB connected'))
   .catch(err => console.error('MongoDB connection error:', err));
 
@@ -122,7 +119,7 @@ app.put('/api/blogs/:id', getBlog, async (req, res) => {
 
 app.delete('/api/blogs/:id', getBlog, async (req, res) => {
   try {
-    await res.blog.remove();
+    await res.blog.deleteOne();
     res.json({ message: 'Blog deleted' });
   } catch (err) {
     res.status(500).json({ message: err.message });
@@ -143,6 +140,12 @@ async function getBlog(req, res, next) {
   res.blog = blog;
   next();
 }
+
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({ message: 'Something went wrong!' });
+});
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
