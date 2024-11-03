@@ -10,27 +10,44 @@ export interface Location {
 }
 
 export async function getLocations(): Promise<Location[]> {
-  const response = await fetch('/api/locations');
-  if (!response.ok) {
-    throw new Error('Failed to fetch locations');
+  try {
+    console.log('Fetching locations...');
+    const response = await fetch('http://localhost:5000/api/locations');
+    console.log('Response status:', response.status);
+    
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    
+    const data = await response.json();
+    console.log('Fetched locations:', data);
+    return data;
+  } catch (error) {
+    console.error('Error fetching locations:', error);
+    throw error;
   }
-  return response.json();
 }
 
 export async function updateLocation(
   id: string,
   data: Partial<Omit<Location, '_id' | 'status'>>
 ): Promise<Location> {
-  const response = await fetch(`/api/locations/${id}`, {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(data),
-  });
+  try {
+    const response = await fetch(`http://localhost:5000/api/locations/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
 
-  if (!response.ok) {
-    throw new Error('Failed to update location');
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    
+    return response.json();
+  } catch (error) {
+    console.error('Error updating location:', error);
+    throw error;
   }
-  return response.json();
 }

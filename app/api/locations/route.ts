@@ -1,31 +1,16 @@
 import { NextResponse } from 'next/server';
-
-// Mock data for testing - replace with your actual MongoDB connection later
-const mockLocations = [
-  {
-    _id: '1',
-    name: 'Downtown Location',
-    address: '123 Main St',
-    city: 'Anytown',
-    state: 'ST',
-    zipCode: '12345',
-    status: 'Open',
-  },
-  {
-    _id: '2',
-    name: 'Westside Location',
-    address: '456 West Ave',
-    city: 'Anytown',
-    state: 'ST',
-    zipCode: '12346',
-    status: 'Not yet launched',
-  },
-];
+import { MongoClient } from 'mongodb';
 
 export async function GET() {
   try {
-    // Return mock data for now
-    return NextResponse.json(mockLocations);
+    const client = await MongoClient.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/MEL');
+    const db = client.db('mel');
+    const collection = db.collection('locations');
+    
+    const locations = await collection.find({}).toArray();
+    
+    await client.close();
+    return NextResponse.json(locations);
   } catch (error) {
     console.error('Failed to fetch locations:', error);
     return NextResponse.json(
@@ -38,15 +23,14 @@ export async function GET() {
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { name, address, city, state, zipCode, isOpen } = body;
+    const { name, address, city, state, zipCode, status } = body;
 
     // Validate incoming data
     if (!name || !address || !city || !state || !zipCode) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
 
-    const { MongoClient } = require('mongodb');
-    const client = await MongoClient.connect(process.env.MONGODB_URI);
+    const client = await MongoClient.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/MEL');
     const db = client.db('mel');
     const collection = db.collection('locations');
     const newLocation = await collection.insertOne({
@@ -55,10 +39,12 @@ export async function POST(request: Request) {
       city,
       state,
       zipCode,
-      isOpen: isOpen ?? false,
+      status: status ?? 'Not yet launched',
       createdAt: new Date(),
       updatedAt: new Date()
     });
+
+    await client.close();
 
     return NextResponse.json(
       { ...body, _id: newLocation.insertedId }, 
