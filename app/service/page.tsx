@@ -40,7 +40,7 @@ const ServicePage: React.FC = () => {
       ],
       image: (
         <Image
-          src="/images/download.jpeg" 
+          src="/images/laundrybg.jpg" 
           alt="MEL Laundry Hero"
           fill
           style={{ objectFit: 'cover' }}
@@ -90,7 +90,7 @@ const ServicePage: React.FC = () => {
   };
 
   const handleWhatsAppBooking = () => {
-    window.open("https://wa.me/+254706255611", "_blank");
+    window.open("https://wa.me/+254702485568", "_blank");
   };
 
   return (

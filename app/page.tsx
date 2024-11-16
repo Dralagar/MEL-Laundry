@@ -62,9 +62,9 @@ const features: Feature[] = [
 ];
 
 const steps: Step[] = [
-  { icon: FaTshirt, title: 'Bring Your Laundry', img: '/images/stophanging.png', description: 'Bring your dirty clothes to any MEL Laundry location.' },
+  { icon: FaTshirt, title: 'Bring Your Laundry', img: '/images/dirttowel.jpg', description: 'Bring your dirty clothes to any MEL Laundry location.' },
   { icon: FaWater, title: 'Wash', img: '/images/24hour.png',  description: 'Use our high-efficiency washing machines to clean your clothes.'},
-  { icon: MdLocalLaundryService, title: 'Dry', img: '/images/24hour.png',  description: 'Dry your clothes quickly with our powerful dryers.'},
+  { icon: MdLocalLaundryService, title: 'Dry', img: '/images/dryclothes.jpeg',  description: 'Dry your clothes quickly with our powerful dryers.'},
 ];
 
 const pricingPlans: PricingPlan[] = [
@@ -81,10 +81,10 @@ const testimonials: Testimonial[] = [
 
 // Team members data
 const teamMembers: TeamMember[] = [
-  { name: 'John Doe', position: 'Founder & CEO', image: '/images/dryer.png' },
-  { name: 'Jane Smith', position: 'Operations Manager', image: '/images/shirts.png' },
-  { name: 'Emily Johnson', position: 'Marketing Lead', image: '/images/stophnging.png' },
-  { name: 'Michael Brown', position: 'Finance Manager', image: '/images/redwhite.png' },
+  { name: 'Kyle', position: 'Founder & CEO', image: '/images/dryer.png' },
+  { name: 'Tamara', position: 'Operations Manager', image: '/images/Tamara.png' },
+  { name: 'Dralagar George', position: 'Marketing Lead & Developer', image: '/images/George.png' },
+  { name: 'Betty Likavo', position: 'Sales Manager', image: '/images/Bettymel.png' },
 ];
 
 const Home: React.FC = () => {
@@ -196,7 +196,7 @@ const Home: React.FC = () => {
         viewport={{ once: true }}
         variants={staggerChildren}
       >
-        <motion.h2 className={styles.sectionTitle} variants={fadeInUp}>Meet the Team</motion.h2>
+        <motion.h2 className={styles.sectionTitle} variants={fadeInUp}>Meet the Team behind your hustlefree laundry!</motion.h2>
         <div className={styles.teamGrid}>
           {teamMembers.map((member, index) => (
             <motion.div key={index} className={styles.teamMember} variants={fadeInUp}>

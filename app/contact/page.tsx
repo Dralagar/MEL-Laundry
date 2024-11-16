@@ -84,7 +84,7 @@ export default function Contact() {
                 value={formData.email}
                 onChange={handleChange}
                 className={styles.input}
-                placeholder="Your Email"
+                placeholder="mel.tamabra@gmail.com"
               />
               {errors.email && <p className={styles.error}>{errors.email}</p>}
             </div>
@@ -115,7 +115,7 @@ export default function Contact() {
             <div className={styles.card}>
               <FaEnvelope className={styles.icon} />
               <h3 className={styles.cardHeading}>Email Us</h3>
-              <p className={styles.cardText}>info@mellaundry.com</p>
+              <p className={styles.cardText}>mel.tamabra@gmail.com</p>
             </div>
             <div className={styles.card}>
               <FaPhone className={styles.icon} />

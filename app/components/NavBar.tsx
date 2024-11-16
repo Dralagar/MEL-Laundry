@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import styles from '../styless/Navbar.module.css'; // Corrected path if necessary
+import styles from '../styless/Navbar.module.css'; 
 
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);

@@ -24,7 +24,7 @@ const Footer = () => {
           <ul>
             <li><Link href="/">Home</Link></li>
             <li><Link href="/about">About Us</Link></li>
-            <li><Link href="/services">Services</Link></li>
+            <li><Link href="/service">Services</Link></li>
             <li><Link href="/locations">Locations</Link></li>
             <li><Link href="/contact">Contact</Link></li>
           </ul>
@@ -40,13 +40,13 @@ const Footer = () => {
               </Link>
             </li>
             <li>
-              <Link href="tel:+254757495125">
-                <FaPhone /> +254757495125
+              <Link href="tel:+254024855689">
+                <FaPhone />  +254024855689
               </Link>
             </li>
             <li>
-              <Link href="mailto:info@mellaundry.com">
-                <FaEnvelope /> info@mellaundry.com
+              <Link href="mailto:mel.tamabra@gmail.com">
+                <FaEnvelope /> mel.tamabra@gmail.com
               </Link>
             </li>
             <li>
