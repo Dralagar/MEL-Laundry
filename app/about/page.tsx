@@ -141,18 +141,9 @@ const AboutPage: React.FC = () => {
           <h2>Our Locations</h2>
           <div className={styles.locationCard}>
             <FaMapMarkerAlt className={styles.mapIcon} />
-            <div
-              style={{
-                backgroundImage: 'url("/images/location-bg.jpg")',
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                padding: '2rem',
-                borderRadius: '8px',
-                position: 'relative'
-              }}
-            >
-              <div className={styles.textOverlay}></div>
+            <div>
               <h3>Multiple Locations in Nairobi</h3>
+              L
               <p>Find your nearest MEL Laundry outlet</p>
               <Link href="/contact" className={styles.locationLink}>
                 View All Locations

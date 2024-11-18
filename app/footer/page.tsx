@@ -40,8 +40,8 @@ const Footer = () => {
               </Link>
             </li>
             <li>
-              <Link href="tel:+254024855689">
-                <FaPhone />  +254024855689
+              <Link href="tel:+254740630890">
+                <FaPhone />  +254740630890
               </Link>
             </li>
             <li>

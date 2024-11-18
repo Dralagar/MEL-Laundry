@@ -81,7 +81,7 @@ const testimonials: Testimonial[] = [
 
 // Team members data
 const teamMembers: TeamMember[] = [
-  { name: 'Kyle', position: 'Founder & CEO', image: '/images/dryer.png' },
+  { name: 'Kyrre Abraham', position: 'Founder & CEO', image: '/images/kyrre.jpg' },
   { name: 'Tamara', position: 'Operations Manager', image: '/images/Tamara.png' },
   { name: 'Dralagar George', position: 'Marketing Lead & Developer', image: '/images/George.png' },
   { name: 'Betty Likavo', position: 'Sales Manager', image: '/images/Bettymel.png' },

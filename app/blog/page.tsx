@@ -27,14 +27,20 @@ const BlogPage: React.FC = () => {
       try {
         const response = await fetch('/api/posts');
         if (!response.ok) {
-          const errorData = await response.json();
-          throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
+          throw new Error(`Failed to fetch posts: ${response.status}`);
         }
         const data = await response.json();
         setPosts(data);
-      } catch (err) {
-        console.error('Fetch error:', err);
-        setError(err instanceof Error ? err.message : 'Failed to fetch posts');
+      } catch (error: unknown) {
+        const errorMessage = error instanceof Error 
+          ? error.message 
+          : 'An unexpected error occurred while fetching posts';
+        setError(errorMessage);
+        if (error instanceof Error) {
+          console.error('Fetch error:', error.message);
+        } else {
+          console.error('Fetch error:', errorMessage);
+        }
       } finally {
         setLoading(false);
       }
