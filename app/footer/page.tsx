@@ -10,10 +10,17 @@ const Footer = () => {
   return (
     <footer className={styles.footer}>
       <div className={styles.footerContent}>
-        {/* Brand Section */}
-        <div className={`${styles.footerSection} ${styles.brandSection}`}>
-          <Link href="/">
-            <Image src="/images/washer.png" alt="MEL Laundry Logo" width={100} height={50} />
+        {/* Brand Section - Add aria-label for better accessibility */}
+        <div className={`${styles.footerSection} ${styles.brandSection}`} aria-label="Company branding">
+          <Link href="/" aria-label="Home">
+            <Image 
+              src="/images/washer.png" 
+              alt="MEL Laundry Logo" 
+              width={100} 
+              height={50}
+              priority={false}
+              loading="lazy"
+            />
           </Link>
           <p>Experience hassle-free laundry with our convenient self-service locations across Nairobi.</p>
         </div>
@@ -35,8 +42,10 @@ const Footer = () => {
           <h3>Contact Us</h3>
           <ul>
             <li>
-              <Link href="https://www.google.com/maps/place/Donholm+CFF,+Nairobi" target="_blank" rel="noopener noreferrer">
-                <FaMapMarkerAlt /> Donholm CFF, Nairobi, Kenya
+              <Link href="https://www.google.com/maps/place/SHILOH+Towers,+Opposite+CFF+DONHOLM.+Off+Manyanja+Rd.,+Nairobi,+Kenya" 
+                target="_blank" 
+                rel="noopener noreferrer">
+                <FaMapMarkerAlt /> Shiloh Towers, Opposite CFF Donholm, Off Manyanja Rd, Nairobi, Kenya
               </Link>
             </li>
             <li>
@@ -57,24 +66,36 @@ const Footer = () => {
           </ul>
         </div>
 
-        {/* Social Media Links Section */}
+        {/* Social Media Links Section - Add aria-labels */}
         <div className={styles.footerSection}>
           <h3>Follow Us</h3>
           <div className={styles.socialIcons}>
-            <Link href="https://facebook.com" target="_blank" rel="noopener noreferrer">
-              <FaFacebook />
+            <Link href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Visit our Facebook page">
+              <FaFacebook aria-hidden="true" />
             </Link>
-            <Link href="https://twitter.com" target="_blank" rel="noopener noreferrer">
-              <FaTwitter /> {/* Corrected the icon for Twitter (X) */}
+            <Link href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Visit our Twitter page">
+              <FaTwitter aria-hidden="true" />
             </Link>
-            <Link href="https://instagram.com" target="_blank" rel="noopener noreferrer">
-              <FaInstagram />
+            <Link href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Visit our Instagram page">
+              <FaInstagram aria-hidden="true" />
             </Link>
           </div>
         </div>
       </div>
 
       <div className={styles.footerBottom}>
+      <ol>
+              <Link href="https://www.google.com/maps/place/SHILOH+Towers,+Opposite+CFF+DONHOLM.+Off+Manyanja+Rd.,+Nairobi,+Kenya" 
+                target="_blank" 
+                rel="noopener noreferrer">
+                <FaMapMarkerAlt /> Shiloh Towers, Opposite CFF Donholm, Off Manyanja Rd, Nairobi, Kenya
+              </Link>
+            </ol>
+            <ol>
+              <Link href="tel:+254740630890">
+                <FaPhone />  +254740630890
+              </Link>
+            </ol>
         <p>&copy; {currentYear} MEL Laundry. All rights reserved.</p>
       </div>
     </footer>

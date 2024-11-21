@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { FaTshirt, FaWater, FaMapMarkerAlt } from 'react-icons/fa';
+import { FaTshirt, FaWater, FaMapMarkerAlt, FaPhone } from 'react-icons/fa';
 import { MdLocalLaundryService } from 'react-icons/md';
 import { motion, Variants } from 'framer-motion';
 import styles from './styless/Home.module.css';
@@ -76,13 +76,14 @@ const pricingPlans: PricingPlan[] = [
 const testimonials: Testimonial[] = [
   { id: '1', content: 'MEL Laundry has made my life so much easier. Clean clothes, no hassle!', author: 'Dralagar George' },
   { id: '2', content: 'The 24/7 availability is a game-changer. I can do laundry on my schedule.', author: 'Christine' },
-  { id: '3', content: 'Affordable and efficient. MEL Laundry is my go-to for all my laundry needs.', author: 'Dodo' },
+  { id: '3', content: 'Affordable and efficient. MEL Laundry is my go-to for all my laundry needs.', author: 'Bobo' },
+  {id: '4', content: 'I love the convenience of MEL Laundry. It\'s always clean and ready when I need it.', author: 'Ochieng'}
 ];
 
 // Team members data
 const teamMembers: TeamMember[] = [
   { name: 'Kyrre Abraham', position: 'Founder & CEO', image: '/images/Kyree.png' },
-  { name: 'Tamara', position: 'Operations Manager', image: '/images/Tamara.png' },
+  { name: 'Angel Tamara', position: 'Operations Manager', image: '/images/Tamara.png' },
   { name: 'Dralagar George', position: 'Marketing Lead & Developer', image: '/images/George.png' },
   { name: 'Betty Likavo', position: 'Sales Manager', image: '/images/Bettymel.png' },
 ];
@@ -224,6 +225,27 @@ const Home: React.FC = () => {
               <h4>- {testimonial.author}</h4>
             </motion.div>
           ))}
+        </div>
+      </motion.section>
+
+      {/* Contact Section */}
+      <motion.section
+        className={styles.contactSection}
+        initial="initial"
+        whileInView="animate"
+        viewport={{ once: true }}
+        variants={staggerChildren}
+      >
+        <motion.h2 className={styles.sectionTitle} variants={fadeInUp}>Visit Us</motion.h2>
+        <div className={styles.contactInfo}>
+          <motion.div className={styles.contactItem} variants={fadeInUp}>
+            <FaMapMarkerAlt className={styles.contactIcon} />
+            <p>Shiloh Towers, Opposite CFF Donholm, Off Manyanja Rd, Nairobi, Kenya</p>
+          </motion.div>
+          <motion.div className={styles.contactItem} variants={fadeInUp}>
+            <FaPhone className={styles.contactIcon} />
+            <p>+254740630890</p>
+          </motion.div>
         </div>
       </motion.section>
 
