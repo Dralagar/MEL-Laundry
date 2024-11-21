@@ -120,7 +120,7 @@ export default function Contact() {
             <div className={styles.card}>
               <FaPhone className={styles.icon} />
               <h3 className={styles.cardHeading}>Call Us</h3>
-              <p className={styles.cardText}>0706255611</p>
+              <p className={styles.cardText}>+254740630890</p>
             </div>
             <div className={styles.mapContainer}>
               <iframe
