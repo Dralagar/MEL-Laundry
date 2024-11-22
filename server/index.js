@@ -16,7 +16,11 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: ['http://localhost:3001', 'http://localhost:3000'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  credentials: true
+}));
 app.use(express.json());
 
 // Serve static files from 'uploads' directory
@@ -135,6 +139,11 @@ app.put('/api/locations/:id', authenticateToken, async (req, res) => {
       return res.status(404).json({ message: 'Location not found' });
     }
 
+    // Validate incoming data
+    if (!req.body || Object.keys(req.body).length === 0) {
+      return res.status(400).json({ message: 'Request body cannot be empty' });
+    }
+
     const updates = {
       name: req.body.name,
       address: req.body.address,
@@ -145,6 +154,7 @@ app.put('/api/locations/:id', authenticateToken, async (req, res) => {
       status: req.body.status
     };
 
+    // Only update fields that are actually provided
     Object.keys(updates).forEach(key => {
       if (updates[key] !== undefined) {
         location[key] = updates[key];
@@ -154,7 +164,11 @@ app.put('/api/locations/:id', authenticateToken, async (req, res) => {
     const updatedLocation = await location.save();
     res.json(updatedLocation);
   } catch (err) {
-    res.status(400).json({ message: err.message });
+    console.error('Location update error:', err);
+    if (err.name === 'CastError') {
+      return res.status(400).json({ message: 'Invalid location ID format' });
+    }
+    res.status(500).json({ message: 'Error updating location', error: err.message });
   }
 });
 
@@ -247,10 +261,30 @@ async function getBlog(req, res, next) {
   next();
 }
 
-// Error handling middleware
+// Add error handling for routes
+app.use((req, res, next) => {
+  res.status(404).json({ message: 'Route not found' });
+});
+
+// Enhance error handling middleware
 app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).json({ message: 'Something went wrong!' });
+  console.error('Error:', err.stack);
+  
+  // Handle specific error types
+  if (err.name === 'ValidationError') {
+    return res.status(400).json({ message: err.message });
+  }
+  
+  // Handle Next.js specific errors
+  if (err.code === 'ENOENT') {
+    return res.status(404).json({ message: 'Resource not found' });
+  }
+
+  // Default error response
+  res.status(500).json({ 
+    message: 'Something went wrong!',
+    error: process.env.NODE_ENV === 'development' ? err.message : undefined
+  });
 });
 
 app.listen(port, () => {
