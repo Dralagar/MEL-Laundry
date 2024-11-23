@@ -9,15 +9,17 @@ import jwt from 'jsonwebtoken';
 import BlogPost from './models/BlogPost.js';
 import Location from './models/Location.js';
 import User from './models/User.js';
+import { Resend } from 'resend';
 
 dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 5000;
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 // Middleware
 app.use(cors({
-  origin: ['http://localhost:3001', 'http://localhost:3000'],
+  origin: ['http://localhost:3000', 'http://localhost:3001', 'http://localhost:3002'],
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   credentials: true
 }));
@@ -285,6 +287,25 @@ app.use((err, req, res, next) => {
     message: 'Something went wrong!',
     error: process.env.NODE_ENV === 'development' ? err.message : undefined
   });
+});
+
+// Add email route
+app.post('/api/send-email', authenticateToken, async (req, res) => {
+  try {
+    const { to, subject, html } = req.body;
+    
+    const data = await resend.emails.send({
+      from: process.env.RESEND_FROM_EMAIL,
+      to: to,
+      subject: subject,
+      html: html
+    });
+
+    res.status(200).json({ success: true, data });
+  } catch (error) {
+    console.error('Email sending error:', error);
+    res.status(500).json({ success: false, error: error.message });
+  }
 });
 
 app.listen(port, () => {
