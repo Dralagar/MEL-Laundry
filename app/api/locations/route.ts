@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { MongoClient } from 'mongodb';
+import { MongoClient, ObjectId } from 'mongodb';
 
 export async function GET() {
   try {
@@ -53,5 +53,50 @@ export async function POST(request: Request) {
   } catch (error) {
     console.error('Failed to create location:', error);
     return NextResponse.json({ error: 'Failed to create location' }, { status: 500 });
+  }
+}
+
+export async function PUT(
+  request: Request,
+  { params }: { params: { id: string } }
+) {
+  try {
+    const body = await request.json();
+    const { name, address, city, state, zipCode, status } = body;
+
+    // Validate incoming data
+    if (!name || !address || !city || !state || !zipCode) {
+      return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
+    }
+
+    const client = await MongoClient.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/MEL');
+    const db = client.db('mel');
+    const collection = db.collection('locations');
+    const result = await collection.findOneAndUpdate(
+      { _id: new ObjectId(params.id) },
+      {
+        $set: {
+          name,
+          address,
+          city,
+          state,
+          zipCode,
+          status,
+          updatedAt: new Date()
+        }
+      },
+      { returnDocument: 'after' }
+    );
+
+    await client.close();
+
+    if (!result?.value) {
+      return NextResponse.json({ error: 'Location not found' }, { status: 404 });
+    }
+
+    return NextResponse.json(result.value);
+  } catch (error) {
+    console.error('Failed to update location:', error);
+    return NextResponse.json({ error: 'Failed to update location' }, { status: 500 });
   }
 }
