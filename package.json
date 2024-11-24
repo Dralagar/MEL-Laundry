@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "concurrently \"next dev -p 3000\" \"node --experimental-modules server/index.js\"",
-    "dev:frontend": "next dev -p 3000",
-    "dev:backend": "node --experimental-modules server/index.js",
+    "dev": "concurrently \"next dev -p 3001\" \"nodemon server/index.js\"",
+    "dev:frontend": "next dev -p 3001",
+    "dev:backend": "nodemon server/index.js",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -20,6 +20,7 @@
     "express": "^4.21.1",
     "framer-motion": "^10.18.0",
     "jsonwebtoken": "^9.0.2",
+    "mongodb": "^6.11.0",
     "mongoose": "^8.8.2",
     "multer": "^1.4.5-lts.1",
     "next": "^15.0.2",

@@ -6,26 +6,13 @@ export interface Location {
   state: string;
   zipCode: string;
   image?: string;
-  status?: string;
+  status: 'active' | 'inactive';
 }
 
 export async function getLocations(): Promise<Location[]> {
-  try {
-    console.log('Fetching locations...');
-    const response = await fetch('http://localhost:5000/api/locations');
-    console.log('Response status:', response.status);
-    
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    
-    const data = await response.json();
-    console.log('Fetched locations:', data);
-    return data;
-  } catch (error) {
-    console.error('Error fetching locations:', error);
-    throw error;
-  }
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/locations`);
+  if (!response.ok) throw new Error('Failed to fetch locations');
+  return response.json();
 }
 
 export async function updateLocation(
