@@ -1,6 +1,10 @@
 import { NextResponse } from 'next/server';
 import { MongoClient, ObjectId } from 'mongodb';
 
+type RouteContext = {
+  params: { id: string };
+};
+
 export async function GET() {
   try {
     const client = await MongoClient.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/MEL');
@@ -58,9 +62,10 @@ export async function POST(request: Request) {
 
 export async function PUT(
   request: Request,
-  { params }: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await context.params;
     const body = await request.json();
     const { name, address, city, state, zipCode, status } = body;
 
@@ -73,7 +78,7 @@ export async function PUT(
     const db = client.db('mel');
     const collection = db.collection('locations');
     const result = await collection.findOneAndUpdate(
-      { _id: new ObjectId(params.id) },
+      { _id: new ObjectId(id) },
       {
         $set: {
           name,
