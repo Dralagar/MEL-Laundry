@@ -6,7 +6,7 @@
     "dev": "concurrently \"next dev -p 3001\" \"nodemon server/index.js\"",
     "dev:frontend": "next dev -p 3001",
     "dev:backend": "nodemon server/index.js",
-    "build": "next build",
+    "build": "prisma generate && next build",
     "start": "next start",
     "lint": "next lint"
   },
