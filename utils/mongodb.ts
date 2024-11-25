@@ -1,28 +1,24 @@
-import { MongoClient } from 'mongodb';
+import mongoose from 'mongoose';
 
 if (!process.env.MONGODB_URI) {
   throw new Error('Please add your Mongo URI to .env.local');
 }
 
 const uri = process.env.MONGODB_URI;
-const options = {};
 
-declare global {
-  var _mongoClientPromise: Promise<MongoClient>;
-}
+class MongooseSingleton {
+  private static _instance: Promise<typeof mongoose>;
 
-class Singleton {
-  private static _instance: Promise<MongoClient>;
-
-  static getInstance(): Promise<MongoClient> {
+  static getInstance(): Promise<typeof mongoose> {
     if (!this._instance) {
-      const client = new MongoClient(uri, options);
-      this._instance = client.connect();
+      this._instance = mongoose.connect(uri, {
+        // Add any other options you need
+      });
     }
     return this._instance;
   }
 }
 
-const clientPromise = Singleton.getInstance();
+const mongoosePromise = MongooseSingleton.getInstance();
 
-export default clientPromise; 
+export default mongoosePromise; 
