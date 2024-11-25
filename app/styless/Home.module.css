@@ -16,7 +16,7 @@
 
 .homeContainer {
   width: 100%;
-  overflow-x: hidden; /* Prevent horizontal scroll */
+  overflow-x: hidden;
   font-family: 'Roboto', sans-serif;
   color: #333;
   background: linear-gradient(135deg, #f6f9fc 0%, #e9f2f9 100%);
@@ -54,33 +54,42 @@
   max-width: 800px;
   color: white;
   animation: float 6s ease-in-out infinite, fadeIn 2s ease-in-out;
+  backdrop-filter: blur(8px);
+  border-radius: 16px;
+  background: rgba(0, 0, 0, 0.2);
 }
 
 .heroTitle {
-  font-size: clamp(2rem, 6vw, 4rem); /* Responsive font size */
+  font-size: clamp(2rem, 6vw, 4rem);
   font-weight: 700;
   margin-bottom: 1rem;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+  text-align: center;
 }
 
 .heroDescription {
-  font-size: clamp(1rem, 3vw, 1.5rem); /* Responsive font size */
+  font-size: clamp(1rem, 3vw, 1.5rem);
   margin-bottom: 2rem;
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+  text-align: center;
 }
 
 .ctaButton {
-  padding: 0.75rem 2rem;
+  padding: 1rem 2.5rem;
   background-color: #0070f3;
   color: #fff;
-  border-radius: 5px;
-  font-size: 1rem;
+  border-radius: 8px;
+  font-size: 1.125rem;
+  font-weight: 600;
   text-decoration: none;
-  transition: background-color 0.3s;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 112, 243, 0.2);
 }
 
 .ctaButton:hover {
   background-color: #005bb5;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 12px rgba(0, 112, 243, 0.3);
 }
 
 /* Features Section */
@@ -100,12 +109,15 @@
 .featureItem {
   background: #f1f5f8;
   padding: 2rem;
-  border-radius: 10px;
-  transition: transform 0.3s ease;
+  border-radius: 16px;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
 }
 
 .featureItem:hover {
   transform: translateY(-10px);
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
 }
 
 .itemTitle {
@@ -113,6 +125,7 @@
   margin-top: 1rem;
   margin-bottom: 0.5rem;
   font-weight: bold;
+  text-align: center;
 }
 
 /* Centering and Responsive Images in Features Section */
@@ -139,14 +152,17 @@
 
 .stepItem {
   background: #e0e7ff;
-  padding: 1.5rem;
-  border-radius: 10px;
+  padding: 2rem;
+  border-radius: 16px;
   text-align: center;
-  transition: transform 0.3s ease;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
 }
 
 .stepItem:hover {
   transform: translateY(-10px);
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
 }
 
 .icon {
@@ -378,8 +394,15 @@
 .testimonialItem {
   background: #ffffff;
   padding: 2rem;
-  border-radius: 10px;
+  border-radius: 16px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.testimonialItem:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
 }
 
 /* Meet the Team Section */
@@ -398,7 +421,6 @@
   text-align: center;
 }
 
-/* Centering and Responsive Images in Meet the Team Section */
 .teamMember img {
   display: block;
   margin-left: auto;
@@ -406,16 +428,26 @@
   max-width: 100%;
   height: auto;
   border-radius: 50%;
+  border: 4px solid white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.teamMember:hover img {
+  transform: scale(1.05);
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.15);
 }
 
 .teamName {
   font-size: 1.5rem;
   font-weight: bold;
+  text-align: center;
 }
 
 .teamPosition {
   font-size: 1rem;
   color: #6b7280;
+  text-align: center;
 }
 
 /* Call to Action Section */
@@ -429,6 +461,7 @@
 .ctaText {
   font-size: 1.25rem;
   margin-bottom: 2rem;
+  text-align: center;
 }
 
 /* General Mobile-first adjustments */
@@ -465,118 +498,6 @@
   text-align: center;
   margin-bottom: 2.5rem;
   color: #1a1a1a;
-}
-
-/* Enhance hero section */
-.heroImageWrapper {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-}
-
-.heroContent {
-  position: relative;
-  z-index: 1;
-  padding: 2rem;
-  max-width: 800px;
-  color: white;
-  animation: float 6s ease-in-out infinite, fadeIn 2s ease-in-out;
-  backdrop-filter: blur(8px);
-  border-radius: 16px;
-  background: rgba(0, 0, 0, 0.2);
-}
-
-/* Enhance feature items */
-.featureItem {
-  background: #f1f5f8;
-  padding: 2rem;
-  border-radius: 16px;
-  transition: all 0.3s ease;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-}
-
-.featureItem:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
-}
-
-/* Enhance step items */
-.stepItem {
-  background: #e0e7ff;
-  padding: 2rem;
-  border-radius: 16px;
-  text-align: center;
-  transition: all 0.3s ease;
-  border: 1px solid rgba(59, 130, 246, 0.2);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-}
-
-.stepItem:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
-}
-
-/* Enhance pricing items */
-.pricingItem {
-  background: #f8fafc;
-  padding: 2.5rem 2rem;
-  border-radius: 16px;
-  text-align: center;
-  transition: all 0.3s ease;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-}
-
-.pricingItem:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
-}
-
-/* Enhance testimonial items */
-.testimonialItem {
-  background: #ffffff;
-  padding: 2rem;
-  border-radius: 16px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
-}
-
-.testimonialItem:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
-}
-
-/* Enhance team member styling */
-.teamMember img {
-  border: 4px solid white;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
-}
-
-.teamMember:hover img {
-  transform: scale(1.05);
-  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.15);
-}
-
-/* Enhance CTA button */
-.ctaButton {
-  padding: 1rem 2.5rem;
-  background-color: #0070f3;
-  color: #fff;
-  border-radius: 8px;
-  font-size: 1.125rem;
-  font-weight: 600;
-  text-decoration: none;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 6px rgba(0, 112, 243, 0.2);
-}
-
-.ctaButton:hover {
-  background-color: #005bb5;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 12px rgba(0, 112, 243, 0.3);
 }
 
 /* Add dark mode support */

@@ -48,7 +48,7 @@ const nextConfig = {
           {
             key: 'Access-Control-Allow-Origin',
             value: process.env.NODE_ENV === 'production' 
-              ? process.env.ALLOWED_ORIGIN 
+              ? process.env.ALLOWED_ORIGIN || 'https://default-production-origin.com'
               : '*',
           },
           {

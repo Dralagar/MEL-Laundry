@@ -156,7 +156,7 @@ app.post('/api/locations', authenticateToken, async (req, res) => {
   }
 });
 
-app.put('/api/locations/:id', authenticateToken, upload.single('image'), async (req, res) => {
+app.put('/api/locations/:id', authenticateToken, async (req, res) => {
   try {
     if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
       return res.status(400).json({ message: 'Invalid location ID' });
