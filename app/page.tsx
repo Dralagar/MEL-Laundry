@@ -4,10 +4,9 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { FaTshirt, FaWater, FaMapMarkerAlt, FaPhone } from 'react-icons/fa';
-import { MdLocalLaundryService } from 'react-icons/md';
-import { IoMdShirt } from "react-icons/io";
+import { MdLocalLaundryService, MdOutlineDryCleaning } from 'react-icons/md';
+import { IoShirt } from "react-icons/io5";
 import { GiWashingMachine, GiIronCross } from "react-icons/gi";
-import { MdOutlineDryCleaning } from "react-icons/md";
 import { motion, Variants } from 'framer-motion';
 import styles from './styless/Home.module.css';
 
@@ -152,7 +151,7 @@ const pricingCategories: PriceCategory[] = [
   },
   {
     title: "Individual Items",
-    icon: IoMdShirt,
+    icon: IoShirt,
     items: [
       { name: "Sheer", price: "150" },
       { name: "Bedsheet", price: { from: "150", to: "300" } },
@@ -463,3 +462,4 @@ const Home: React.FC = () => {
 };
 
 export default Home;
+
