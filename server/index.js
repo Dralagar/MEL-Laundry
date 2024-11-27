@@ -1,26 +1,4 @@
-import 'dotenv/config';
-import { fileURLToPath } from 'url';
-import { dirname } from 'path';
-import path from 'path';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-// Debug: Print current directory and env file path
-console.log('Current directory:', __dirname);
-console.log('Env file path:', path.join(__dirname, '.env'));
-
-// Load environment variables
-const result = dotenv.config({ path: path.join(__dirname, '.env') });
-
-// Debug: Print dotenv result
-console.log('Dotenv result:', result);
-
-// Debug: Print all environment variables
-console.log('All environment variables:', process.env);
-
-// Verify environment variables are loaded
-console.log('MONGODB_URI:', process.env.MONGODB_URI);
+import 'dotenv/config'; // Automatically loads environment variables from .env
 
 import express from 'express';
 import mongoose from 'mongoose';
@@ -28,6 +6,7 @@ import cors from 'cors';
 import multer from 'multer';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import path from 'path';
 import BlogPost from './models/BlogPost.js';
 import Location from './models/Location.js';
 import User from './models/User.js';
@@ -63,8 +42,9 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 // Connect to MongoDB
-mongoose.connect(process.env.MONGODB_URI)
-  .then(() => console.log('Connected to MongoDB Atlas'))
+console.log('MongoDB URI:', process.env.MONGODB_URI);
+mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log('MongoDB connected'))
   .catch(err => console.error('MongoDB connection error:', err));
 
 // Basic route
