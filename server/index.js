@@ -1,4 +1,5 @@
-import 'dotenv/config'; // Automatically loads environment variables from .env
+import dotenv from 'dotenv';
+dotenv.config();
 
 import express from 'express';
 import mongoose from 'mongoose';

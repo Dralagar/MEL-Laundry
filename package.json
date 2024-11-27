@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "concurrently \"next dev -p 3001\" \"nodemon server/index.js\"",
-    "dev:frontend": "next dev -p 3001",
+    "dev": "concurrently \"next dev -p 3003\" \"nodemon server/index.js\"",
+    "dev:frontend": "next dev -p 3003",
     "dev:backend": "nodemon server/index.js",
-    "build": "prisma generate && next build",
+    "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },

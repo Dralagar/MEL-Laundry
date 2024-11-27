@@ -82,10 +82,10 @@ export async function POST(request: Request) {
 
 export async function PUT(
   request: Request,
-  context: { params: Promise<{ id: string }> }
+  context: { params: { id: string } }
 ) {
   try {
-    const { id } = await context.params;
+    const { id } = context.params;
     const body = await request.json();
     const { name, address, city, state, zipCode, status } = body;
 

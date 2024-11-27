@@ -1,5 +1,7 @@
 import mongoose from 'mongoose';
 
+console.log('MONGODB_URI:', process.env.MONGODB_URI);
+
 if (!process.env.MONGODB_URI) {
   throw new Error('Please add your Mongo URI to .env.local');
 }
