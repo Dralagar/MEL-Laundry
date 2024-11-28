@@ -16,12 +16,18 @@ const nextConfig = {
     ],
   },
   async rewrites() {
+    const destination = process.env.PRODUCTION_API_URL
+      ? `${process.env.PRODUCTION_API_URL}/api/:path*`
+      : 'http://localhost:5000/api/:path*';
+
+    if (!destination.startsWith('http')) {
+      throw new Error('Invalid PRODUCTION_API_URL environment variable');
+    }
+
     return [
       {
         source: '/api/:path*',
-        destination: process.env.NODE_ENV === 'production'
-          ? process.env.PRODUCTION_API_URL + '/api/:path*'
-          : 'http://localhost:5000/api/:path*',
+        destination,
       },
     ];
   },
@@ -31,6 +37,10 @@ const nextConfig = {
       : 'http://localhost:5000',
   },
   async headers() {
+    const allowedOrigin = process.env.NODE_ENV === 'production'
+      ? process.env.ALLOWED_ORIGIN || 'https://default-production-origin.com'
+      : '*';
+
     return [
       {
         source: '/(.*)',
@@ -49,9 +59,7 @@ const nextConfig = {
           },
           {
             key: 'Access-Control-Allow-Origin',
-            value: process.env.NODE_ENV === 'production' 
-              ? process.env.ALLOWED_ORIGIN || 'https://default-production-origin.com'
-              : '*',
+            value: allowedOrigin,
           },
           {
             key: 'Access-Control-Allow-Methods',

@@ -545,3 +545,14 @@
     padding: 1.5rem;
   }
 }
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.ctaText {
+  text-align: center;
+}
