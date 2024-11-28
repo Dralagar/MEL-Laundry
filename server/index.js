@@ -297,6 +297,14 @@ app.post('/api/send-email', authenticateToken, async (req, res) => {
   try {
     const { to, subject, html } = req.body;
     
+    // Ensure all required fields are provided
+    if (!to || !subject || !html) {
+      return res.status(400).json({ 
+        success: false, 
+        message: 'Missing required fields: to, subject, html' 
+      });
+    }
+
     const data = await resend.emails.send({
       from: process.env.RESEND_FROM_EMAIL,
       to: to,
