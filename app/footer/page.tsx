@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { FaFacebook, FaInstagram, FaTwitter, FaMapMarkerAlt, FaPhone, FaEnvelope } from 'react-icons/fa'; // Added FaTwitter for X logo
+import { FaFacebook, FaInstagram, FaTwitter, FaMapMarkerAlt, FaPhone, FaEnvelope } from 'react-icons/fa';
 import styles from '../styless/Footer.module.css';
 
 const Footer = () => {
@@ -29,11 +29,11 @@ const Footer = () => {
         <div className={styles.footerSection}>
           <h3>Quick Links</h3>
           <ul>
-            <li><Link href="/">Home</Link></li>
-            <li><Link href="/about">About Us</Link></li>
-            <li><Link href="/service">Services</Link></li>
-            <li><Link href="/locations">Locations</Link></li>
-            <li><Link href="/contact">Contact</Link></li>
+            <li><Link href="/" aria-label="Navigate to Home">Home</Link></li>
+            <li><Link href="/about" aria-label="Learn more About Us">About Us</Link></li>
+            <li><Link href="/service" aria-label="Explore our Services">Services</Link></li>
+            <li><Link href="/locations" aria-label="Find our Locations">Locations</Link></li>
+            <li><Link href="/contact" aria-label="Contact Us">Contact</Link></li>
           </ul>
         </div>
 
@@ -44,22 +44,23 @@ const Footer = () => {
             <li>
               <Link href="https://www.google.com/maps/place/SHILOH+Towers,+Opposite+CFF+DONHOLM.+Off+Manyanja+Rd.,+Nairobi,+Kenya" 
                 target="_blank" 
-                rel="noopener noreferrer">
+                rel="noopener noreferrer"
+                aria-label="View our location on Google Maps">
                 <FaMapMarkerAlt /> Shiloh Towers, Opposite CFF Donholm, Off Manyanja Rd, Nairobi, Kenya
               </Link>
             </li>
             <li>
-              <Link href="tel:+254740630890">
+              <Link href="tel:+254740630890" aria-label="Call us at +254740630890">
                 <FaPhone />  +254740630890
               </Link>
             </li>
             <li>
-              <Link href="mailto:mel.tamabra@gmail.com">
+              <Link href="mailto:mel.tamabra@gmail.com" aria-label="Email us at mel.tamabra@gmail.com">
                 <FaEnvelope /> mel.tamabra@gmail.com
               </Link>
             </li>
             <li>
-              <Link href="https://wa.me/+254740630890" target="_blank" rel="noopener noreferrer">
+              <Link href="https://wa.me/+254740630890" target="_blank" rel="noopener noreferrer" aria-label="Chat with us on WhatsApp">
                 <FaPhone /> WhatsApp Us
               </Link>
             </li>
@@ -84,18 +85,19 @@ const Footer = () => {
       </div>
 
       <div className={styles.footerBottom}>
-      <ol>
-              <Link href="https://www.google.com/maps/place/SHILOH+Towers,+Opposite+CFF+DONHOLM.+Off+Manyanja+Rd.,+Nairobi,+Kenya" 
-                target="_blank" 
-                rel="noopener noreferrer">
-                <FaMapMarkerAlt /> Shiloh Towers, Opposite CFF Donholm, Off Manyanja Rd, Nairobi, Kenya
-              </Link>
-            </ol>
-            <ol>
-              <Link href="tel:+254740630890">
-                <FaPhone />  +254740630890
-              </Link>
-            </ol>
+        <ol>
+          <Link href="https://www.google.com/maps/place/SHILOH+Towers,+Opposite+CFF+DONHOLM.+Off+Manyanja+Rd.,+Nairobi,+Kenya" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            aria-label="View our location on Google Maps">
+            <FaMapMarkerAlt /> Shiloh Towers, Opposite CFF Donholm, Off Manyanja Rd, Nairobi, Kenya
+          </Link>
+        </ol>
+        <ol>
+          <Link href="tel:+254740630890" aria-label="Call us at +254740630890">
+            <FaPhone />  +254740630890
+          </Link>
+        </ol>
         <p>&copy; {currentYear} MEL Laundry. All rights reserved.</p>
       </div>
     </footer>

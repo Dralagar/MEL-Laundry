@@ -1,6 +1,7 @@
 "use client";
 
 import React from 'react';
+import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
 import { FaTshirt, FaWater, FaMapMarkerAlt, FaPhone } from 'react-icons/fa';
@@ -219,34 +220,241 @@ const teamMembers: TeamMember[] = [
 
 const Home: React.FC = () => {
   return (
-    <div className={styles.homeContainer}>
-      {/* Hero Section */}
-      <motion.section
-        className={styles.homeHero}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1 }}
-      >
-        <div className={styles.heroImageWrapper}>
-          <Image
-            src="/images/washer.png"
-            alt="MEL Laundry Hero"
-            fill
-            style={{ objectFit: 'cover' }}
-            quality={100}
-            priority
-          />
-          <div className={styles.heroOverlay}></div>
-        </div>
-        <motion.div
-          className={styles.heroContent}
-          initial={{ y: 50, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
+    <>
+      <Head>
+        <title>MEL Laundry - Hassle-Free Laundry Services in Nairobi</title>
+        <meta name="description" content="Experience fast, efficient, and affordable self-service laundry at MEL Laundry's convenient locations across Nairobi." />
+        <meta name="keywords" content="MEL Laundry, laundry services, Nairobi, self-service laundry, affordable laundry" />
+        <meta name="robots" content="index, follow" />
+      </Head>
+      <div className={styles.homeContainer}>
+        {/* Hero Section */}
+        <motion.section
+          className={styles.homeHero}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1 }}
+        >
+          <div className={styles.heroImageWrapper}>
+            <Image
+              src="/images/washer.png"
+              alt="MEL Laundry Hero Image"
+              fill
+              style={{ objectFit: 'cover' }}
+              quality={100}
+              priority
+            />
+            <div className={styles.heroOverlay}></div>
+          </div>
+          <motion.div
+            className={styles.heroContent}
+            initial={{ y: 50, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.5, duration: 0.8 }}
+          >
+            <h1 className={styles.heroTitle}>Experience Hassle-Free Laundry with MEL</h1>
+            <p className={styles.heroDescription}>
+              Enjoy fast, efficient, and affordable self-service laundry at our convenient locations across Nairobi.
+            </p>
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <Link href="/locations" className={styles.ctaButton}>
+                Find a Location
+              </Link>
+            </motion.div>
+          </motion.div>
+        </motion.section>
+
+        {/* Features Section */}
+        <motion.section
+          className={styles.homeFeatures}
+          initial="initial"
+          whileInView="animate"
+          viewport={{ once: true }}
+          variants={staggerChildren}
+        >
+          <motion.h2 className={styles.sectionTitle} variants={fadeInUp}>
+            Why Choose MEL Laundry?
+          </motion.h2>
+          <div className={styles.featuresGrid}>
+            {features.map((feature, index) => (
+              <motion.div key={index} className={styles.featureItem} variants={fadeInUp}>
+                <Image 
+                  src={feature.img} 
+                  alt={feature.title} 
+                  width={64} 
+                  height={64} 
+                  className={styles.featureImage} 
+                />
+                <h3 className={styles.itemTitle}>{feature.title}</h3>
+                <p>{feature.description}</p>
+              </motion.div>
+            ))}
+          </div>
+        </motion.section>
+
+        {/* Steps Section */}
+        <motion.section
+          className={styles.howItWorks}
+          initial="initial"
+          whileInView="animate"
+          viewport={{ once: true }}
+          variants={staggerChildren}
+        >
+          <motion.h2 className={styles.sectionTitle} variants={fadeInUp}>
+            How It Works
+          </motion.h2>
+          <div className={styles.stepsGrid}>
+            {steps.map((step, index) => (
+              <motion.div key={index} className={styles.stepItem} variants={fadeInUp}>
+                {React.createElement(step.icon, { className: styles.icon })}
+                <h3 className={styles.itemTitle}>{step.title}</h3>
+                <p>{step.description}</p>
+                <Image src={step.img} alt={step.title} width={64} height={64} />
+              </motion.div>
+            ))}
+          </div>
+        </motion.section>
+
+        {/* Pricing Section */}
+        <motion.section
+          className={styles.pricing}
+          initial="initial"
+          whileInView="animate"
+          viewport={{ once: true }}
+          variants={staggerChildren}
+        >
+          <motion.h2 className={styles.sectionTitle} variants={fadeInUp}>
+            Our Services & Pricing
+          </motion.h2>
+          <motion.p className={styles.pricingSubtitle} variants={fadeInUp}>
+            Professional laundry services at competitive prices
+          </motion.p>
+          
+          <motion.div className={styles.pricingCategories} variants={staggerChildren}>
+            {pricingCategories.map((category, index) => (
+              <motion.div
+                key={index}
+                className={styles.categoryCard}
+                variants={fadeInUp}
+              >
+                <div className={styles.categoryHeader}>
+                  {React.createElement(category.icon, { className: styles.categoryIcon })}
+                  <h3>{category.title}</h3>
+                </div>
+                <div className={styles.priceList}>
+                  {category.items.map((item, itemIndex) => (
+                    <div key={itemIndex} className={styles.priceItem}>
+                      <div className={styles.priceItemInfo}>
+                        <span className={styles.itemName}>{item.name}</span>
+                        {item.description && (
+                          <span className={styles.itemDescription}>{item.description}</span>
+                        )}
+                      </div>
+                      <span className={styles.itemPrice}>
+                        {typeof item.price === 'string' 
+                          ? `KSh ${item.price}`
+                          : `KSh ${item.price.from} - ${item.price.to}`}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+          
+          <motion.div className={styles.paymentInfo} variants={fadeInUp}>
+            <p>Buy Goods Till: 4572688</p>
+          </motion.div>
+        </motion.section>
+
+        {/* Meet the Team Section */}
+        <motion.section
+          className={styles.meetTheTeam}
+          initial="initial"
+          whileInView="animate"
+          viewport={{ once: true }}
+          variants={staggerChildren}
+        >
+          <motion.h2 className={styles.sectionTitle} variants={fadeInUp}>
+            Meet the Team behind your hassle-free laundry!
+          </motion.h2>
+          <div className={styles.teamGrid}>
+            {teamMembers.map((member, index) => (
+              <motion.div 
+                key={index} 
+                className={styles.teamMember} 
+                variants={fadeInUp}
+              >
+                <Image 
+                  src={member.image} 
+                  alt={member.name} 
+                  width={200} 
+                  height={200} 
+                  className={styles.teamImage}
+                  priority={index < 2} // Prioritize loading first two images
+                />
+                <h3 className={styles.teamName}>{member.name}</h3>
+                <p className={styles.teamPosition}>{member.position}</p>
+              </motion.div>
+            ))}
+          </div>
+        </motion.section>
+
+        {/* Testimonials Section */}
+        <motion.section
+          className={styles.homeTestimonials}
+          initial="initial"
+          whileInView="animate"
+          viewport={{ once: true }}
+          variants={staggerChildren}
+        >
+          <motion.h2 className={styles.sectionTitle} variants={fadeInUp}>
+            What Our Customers Say
+          </motion.h2>
+          <div className={styles.testimonialsGrid}>
+            {testimonials.map((testimonial) => (
+              <motion.div key={testimonial.id} className={styles.testimonialItem} variants={fadeInUp}>
+                <p>{testimonial.content}</p>
+                <h4>- {testimonial.author}</h4>
+              </motion.div>
+            ))}
+          </div>
+        </motion.section>
+
+        {/* Contact Section */}
+        <motion.section
+          className={styles.contactSection}
+          initial="initial"
+          whileInView="animate"
+          viewport={{ once: true }}
+          variants={staggerChildren}
+        >
+          <motion.h2 className={styles.sectionTitle} variants={fadeInUp}>Visit Us</motion.h2>
+          <div className={styles.contactInfo}>
+            <motion.div className={styles.contactItem} variants={fadeInUp}>
+              <FaMapMarkerAlt className={styles.contactIcon} />
+              <p>Shiloh Towers, Opposite CFF Donholm, Off Manyanja Rd, Nairobi, Kenya</p>
+            </motion.div>
+            <motion.div className={styles.contactItem} variants={fadeInUp}>
+              <FaPhone className={styles.contactIcon} />
+              <p>+254740630890</p>
+            </motion.div>
+          </div>
+        </motion.section>
+
+        {/* Call to Action */}
+        <motion.section
+          className={styles.ctaSection}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
           transition={{ delay: 0.5, duration: 0.8 }}
         >
-          <h1 className={styles.heroTitle}>Experience Hassle-Free Laundry with MEL</h1>
-          <p className={styles.heroDescription}>
-            Enjoy fast, efficient, and affordable self-service laundry at our convenient locations across Nairobi.
+          <h2 className={styles.sectionTitle}>Get Started with MEL Laundry Today!</h2>
+          <p className={styles.ctaText}>
+            Convenient, fast, and affordable self-service laundry in Nairobi.
           </p>
           <motion.div
             whileHover={{ scale: 1.05 }}
@@ -256,208 +464,9 @@ const Home: React.FC = () => {
               Find a Location
             </Link>
           </motion.div>
-        </motion.div>
-      </motion.section>
-
-      {/* Features Section */}
-      <motion.section
-        className={styles.homeFeatures}
-        initial="initial"
-        whileInView="animate"
-        viewport={{ once: true }}
-        variants={staggerChildren}
-      >
-        <motion.h2 className={styles.sectionTitle} variants={fadeInUp}>
-          Why Choose MEL Laundry?
-        </motion.h2>
-        <div className={styles.featuresGrid}>
-          {features.map((feature, index) => (
-            <motion.div key={index} className={styles.featureItem} variants={fadeInUp}>
-              <Image 
-                src={feature.img} 
-                alt={feature.title} 
-                width={64} 
-                height={64} 
-                className={styles.featureImage} 
-              />
-              <h3 className={styles.itemTitle}>{feature.title}</h3>
-              <p>{feature.description}</p>
-            </motion.div>
-          ))}
-        </div>
-      </motion.section>
-
-      {/* Steps Section */}
-      <motion.section
-        className={styles.howItWorks}
-        initial="initial"
-        whileInView="animate"
-        viewport={{ once: true }}
-        variants={staggerChildren}
-      >
-        <motion.h2 className={styles.sectionTitle} variants={fadeInUp}>
-          How It Works
-        </motion.h2>
-        <div className={styles.stepsGrid}>
-          {steps.map((step, index) => (
-            <motion.div key={index} className={styles.stepItem} variants={fadeInUp}>
-              {React.createElement(step.icon, { className: styles.icon })}
-              <h3 className={styles.itemTitle}>{step.title}</h3>
-              <p>{step.description}</p>
-              <Image src={step.img} alt={step.title} width={64} height={64} />
-            </motion.div>
-          ))}
-        </div>
-      </motion.section>
-
-      {/* Pricing Section */}
-      <motion.section
-        className={styles.pricing}
-        initial="initial"
-        whileInView="animate"
-        viewport={{ once: true }}
-        variants={staggerChildren}
-      >
-        <motion.h2 className={styles.sectionTitle} variants={fadeInUp}>
-          Our Services & Pricing
-        </motion.h2>
-        <motion.p className={styles.pricingSubtitle} variants={fadeInUp}>
-          Professional laundry services at competitive prices
-        </motion.p>
-        
-        <motion.div className={styles.pricingCategories} variants={staggerChildren}>
-          {pricingCategories.map((category, index) => (
-            <motion.div
-              key={index}
-              className={styles.categoryCard}
-              variants={fadeInUp}
-            >
-              <div className={styles.categoryHeader}>
-                {React.createElement(category.icon, { className: styles.categoryIcon })}
-                <h3>{category.title}</h3>
-              </div>
-              <div className={styles.priceList}>
-                {category.items.map((item, itemIndex) => (
-                  <div key={itemIndex} className={styles.priceItem}>
-                    <div className={styles.priceItemInfo}>
-                      <span className={styles.itemName}>{item.name}</span>
-                      {item.description && (
-                        <span className={styles.itemDescription}>{item.description}</span>
-                      )}
-                    </div>
-                    <span className={styles.itemPrice}>
-                      {typeof item.price === 'string' 
-                        ? `KSh ${item.price}`
-                        : `KSh ${item.price.from} - ${item.price.to}`}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
-        
-        <motion.div className={styles.paymentInfo} variants={fadeInUp}>
-          <p>Buy Goods Till: 4572688</p>
-        </motion.div>
-      </motion.section>
-
-      {/* Meet the Team Section */}
-      <motion.section
-        className={styles.meetTheTeam}
-        initial="initial"
-        whileInView="animate"
-        viewport={{ once: true }}
-        variants={staggerChildren}
-      >
-        <motion.h2 className={styles.sectionTitle} variants={fadeInUp}>
-          Meet the Team behind your hustlefree laundry!
-        </motion.h2>
-        <div className={styles.teamGrid}>
-          {teamMembers.map((member, index) => (
-            <motion.div 
-              key={index} 
-              className={styles.teamMember} 
-              variants={fadeInUp}
-            >
-              <Image 
-                src={member.image} 
-                alt={member.name} 
-                width={200} 
-                height={200} 
-                className={styles.teamImage}
-                priority={index < 2} // Prioritize loading first two images
-              />
-              <h3 className={styles.teamName}>{member.name}</h3>
-              <p className={styles.teamPosition}>{member.position}</p>
-            </motion.div>
-          ))}
-        </div>
-      </motion.section>
-
-      {/* Testimonials Section */}
-      <motion.section
-        className={styles.homeTestimonials}
-        initial="initial"
-        whileInView="animate"
-        viewport={{ once: true }}
-        variants={staggerChildren}
-      >
-        <motion.h2 className={styles.sectionTitle} variants={fadeInUp}>
-          What Our Customers Say
-        </motion.h2>
-        <div className={styles.testimonialsGrid}>
-          {testimonials.map((testimonial) => (
-            <motion.div key={testimonial.id} className={styles.testimonialItem} variants={fadeInUp}>
-              <p>{testimonial.content}</p>
-              <h4>- {testimonial.author}</h4>
-            </motion.div>
-          ))}
-        </div>
-      </motion.section>
-
-      {/* Contact Section */}
-      <motion.section
-        className={styles.contactSection}
-        initial="initial"
-        whileInView="animate"
-        viewport={{ once: true }}
-        variants={staggerChildren}
-      >
-        <motion.h2 className={styles.sectionTitle} variants={fadeInUp}>Visit Us</motion.h2>
-        <div className={styles.contactInfo}>
-          <motion.div className={styles.contactItem} variants={fadeInUp}>
-            <FaMapMarkerAlt className={styles.contactIcon} />
-            <p>Shiloh Towers, Opposite CFF Donholm, Off Manyanja Rd, Nairobi, Kenya</p>
-          </motion.div>
-          <motion.div className={styles.contactItem} variants={fadeInUp}>
-            <FaPhone className={styles.contactIcon} />
-            <p>+254740630890</p>
-          </motion.div>
-        </div>
-      </motion.section>
-
-      {/* Call to Action */}
-      <motion.section
-        className={styles.ctaSection}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.5, duration: 0.8 }}
-      >
-        <h2 className={styles.sectionTitle}>Get Started with MEL Laundry Today!</h2>
-        <p className={styles.ctaText}>
-          Convenient, fast, and affordable self-service laundry in Nairobi.
-        </p>
-        <motion.div
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          <Link href="/locations" className={styles.ctaButton}>
-            Find a Location
-          </Link>
-        </motion.div>
-      </motion.section>
-    </div>
+        </motion.section>
+      </div>
+    </>
   );
 };
 

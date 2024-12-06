@@ -61,7 +61,7 @@ export default function Contact() {
       <div className={styles.container}>
         <h2 className={styles.heading}>Get in Touch</h2>
         <div className={styles.contentWrapper}>
-          <form className={styles.form} onSubmit={handleSubmit}>
+          <form className={styles.form} onSubmit={handleSubmit} aria-label="Contact form">
             <div className={styles.formGroup}>
               <label htmlFor="name" className={styles.label}>Name</label>
               <input
@@ -72,6 +72,7 @@ export default function Contact() {
                 onChange={handleChange}
                 className={styles.input}
                 placeholder="Your Name"
+                aria-required="true"
               />
               {errors.name && <p className={styles.error}>{errors.name}</p>}
             </div>
@@ -85,6 +86,7 @@ export default function Contact() {
                 onChange={handleChange}
                 className={styles.input}
                 placeholder="mel.tamabra@gmail.com"
+                aria-required="true"
               />
               {errors.email && <p className={styles.error}>{errors.email}</p>}
             </div>
@@ -98,10 +100,11 @@ export default function Contact() {
                 className={styles.textarea}
                 placeholder="Your Message"
                 rows={5}
+                aria-required="true"
               />
               {errors.message && <p className={styles.error}>{errors.message}</p>}
             </div>
-            <button type="submit" className={styles.button}>
+            <button type="submit" className={styles.button} aria-label="Send message">
               <FaPaperPlane className={styles.buttonIcon} />
               Send Message
             </button>
@@ -109,16 +112,16 @@ export default function Contact() {
 
           <div className={styles.infoContainer}>
             <div className={styles.card}>
-              <FaMapMarkerAlt className={styles.icon} />
+              <FaMapMarkerAlt className={styles.icon} aria-hidden="true" />
               <h3 className={styles.cardHeading}>Our Office</h3>
             </div>
             <div className={styles.card}>
-              <FaEnvelope className={styles.icon} />
+              <FaEnvelope className={styles.icon} aria-hidden="true" />
               <h3 className={styles.cardHeading}>Email Us</h3>
               <p className={styles.cardText}>mel.tamabra@gmail.com</p>
             </div>
             <div className={styles.card}>
-              <FaPhone className={styles.icon} />
+              <FaPhone className={styles.icon} aria-hidden="true" />
               <h3 className={styles.cardHeading}>Call Us</h3>
               <p className={styles.cardText}>+254740630890</p>
             </div>
@@ -129,6 +132,7 @@ export default function Contact() {
                 allowFullScreen={true}
                 loading="lazy"
                 title="MEL Laundry Location"
+                aria-label="Google Maps location of MEL Laundry"
               ></iframe>
             </div>
           </div>
