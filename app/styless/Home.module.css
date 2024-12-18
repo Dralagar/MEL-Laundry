@@ -556,3 +556,280 @@
 .ctaText {
   text-align: center;
 }
+
+/* Global Typography */
+.homeContainer {
+  --heading-color: #1a1a1a;
+  --text-color: #4a4a4a;
+  --primary-color: #0066cc;
+  --secondary-color: #f5f5f5;
+  --accent-color: #ff4d4d;
+  font-family: 'Inter', sans-serif;
+  color: var(--text-color);
+}
+
+/* Heading Styles */
+.homeContainer h1,
+.homeContainer h2,
+.homeContainer h3,
+.homeContainer h4 {
+  color: var(--heading-color);
+  line-height: 1.2;
+  margin: 0;
+  font-weight: 600;
+  text-align: center;
+}
+
+.homeContainer h1 {
+  font-size: 3rem;
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.5px;
+}
+
+.homeContainer h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1.25rem;
+  letter-spacing: -0.3px;
+}
+
+.homeContainer h3 {
+  font-size: 1.75rem;
+  margin-bottom: 1rem;
+}
+
+.homeContainer h4 {
+  font-size: 1.25rem;
+  margin-bottom: 0.75rem;
+}
+
+/* Hero Section */
+.homeHero {
+  position: relative;
+  height: 80vh;
+  min-height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+}
+
+.heroImageWrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.heroOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.heroContent {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+  padding: 2rem;
+}
+
+.heroTitle {
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.heroDescription {
+  font-size: 1.25rem;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+/* Section Styles */
+.homeFeatures,
+.howItWorks,
+.pricing,
+.meetTheTeam,
+.homeTestimonials,
+.contactSection,
+.ctaSection {
+  padding: 5rem 2rem;
+}
+
+/* Grid Layouts */
+.featuresGrid,
+.stepsGrid,
+.teamGrid,
+.testimonialsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+/* Cards and Items */
+.featureItem,
+.stepItem,
+.teamMember,
+.testimonialItem,
+.categoryCard {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.featureItem:hover,
+.stepItem:hover,
+.teamMember:hover {
+  transform: translateY(-5px);
+}
+
+/* Pricing Section */
+.pricingCategories {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.categoryHeader {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.categoryIcon {
+  font-size: 2rem;
+  color: var(--primary-color);
+}
+
+/* CTA Button */
+.ctaButton {
+  display: inline-block;
+  padding: 1rem 2rem;
+  background: var(--primary-color);
+  color: white;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background 0.3s ease;
+}
+
+.ctaButton:hover {
+  background: #0052a3;
+}
+
+/* Festive Promo Banner */
+.festivePromo {
+  background: linear-gradient(45deg, #ff4d4d, #ff0000);
+  color: white;
+  padding: 1rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.snowflake {
+  position: absolute;
+  top: 50%;
+  left: 1rem;
+  transform: translateY(-50%);
+  font-size: 1.5rem;
+  animation: spin 4s linear infinite;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .homeContainer h1 {
+    font-size: 2.5rem;
+  }
+
+  .homeContainer h2 {
+    font-size: 2rem;
+  }
+
+  .homeContainer h3 {
+    font-size: 1.5rem;
+  }
+
+  .homeContainer h4 {
+    font-size: 1.125rem;
+  }
+
+  .homeFeatures,
+  .howItWorks,
+  .pricing,
+  .meetTheTeam,
+  .homeTestimonials,
+  .contactSection,
+  .ctaSection {
+    padding: 3rem 1rem;
+  }
+}
+
+/* Animations */
+@keyframes spin {
+  from {
+    transform: translateY(-50%) rotate(0deg);
+  }
+  to {
+    transform: translateY(-50%) rotate(360deg);
+  }
+}
+
+/* Price Items */
+.priceItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #eee;
+}
+
+.priceItemInfo {
+  flex: 1;
+}
+
+.itemName {
+  font-weight: 600;
+  color: var(--heading-color);
+}
+
+.itemDescription {
+  display: block;
+  font-size: 0.875rem;
+  color: #666;
+  margin-top: 0.25rem;
+}
+
+.itemPrice {
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+/* Contact Info */
+.contactInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 600px;
+  margin: 2rem auto;
+}
+
+.contactItem {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.contactIcon {
+  font-size: 1.5rem;
+  color: var(--primary-color);
+}

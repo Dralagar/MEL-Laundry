@@ -4,7 +4,7 @@ import React from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
-import { FaTshirt, FaWater, FaMapMarkerAlt, FaPhone } from 'react-icons/fa';
+import { FaTshirt, FaWater, FaMapMarkerAlt, FaPhone, FaGift, FaSnowflake } from 'react-icons/fa';
 import { MdLocalLaundryService, MdOutlineDryCleaning } from 'react-icons/md';
 import { IoShirt } from "react-icons/io5";
 import { GiWashingMachine, GiIronCross } from "react-icons/gi";
@@ -103,7 +103,30 @@ const steps: Step[] = [
   }
 ];
 
+const christmasOffers: PriceCategory = {
+  title: "Christmas Specials 🎄",
+  icon: FaGift,
+  items: [
+    {
+      name: "Holiday Bundle",
+      price: "999",
+      description: "10kg mixed load + free fabric softener"
+    },
+    {
+      name: "Family Festival Pack",
+      price: "2500",
+      description: "25kg mixed load + free delivery"
+    },
+    {
+      name: "Party Dress Special",
+      price: "300",
+      description: "Perfect for your holiday events"
+    }
+  ]
+};
+
 const pricingCategories: PriceCategory[] = [
+  christmasOffers,
   {
     title: "Special Offers",
     icon: GiWashingMachine,
@@ -217,6 +240,32 @@ const teamMembers: TeamMember[] = [
     image: '/images/Bettymel.png'
   }
 ];
+
+const PromotionalBanner = () => (
+  <motion.div 
+    className={styles.festivePromo}
+    initial={{ y: -100 }}
+    animate={{ y: 0 }}
+  >
+    <FaSnowflake className={styles.snowflake} />
+    <h3>🎄 Christmas Special: 20% OFF all services until December 31st! 🎅</h3>
+  </motion.div>
+);
+
+const calculateHolidayDiscount = (basePrice: number, timeOfDay: string, dayOfWeek: string) => {
+  let discount = 0;
+  
+  // Peak hours adjustment
+  const peakHourDiscount = timeOfDay === 'off-peak' ? 0.15 : 0;
+  
+  // Weekend bonus
+  const weekendBonus = dayOfWeek === 'weekend' ? 0.10 : 0;
+  
+  // Holiday season multiplier
+  const holidayMultiplier = 0.20;
+  
+  return basePrice * (1 - (peakHourDiscount + weekendBonus + holidayMultiplier));
+};
 
 const Home: React.FC = () => {
   return (
