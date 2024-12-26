@@ -67,7 +67,7 @@ const AboutPage: React.FC = () => {
 
   return (
     <motion.div 
-      className={styles.container}
+      className={`${styles.container}`}
       initial="hidden"
       animate="visible"
       variants={staggerContainer}
@@ -75,9 +75,9 @@ const AboutPage: React.FC = () => {
       <div className={styles.heroSection}>
         <div className={styles.imageWrapper}>
           <Image
-            src="/images/laundrybg.jpg" 
+            src="/images/aboutbg.jpg" 
             alt="MEL Laundry Hero"
-            fill
+            fill  
             style={{ objectFit: 'cover' }}
             quality={100}
             priority
@@ -143,7 +143,6 @@ const AboutPage: React.FC = () => {
             <FaMapMarkerAlt className={styles.mapIcon} />
             <div>
               <h3>Multiple Locations in Nairobi</h3>
-              L
               <p>Find your nearest MEL Laundry outlet</p>
               <Link href="/contact" className={styles.locationLink}>
                 View All Locations

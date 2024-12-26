@@ -4,7 +4,7 @@ import React from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
-import { FaTshirt, FaWater, FaMapMarkerAlt, FaPhone, FaGift, FaSnowflake } from 'react-icons/fa';
+import { FaTshirt, FaWater, FaMapMarkerAlt, FaPhone, FaGift, FaSnowflake, FaLinkedin, FaTwitter, FaEnvelope } from 'react-icons/fa';
 import { MdLocalLaundryService, MdOutlineDryCleaning } from 'react-icons/md';
 import { IoShirt } from "react-icons/io5";
 import { GiWashingMachine, GiIronCross } from "react-icons/gi";
@@ -61,6 +61,12 @@ interface TeamMember {
   name: string;
   position: string;
   image: string;
+  bio?: string;
+  socialLinks?: {
+    linkedin?: string;
+    twitter?: string;
+    email?: string;
+  };
 }
 
 // Data arrays
@@ -181,7 +187,7 @@ const pricingCategories: PriceCategory[] = [
       { name: "Bedsheet", price: { from: "150", to: "300" } },
       { name: "Suit", price: { from: "500", to: "700" } },
       { name: "Women's Suit/Dress", price: "250" },
-      { name: "Kazu", price: "150" },
+      { name: "Kanzu", price: "150" },
       { name: "Sweater/Jacket", price: { from: "100", to: "200" } },
       { name: "Trench Coat", price: "200" },
       { name: "Trouser", price: "100" },
@@ -222,22 +228,33 @@ const teamMembers: TeamMember[] = [
   {
     name: 'Kyrre Abraham',
     position: 'Founder & CEO',
-    image: '/images/Kyree.png'
+    image: '/images/Kyree.png',
+    bio: 'Visionary leader with extensive experience in laundry operations',
+    socialLinks: {
+      linkedin: 'https://linkedin.com/in/kyrre-abraham',
+      email: 'kyrre@mellaundry.com'
+    }
   },
   {
     name: 'Angel Tamara',
     position: 'Operations Manager',
-    image: '/images/Tamara.png'
+    image: '/images/Tamara.png',
+    bio: 'Expert in streamlining business operations and customer satisfaction',
+    
   },
   {
     name: 'Dralagar George',
     position: 'Marketing Lead & Developer',
-    image: '/images/George.png'
+    image: '/images/George.png',
+    bio: 'Digital marketing specialist with full-stack development expertise',
+    
   },
   {
     name: 'Betty Likavo',
     position: 'Customer Relations Manager',
-    image: '/images/Bettymel.png'
+    image: '/images/Bettymel.png',
+    bio: 'Dedicated to ensuring exceptional customer experience',
+    
   }
 ];
 
@@ -280,13 +297,14 @@ const Home: React.FC = () => {
         {/* Hero Section */}
         <motion.section
           className={styles.homeHero}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1 }}
+          initial="initial"
+          whileInView="animate"
+          viewport={{ once: true }}
+          variants={staggerChildren}
         >
           <div className={styles.heroImageWrapper}>
             <Image
-              src="/images/washer.png"
+              src="/images/aboutbg.jpg"
               alt="MEL Laundry Hero Image"
               fill
               style={{ objectFit: 'cover' }}
@@ -427,26 +445,52 @@ const Home: React.FC = () => {
           viewport={{ once: true }}
           variants={staggerChildren}
         >
-          <motion.h2 className={styles.sectionTitle} variants={fadeInUp}>
-            Meet the Team behind your hassle-free laundry!
-          </motion.h2>
-          <div className={styles.teamGrid}>
+          <motion.div className={styles.teamHeader} variants={fadeInUp}>
+            <h2 className={styles.sectionTitle}>Meet Our Team</h2>
+            <p className={styles.teamSubtitle}>The passionate professionals behind MEL Laundry's success</p>
+          </motion.div>
+          
+          <div className={styles.teamRow}>
             {teamMembers.map((member, index) => (
               <motion.div 
-                key={index} 
-                className={styles.teamMember} 
+                key={member.name}
+                className={styles.teamMember}
                 variants={fadeInUp}
+                whileHover={{ scale: 1.02 }}
+                transition={{ duration: 0.3 }}
               >
-                <Image 
-                  src={member.image} 
-                  alt={member.name} 
-                  width={200} 
-                  height={200} 
-                  className={styles.teamImage}
-                  priority={index < 2} // Prioritize loading first two images
-                />
-                <h3 className={styles.teamName}>{member.name}</h3>
-                <p className={styles.teamPosition}>{member.position}</p>
+                <div className={styles.teamImageContainer}>
+                  <Image 
+                    src={member.image} 
+                    alt={member.name} 
+                    width={150} 
+                    height={150} 
+                    className={styles.teamImage}
+                    priority={index < 2}
+                  />
+                  <div className={styles.teamSocial}>
+                    {member.socialLinks?.linkedin && (
+                      <a href={member.socialLinks.linkedin} target="_blank" rel="noopener noreferrer" aria-label={`${member.name}'s LinkedIn`}>
+                        <FaLinkedin />
+                      </a>
+                    )}
+                    {member.socialLinks?.twitter && (
+                      <a href={member.socialLinks.twitter} target="_blank" rel="noopener noreferrer" aria-label={`${member.name}'s Twitter`}>
+                        <FaTwitter />
+                      </a>
+                    )}
+                    {member.socialLinks?.email && (
+                      <a href={`mailto:${member.socialLinks.email}`} aria-label={`Email ${member.name}`}>
+                        <FaEnvelope />
+                      </a>
+                    )}
+                  </div>
+                </div>
+                <div className={styles.teamInfo}>
+                  <h3>{member.name}</h3>
+                  <h4>{member.position}</h4>
+                  {member.bio && <p>{member.bio}</p>}
+                </div>
               </motion.div>
             ))}
           </div>

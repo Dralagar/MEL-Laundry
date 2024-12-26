@@ -39,15 +39,18 @@ const ServicePage: React.FC = () => {
         "Clean and comfortable environment",
       ],
       image: (
-        <Image
-          src="/images/laundrybg.jpg" 
-          alt="MEL Laundry Hero"
-          fill
-          style={{ objectFit: 'cover' }}
-          quality={100}
-          priority
-          className={styles.bgImage}
-        />
+        <div className={styles.imageContainer}>
+          <Image
+            src="/images/Inside.jpg" 
+            alt="MEL Laundry Hero"
+            fill
+            style={{ objectFit: 'cover' }}
+            quality={100}
+            priority
+            className={styles.bgImage}
+          />
+          <div className={styles.overlay}></div>
+        </div>
       ),
     },
     'dry-cleaning': {
