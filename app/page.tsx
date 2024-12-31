@@ -318,7 +318,7 @@ const NewYearAnnouncement = () => (
         During this period, MEL will also have a drawing of 5 lucky winners of VOUCHER cash cards worth KSh 500/= up to KSh 1000/=, which will be drawn and announced on Friday 10/01/2025 at 8PM.
       </p>
       <p>
-        The lottery tickets are for customers of MEL using MEL's services in this period, and the receipt is the ticket, so keep your receipt well.
+        The lottery tickets are for customers of MEL using MEL&apos;s services in this period, and the receipt is the ticket, so keep your receipt well.
       </p>
       <p>
         Feel free to visit one of MEL&apos;s new branches at Embakasi Constituency, Donholm Phase 8 from Friday 31/01/2025.
@@ -509,7 +509,7 @@ const Home: React.FC = () => {
         >
           <motion.div className={styles.teamHeader} variants={fadeInUp}>
             <h2 className={styles.sectionTitle}>Meet Our Team</h2>
-            <p className={styles.teamSubtitle}>The passionate professionals behind MEL Laundry's success</p>
+            <p className={styles.teamSubtitle}>The passionate professionals behind MEL Laundry&apos;s success</p>
           </motion.div>
           
           <div className={styles.teamRow}>
