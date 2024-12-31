@@ -225,17 +225,17 @@ const testimonials: Testimonial[] = [
   {
     id: "1",
     content: "MEL Laundry has made my life so much easier. Their machines are always clean and well-maintained!",
-    author: "Sarah K."
+    author: "David Tito."
   },
   {
     id: "2",
     content: "The best laundry service in Nairobi. Fast, efficient, and very affordable!",
-    author: "John M."
+    author: "Collins Bokelo."
   },
   {
     id: "3",
     content: "I love how convenient their locations are. 24/7 service is a game-changer!",
-    author: "David O."
+    author: "Ouma Geofrey."
   }
 ];
 
@@ -310,7 +310,7 @@ const NewYearAnnouncement = () => (
     transition={{ delay: 0.5, duration: 0.8 }}
   >
     <div className={styles.announcementContent}>
-      <p>Dear esteemed customer of MEL,</p>
+      <p>Dear esteemed customer of MEL</p>
       <p>
         MEL has a New Year offer for a load of mixed clothes of 18 kg washed & dried for KSh 1990/= from 31/12/2024 - 10/01/2025 (Exclusive ironing and folding).
       </p>
@@ -326,7 +326,6 @@ const NewYearAnnouncement = () => (
       <p>MEL wishes you a happy & prosperous new year.</p>
       <p>Sincerely,</p>
       <p>MEL Team</p>
-      <p><a href="https://www.mellaundry.com">www.mellaundry.com</a></p>
     </div>
   </motion.section>
 );
@@ -379,7 +378,7 @@ const Home: React.FC = () => {
           >
             <h1 className={styles.heroTitle}>Professional Laundry Services in Nairobi</h1>
             <p className={styles.heroDescription}>
-              Experience premium laundry solutions with state-of-the-art facilities and expert care. Serving Nairobi with excellence.
+              Experience premium haste free laundry solutions with MEL Laundry state-of-the-art facilities and expert care. Serving Nairobi with excellence.
             </p>
             <motion.div
               whileHover={{ scale: 1.05 }}
