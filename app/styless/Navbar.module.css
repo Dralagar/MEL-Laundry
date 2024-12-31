@@ -1,7 +1,7 @@
 /* NavBar.module.css */
 
 .nav {
-  background-color: rgba(15, 134, 15, 0.689);
+  background-color: rgba(15, 134, 15, 0.854);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   padding: 0.75rem 1.5rem; /* Maintain compact padding */
   position: fixed;

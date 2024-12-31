@@ -109,30 +109,45 @@ const steps: Step[] = [
   }
 ];
 
-const christmasOffers: PriceCategory = {
-  title: "Christmas Specials 🎄",
+// Remove the Christmas offer
+// const christmasOffers: PriceCategory = {
+//   title: "Christmas Specials 🎄",
+//   icon: FaGift,
+//   items: [
+//     {
+//       name: "Holiday Bundle",
+//       price: "999",
+//       description: "10kg mixed load + free fabric softener"
+//     },
+//     {
+//       name: "Family Festival Pack",
+//       price: "2500",
+//       description: "25kg mixed load + free delivery"
+//     },
+//     {
+//       name: "Party Dress Special",
+//       price: "300",
+//       description: "Perfect for your holiday events"
+//     }
+//   ]
+// };
+
+// Add the New Year offer
+const newYearOffers: PriceCategory = {
+  title: "New Year Specials 🎉",
   icon: FaGift,
   items: [
     {
-      name: "Holiday Bundle",
-      price: "999",
-      description: "10kg mixed load + free fabric softener"
-    },
-    {
-      name: "Family Festival Pack",
-      price: "2500",
-      description: "25kg mixed load + free delivery"
-    },
-    {
-      name: "Party Dress Special",
-      price: "300",
-      description: "Perfect for your holiday events"
+      name: "New Year Mixed Load",
+      price: "1990",
+      description: "18kg washed & dried (Exclusive ironing and folding)"
     }
   ]
 };
 
+// Update pricingCategories to include the new offer
 const pricingCategories: PriceCategory[] = [
-  christmasOffers,
+  newYearOffers,
   {
     title: "Special Offers",
     icon: GiWashingMachine,
@@ -258,6 +273,7 @@ const teamMembers: TeamMember[] = [
   }
 ];
 
+// Update the promotional banner
 const PromotionalBanner = () => (
   <motion.div 
     className={styles.festivePromo}
@@ -265,7 +281,8 @@ const PromotionalBanner = () => (
     animate={{ y: 0 }}
   >
     <FaSnowflake className={styles.snowflake} />
-    <h3>🎄 Christmas Special: 20% OFF all services until December 31st! 🎅</h3>
+    <h3>🎉 New Year Special: 18kg mixed load washed & dried for KSh 1990 until January 10th! 🎊</h3>
+    <p>Participate in our draw for a chance to win a VOUCHER cash card worth KSh 500 - KSh 1000. Keep your receipt as your ticket!</p>
   </motion.div>
 );
 
@@ -284,14 +301,55 @@ const calculateHolidayDiscount = (basePrice: number, timeOfDay: string, dayOfWee
   return basePrice * (1 - (peakHourDiscount + weekendBonus + holidayMultiplier));
 };
 
+// Update the announcement section for the New Year offer
+const NewYearAnnouncement = () => (
+  <motion.section
+    className={styles.announcementSection}
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    transition={{ delay: 0.5, duration: 0.8 }}
+  >
+    <div className={styles.announcementContent}>
+      <p>Dear esteemed customer of MEL,</p>
+      <p>
+        MEL has a New Year offer for a load of mixed clothes of 18 kg washed & dried for KSh 1990/= from 31/12/2024 - 10/01/2025 (Exclusive ironing and folding).
+      </p>
+      <p>
+        During this period, MEL will also have a drawing of 5 lucky winners of VOUCHER cash cards worth KSh 500/= up to KSh 1000/=, which will be drawn and announced on Friday 10/01/2025 at 8PM.
+      </p>
+      <p>
+        The lottery tickets are for customers of MEL using MEL'S services in this period, and the receipt is the ticket, so keep your receipt well.
+      </p>
+      <p>
+        Feel free to visit one of MEL'S new branches at Embakasi Constituency, Donholm Phase 8 from Friday 31/01/2025.
+      </p>
+      <p>MEL wishes you a happy & prosperous new year.</p>
+      <p>Sincerely,</p>
+      <p>MEL Team</p>
+      <p><a href="https://www.mellaundry.com">www.mellaundry.com</a></p>
+    </div>
+  </motion.section>
+);
+
 const Home: React.FC = () => {
   return (
     <>
       <Head>
-        <title>MEL Laundry - Hassle-Free Laundry Services in Nairobi</title>
-        <meta name="description" content="Experience fast, efficient, and affordable self-service laundry at MEL Laundry's convenient locations across Nairobi." />
-        <meta name="keywords" content="MEL Laundry, laundry services, Nairobi, self-service laundry, affordable laundry" />
+        <title>Mellaundry - Premier Laundry Services in Nairobi, Kenya</title>
+        <meta name="description" content="Discover Mellaundry, your go-to solution for fast, efficient, and affordable laundry services in Nairobi and across Kenya. Experience convenience and quality with us." />
+        <meta name="keywords" content="laundry Nairobi, laundry Kenya, Mellaundry, laundry services, Nairobi laundry, Kenya laundry" />
         <meta name="robots" content="index, follow" />
+        {/* Open Graph tags for better social media integration */}
+        <meta property="og:title" content="Mellaundry - Premier Laundry Services in Nairobi, Kenya" />
+        <meta property="og:description" content="Discover Mellaundry, your go-to solution for fast, efficient, and affordable laundry services in Nairobi and across Kenya." />
+        <meta property="og:url" content="https://www.mellaundry.com" />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="https://www.mellaundry.com/images/og-image.jpg" />
+        {/* Twitter Card tags */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Mellaundry - Premier Laundry Services in Nairobi, Kenya" />
+        <meta name="twitter:description" content="Discover Mellaundry, your go-to solution for fast, efficient, and affordable laundry services in Nairobi and across Kenya." />
+        <meta name="twitter:image" content="https://www.mellaundry.com/images/twitter-image.jpg" />
       </Head>
       <div className={styles.homeContainer}>
         {/* Hero Section */}
@@ -305,7 +363,7 @@ const Home: React.FC = () => {
           <div className={styles.heroImageWrapper}>
             <Image
               src="/images/aboutbg.jpg"
-              alt="MEL Laundry Hero Image"
+              alt="MEL Laundry Professional Services"
               fill
               style={{ objectFit: 'cover' }}
               quality={100}
@@ -319,16 +377,16 @@ const Home: React.FC = () => {
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.5, duration: 0.8 }}
           >
-            <h1 className={styles.heroTitle}>Experience Hassle-Free Laundry with MEL</h1>
+            <h1 className={styles.heroTitle}>Professional Laundry Services in Nairobi</h1>
             <p className={styles.heroDescription}>
-              Enjoy fast, efficient, and affordable self-service laundry at our convenient locations across Nairobi.
+              Experience premium laundry solutions with state-of-the-art facilities and expert care. Serving Nairobi with excellence.
             </p>
             <motion.div
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
               <Link href="/locations" className={styles.ctaButton}>
-                Find a Location
+                Find Nearest Location
               </Link>
             </motion.div>
           </motion.div>
@@ -433,7 +491,14 @@ const Home: React.FC = () => {
           </motion.div>
           
           <motion.div className={styles.paymentInfo} variants={fadeInUp}>
-            <p>Buy Goods Till: 4572688</p>
+            <button 
+              className={styles.paymentButton}
+              onClick={() => {
+                window.location.href = 'https://buygoods.co.ke/buy/4572688';
+              }}
+            >
+              Buy Goods Till: 4572688
+            </button>
           </motion.div>
         </motion.section>
 
@@ -468,23 +533,6 @@ const Home: React.FC = () => {
                     className={styles.teamImage}
                     priority={index < 2}
                   />
-                  <div className={styles.teamSocial}>
-                    {member.socialLinks?.linkedin && (
-                      <a href={member.socialLinks.linkedin} target="_blank" rel="noopener noreferrer" aria-label={`${member.name}'s LinkedIn`}>
-                        <FaLinkedin />
-                      </a>
-                    )}
-                    {member.socialLinks?.twitter && (
-                      <a href={member.socialLinks.twitter} target="_blank" rel="noopener noreferrer" aria-label={`${member.name}'s Twitter`}>
-                        <FaTwitter />
-                      </a>
-                    )}
-                    {member.socialLinks?.email && (
-                      <a href={`mailto:${member.socialLinks.email}`} aria-label={`Email ${member.name}`}>
-                        <FaEnvelope />
-                      </a>
-                    )}
-                  </div>
                 </div>
                 <div className={styles.teamInfo}>
                   <h3>{member.name}</h3>
@@ -535,6 +583,10 @@ const Home: React.FC = () => {
               <FaPhone className={styles.contactIcon} />
               <p>+254740630890</p>
             </motion.div>
+            <motion.div className={styles.contactItem} variants={fadeInUp}>
+              <FaMapMarkerAlt className={styles.contactIcon} />
+              <p>New Branch: Embakasi Constituency, Donholm Phase 8, opening from January 31st, 2025</p>
+            </motion.div>
           </div>
         </motion.section>
 
@@ -558,6 +610,8 @@ const Home: React.FC = () => {
             </Link>
           </motion.div>
         </motion.section>
+
+        <NewYearAnnouncement />
       </div>
     </>
   );
