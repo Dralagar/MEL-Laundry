@@ -109,6 +109,30 @@ const steps: Step[] = [
   }
 ];
 
+// Remove the Christmas offer
+// const christmasOffers: PriceCategory = {
+//   title: "Christmas Specials 🎄",
+//   icon: FaGift,
+//   items: [
+//     {
+//       name: "Holiday Bundle",
+//       price: "999",
+//       description: "10kg mixed load + free fabric softener"
+//     },
+//     {
+//       name: "Family Festival Pack",
+//       price: "2500",
+//       description: "25kg mixed load + free delivery"
+//     },
+//     {
+//       name: "Party Dress Special",
+//       price: "300",
+//       description: "Perfect for your holiday events"
+//     }
+//   ]
+// };
+
+// Add the New Year offer
 const newYearOffers: PriceCategory = {
   title: "New Year Specials 🎉",
   icon: FaGift,
@@ -121,6 +145,7 @@ const newYearOffers: PriceCategory = {
   ]
 };
 
+// Update pricingCategories to include the new offer
 const pricingCategories: PriceCategory[] = [
   newYearOffers,
   {
@@ -214,6 +239,41 @@ const testimonials: Testimonial[] = [
   }
 ];
 
+const teamMembers: TeamMember[] = [
+  {
+    name: 'Kyrre Abraham',
+    position: 'Founder & CEO',
+    image: '/images/Kyree.png',
+    bio: 'Visionary leader with extensive experience in laundry operations',
+    socialLinks: {
+      linkedin: 'https://linkedin.com/in/kyrre-abraham',
+      email: 'kyrre@mellaundry.com'
+    }
+  },
+  {
+    name: 'Angel Tamara',
+    position: 'Operations Manager',
+    image: '/images/Tamara.png',
+    bio: 'Expert in streamlining business operations and customer satisfaction',
+    
+  },
+  {
+    name: 'Dralagar George',
+    position: 'Marketing Lead & Developer',
+    image: '/images/George.png',
+    bio: 'Digital marketing specialist with full-stack development expertise',
+    
+  },
+  {
+    name: 'Betty Likavo',
+    position: 'Customer Relations Manager',
+    image: '/images/Bettymel.png',
+    bio: 'Dedicated to ensuring exceptional customer experience',
+    
+  }
+];
+
+// Update the promotional banner
 const PromotionalBanner = () => (
   <motion.div 
     className={styles.festivePromo}
@@ -226,118 +286,330 @@ const PromotionalBanner = () => (
   </motion.div>
 );
 
+const calculateHolidayDiscount = (basePrice: number, timeOfDay: string, dayOfWeek: string) => {
+  let discount = 0;
+  
+  // Peak hours adjustment
+  const peakHourDiscount = timeOfDay === 'off-peak' ? 0.15 : 0;
+  
+  // Weekend bonus
+  const weekendBonus = dayOfWeek === 'weekend' ? 0.10 : 0;
+  
+  // Holiday season multiplier
+  const holidayMultiplier = 0.20;
+  
+  return basePrice * (1 - (peakHourDiscount + weekendBonus + holidayMultiplier));
+};
+
+/// Update the announcement section for the New Year offer
+const NewYearAnnouncement = () => (
+  <motion.section
+    className={styles.announcementSection}
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    transition={{ delay: 0.5, duration: 0.8 }}
+  >
+    <div className={styles.announcementContent}>
+      <p>Dear esteemed customer of MEL</p>
+      <p>
+        MEL has a New Year offer for a load of mixed clothes of 18 kg washed &amp; dried for KSh 1990/= from 31/12/2024 - 10/01/2025 (Exclusive ironing and folding).
+      </p>
+      <p>
+        During this period, MEL will also have a drawing of 5 lucky winners of VOUCHER cash cards worth KSh 500/= up to KSh 1000/=, which will be drawn and announced on Friday 10/01/2025 at 8PM.
+      </p>
+      <p>
+        The lottery tickets are for customers of MEL using MEL's services in this period, and the receipt is the ticket, so keep your receipt well.
+      </p>
+      <p>
+        Feel free to visit one of MEL&apos;s new branches at Embakasi Constituency, Donholm Phase 8 from Friday 31/01/2025.
+      </p>
+      <p>MEL wishes you a happy &amp; prosperous new year.</p>
+      <p>Sincerely,</p>
+      <p>MEL Team</p>
+    </div>
+  </motion.section>
+);
+
 const Home: React.FC = () => {
   return (
     <>
       <Head>
         <title>Mellaundry - Premier Laundry Services in Nairobi, Kenya</title>
-        <meta name="description" content="Discover Mellaundry, a modern laundry service offering fast, efficient, and affordable solutions in Nairobi, Kenya." />
+        <meta name="description" content="Discover Mellaundry, your go-to solution for fast, efficient, and affordable laundry services in Nairobi and across Kenya. Experience convenience and quality with us." />
+        <meta name="keywords" content="laundry Nairobi, laundry Kenya, Mellaundry, laundry services, Nairobi laundry, Kenya laundry" />
+        <meta name="robots" content="index, follow" />
+        {/* Open Graph tags for better social media integration */}
+        <meta property="og:title" content="Mellaundry - Premier Laundry Services in Nairobi, Kenya" />
+        <meta property="og:description" content="Discover Mellaundry, your go-to solution for fast, efficient, and affordable laundry services in Nairobi and across Kenya." />
+        <meta property="og:url" content="https://www.mellaundry.com" />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="https://www.mellaundry.com/images/og-image.jpg" />
+        {/* Twitter Card tags */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Mellaundry - Premier Laundry Services in Nairobi, Kenya" />
+        <meta name="twitter:description" content="Discover Mellaundry, your go-to solution for fast, efficient, and affordable laundry services in Nairobi and across Kenya." />
+        <meta name="twitter:image" content="https://www.mellaundry.com/images/twitter-image.jpg" />
       </Head>
-      <main className={styles.mainContainer}>
-        <PromotionalBanner />
-        <motion.section 
-          className={styles.featuresSection} 
-          variants={staggerChildren} 
-          initial="initial" 
-          animate="animate"
+      <div className={styles.homeContainer}>
+        {/* Hero Section */}
+        <motion.section
+          className={styles.homeHero}
+          initial="initial"
+          whileInView="animate"
+          viewport={{ once: true }}
+          variants={staggerChildren}
         >
-          {features.map((feature, index) => (
+          <div className={styles.heroImageWrapper}>
+            <Image
+              src="/images/aboutbg.jpg"
+              alt="MEL Laundry Professional Services"
+              fill
+              style={{ objectFit: 'cover' }}
+              quality={100}
+              priority
+            />
+            <div className={styles.heroOverlay}></div>
+          </div>
+          <motion.div
+            className={styles.heroContent}
+            initial={{ y: 50, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.5, duration: 0.8 }}
+          >
+            <h1 className={styles.heroTitle}>Professional Laundry Services in Nairobi</h1>
+            <p className={styles.heroDescription}>
+              Experience premium haste-free laundry solutions with MEL Laundry&apos;s state-of-the-art facilities and expert care. Serving Nairobi with excellence.
+            </p>
             <motion.div
-              key={index}
-              className={styles.featureItem}
-              variants={fadeInUp}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
-              <Image 
-                src={feature.img} 
-                alt={feature.title} 
-                width={64} 
-                height={64} 
-                className={styles.featureImage} 
-              />
-              <h3 className={styles.itemTitle}>{feature.title}</h3>
-              <p>{feature.description}</p>
+              <Link href="/locations" className={styles.ctaButton}>
+                Find Nearest Location
+              </Link>
             </motion.div>
-          ))}
+          </motion.div>
         </motion.section>
 
-        <motion.section 
-          className={styles.stepsSection} 
-          variants={staggerChildren} 
-          initial="initial" 
-          animate="animate"
+        {/* Features Section */}
+        <motion.section
+          className={styles.homeFeatures}
+          initial="initial"
+          whileInView="animate"
+          viewport={{ once: true }}
+          variants={staggerChildren}
         >
-          <h2>How It Works</h2>
-          {steps.map((step, index) => (
-            <motion.div
-              key={index}
-              className={styles.stepItem}
-              variants={fadeInUp}
-            >
-              {React.createElement(step.icon, { className: styles.icon })}
-              <h3>{step.title}</h3>
-              <p>{step.description}</p>
-              <Image src={step.img} alt={step.title} width={64} height={64} />
-            </motion.div>
-          ))}
+          <motion.h2 className={styles.sectionTitle} variants={fadeInUp}>
+            Why Choose MEL Laundry?
+          </motion.h2>
+          <div className={styles.featuresGrid}>
+            {features.map((feature, index) => (
+              <motion.div key={index} className={styles.featureItem} variants={fadeInUp}>
+                <Image 
+                  src={feature.img} 
+                  alt={feature.title} 
+                  width={64} 
+                  height={64} 
+                  className={styles.featureImage} 
+                />
+                <h3 className={styles.itemTitle}>{feature.title}</h3>
+                <p>{feature.description}</p>
+              </motion.div>
+            ))}
+          </div>
         </motion.section>
 
-        <motion.section 
-          className={styles.pricingSection} 
-          variants={staggerChildren} 
-          initial="initial" 
-          animate="animate"
+        {/* Steps Section */}
+        <motion.section
+          className={styles.howItWorks}
+          initial="initial"
+          whileInView="animate"
+          viewport={{ once: true }}
+          variants={staggerChildren}
         >
-          <h2>Our Services & Pricing</h2>
-          {pricingCategories.map((category, index) => (
-            <motion.div
-              key={index}
-              className={styles.categoryCard}
-              variants={fadeInUp}
-            >
-              <div className={styles.categoryHeader}>
-                {React.createElement(category.icon, { className: styles.categoryIcon })}
-                <h3>{category.title}</h3>
-              </div>
-              <div className={styles.priceList}>
-                {category.items.map((item, itemIndex) => (
-                  <div key={itemIndex} className={styles.priceItem}>
-                    <div className={styles.priceItemInfo}>
-                      <span className={styles.itemName}>{item.name}</span>
-                      {item.description && (
-                        <span className={styles.itemDescription}>{item.description}</span>
-                      )}
+          <motion.h2 className={styles.sectionTitle} variants={fadeInUp}>
+            How It Works
+          </motion.h2>
+          <div className={styles.stepsGrid}>
+            {steps.map((step, index) => (
+              <motion.div key={index} className={styles.stepItem} variants={fadeInUp}>
+                {React.createElement(step.icon, { className: styles.icon })}
+                <h3 className={styles.itemTitle}>{step.title}</h3>
+                <p>{step.description}</p>
+                <Image src={step.img} alt={step.title} width={64} height={64} />
+              </motion.div>
+            ))}
+          </div>
+        </motion.section>
+
+        {/* Pricing Section */}
+        <motion.section
+          className={styles.pricing}
+          initial="initial"
+          whileInView="animate"
+          viewport={{ once: true }}
+          variants={staggerChildren}
+        >
+          <motion.h2 className={styles.sectionTitle} variants={fadeInUp}>
+            Our Services & Pricing
+          </motion.h2>
+          <motion.p className={styles.pricingSubtitle} variants={fadeInUp}>
+            Professional laundry services at competitive prices
+          </motion.p>
+          
+          <motion.div className={styles.pricingCategories} variants={staggerChildren}>
+            {pricingCategories.map((category, index) => (
+              <motion.div
+                key={index}
+                className={styles.categoryCard}
+                variants={fadeInUp}
+              >
+                <div className={styles.categoryHeader}>
+                  {React.createElement(category.icon, { className: styles.categoryIcon })}
+                  <h3>{category.title}</h3>
+                </div>
+                <div className={styles.priceList}>
+                  {category.items.map((item, itemIndex) => (
+                    <div key={itemIndex} className={styles.priceItem}>
+                      <div className={styles.priceItemInfo}>
+                        <span className={styles.itemName}>{item.name}</span>
+                        {item.description && (
+                          <span className={styles.itemDescription}>{item.description}</span>
+                        )}
+                      </div>
+                      <span className={styles.itemPrice}>
+                        {typeof item.price === 'string' 
+                          ? `KSh ${item.price}`
+                          : `KSh ${item.price.from} - ${item.price.to}`}
+                      </span>
                     </div>
-                    <span className={styles.itemPrice}>
-                      {typeof item.price === 'string' 
-                        ? `KSh ${item.price}`
-                        : `KSh ${item.price.from} - ${item.price.to}`}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </motion.div>
-          ))}
+                  ))}
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+          
+          <motion.div className={styles.paymentInfo} variants={fadeInUp}>
+            <button 
+              className={styles.paymentButton}
+              onClick={() => window.open('https://buygoods.co.ke/buy/4572688', '_blank')}
+            >
+              Buy Goods Till: 4572688
+            </button>
+          </motion.div>
         </motion.section>
 
-        <motion.section 
-          className={styles.testimonialsSection} 
-          variants={staggerChildren} 
-          initial="initial" 
-          animate="animate"
+        {/* Meet the Team Section */}
+        <motion.section
+          className={styles.meetTheTeam}
+          initial="initial"
+          whileInView="animate"
+          viewport={{ once: true }}
+          variants={staggerChildren}
         >
-          <h2>What Our Customers Say</h2>
-          {testimonials.map((testimonial) => (
-            <motion.div key={testimonial.id} className={styles.testimonialItem} variants={fadeInUp}>
-              <p>{testimonial.content}</p>
-              <h4>- {testimonial.author}</h4>
-            </motion.div>
-          ))}
+          <motion.div className={styles.teamHeader} variants={fadeInUp}>
+            <h2 className={styles.sectionTitle}>Meet Our Team</h2>
+            <p className={styles.teamSubtitle}>The passionate professionals behind MEL Laundry's success</p>
+          </motion.div>
+          
+          <div className={styles.teamRow}>
+            {teamMembers.map((member, index) => (
+              <motion.div 
+                key={member.name}
+                className={styles.teamMember}
+                variants={fadeInUp}
+                whileHover={{ scale: 1.02 }}
+                transition={{ duration: 0.3 }}
+              >
+                <div className={styles.teamImageContainer}>
+                  <Image 
+                    src={member.image} 
+                    alt={member.name} 
+                    width={150} 
+                    height={150} 
+                    className={styles.teamImage}
+                    priority={index < 2}
+                  />
+                </div>
+                <div className={styles.teamInfo}>
+                  <h3>{member.name}</h3>
+                  <h4>{member.position}</h4>
+                  {member.bio && <p>{member.bio}</p>}
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </motion.section>
 
-        <footer className={styles.footer}>
-          <p>&copy; {new Date().getFullYear()} Mellaundry. All rights reserved.</p>
-        </footer>
-      </main>
+        {/* Testimonials Section */}
+        <motion.section
+          className={styles.homeTestimonials}
+          initial="initial"
+          whileInView="animate"
+          viewport={{ once: true }}
+          variants={staggerChildren}
+        >
+          <motion.h2 className={styles.sectionTitle} variants={fadeInUp}>
+            What Our Customers Say
+          </motion.h2>
+          <div className={styles.testimonialsGrid}>
+            {testimonials.map((testimonial) => (
+              <motion.div key={testimonial.id} className={styles.testimonialItem} variants={fadeInUp}>
+                <p>{testimonial.content}</p>
+                <h4>- {testimonial.author}</h4>
+              </motion.div>
+            ))}
+          </div>
+        </motion.section>
+
+        {/* Contact Section */}
+        <motion.section
+          className={styles.contactSection}
+          initial="initial"
+          whileInView="animate"
+          viewport={{ once: true }}
+          variants={staggerChildren}
+        >
+          <motion.h2 className={styles.sectionTitle} variants={fadeInUp}>Visit Us</motion.h2>
+          <div className={styles.contactInfo}>
+            <motion.div className={styles.contactItem} variants={fadeInUp}>
+              <FaMapMarkerAlt className={styles.contactIcon} />
+              <p>Shiloh Towers, Opposite CFF Donholm, Off Manyanja Rd, Nairobi, Kenya</p>
+            </motion.div>
+            <motion.div className={styles.contactItem} variants={fadeInUp}>
+              <FaPhone className={styles.contactIcon} />
+              <p>+254740630890</p>
+            </motion.div>
+            <motion.div className={styles.contactItem} variants={fadeInUp}>
+              <FaMapMarkerAlt className={styles.contactIcon} />
+              <p>New Branch: Embakasi Constituency, Donholm Phase 8, opening from January 31st, 2025</p>
+            </motion.div>
+          </div>
+        </motion.section>
+
+        {/* Call to Action */}
+        <motion.section
+          className={styles.ctaSection}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.5, duration: 0.8 }}
+        >
+          <h2 className={styles.sectionTitle}>Get Started with MEL Laundry Today!</h2>
+          <p className={styles.ctaText}>
+            Convenient, fast, and affordable self-service laundry in Nairobi.
+          </p>
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <Link href="/locations" className={styles.ctaButton}>
+              Find a Location
+            </Link>
+          </motion.div>
+        </motion.section>
+
+        <NewYearAnnouncement />
+      </div>
     </>
   );
 };
