@@ -312,7 +312,7 @@ const NewYearAnnouncement = () => (
     <div className={styles.announcementContent}>
       <p>Dear esteemed customer of MEL</p>
       <p>
-        MEL has a New Year offer for a load of mixed clothes of 18 kg washed & dried for KSh 1990/= from 31/12/2024 - 10/01/2025 (Exclusive ironing and folding).
+        MEL has a New Year offer for a load of mixed clothes of 18 kg washed &amp; dried for KSh 1990/= from 31/12/2024 - 10/01/2025 (Exclusive ironing and folding).
       </p>
       <p>
         During this period, MEL will also have a drawing of 5 lucky winners of VOUCHER cash cards worth KSh 500/= up to KSh 1000/=, which will be drawn and announced on Friday 10/01/2025 at 8PM.
@@ -321,9 +321,9 @@ const NewYearAnnouncement = () => (
         The lottery tickets are for customers of MEL using MEL's services in this period, and the receipt is the ticket, so keep your receipt well.
       </p>
       <p>
-        Feel free to visit one of MEL's new branches at Embakasi Constituency, Donholm Phase 8 from Friday 31/01/2025.
+        Feel free to visit one of MEL&apos;s new branches at Embakasi Constituency, Donholm Phase 8 from Friday 31/01/2025.
       </p>
-      <p>MEL wishes you a happy & prosperous new year.</p>
+      <p>MEL wishes you a happy &amp; prosperous new year.</p>
       <p>Sincerely,</p>
       <p>MEL Team</p>
     </div>
@@ -378,7 +378,7 @@ const Home: React.FC = () => {
           >
             <h1 className={styles.heroTitle}>Professional Laundry Services in Nairobi</h1>
             <p className={styles.heroDescription}>
-              Experience premium haste free laundry solutions with MEL Laundry state-of-the-art facilities and expert care. Serving Nairobi with excellence.
+              Experience premium haste free laundry solutions with MEL Laundry&apos;s state-of-the-art facilities and expert care. Serving Nairobi with excellence.
             </p>
             <motion.div
               whileHover={{ scale: 1.05 }}
