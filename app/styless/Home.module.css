@@ -1,24 +1,10 @@
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
-}
-
-@keyframes spin {
-  from { transform: rotate(0); }
-  to { transform: rotate(360deg); }
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
 .homeContainer {
   width: 100%;
   overflow-x: hidden;
   background: linear-gradient(135deg, #f6f9fc 0%, #e9f2f9 100%);
   font-family: var(--font-sans);
   color: var(--text-color);
+  padding: 0 1rem;
 }
 
 /* Hero Section */
@@ -29,7 +15,6 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  background: url('/path/to/your/hero-background.jpg') no-repeat center center/cover;
   overflow: hidden;
 }
 
@@ -107,6 +92,7 @@
   transition: var(--transition-base);
   border: 1px solid rgba(0, 0, 0, 0.1);
   box-shadow: var(--shadow-sm);
+  text-align: center;
 }
 
 .featureItem:hover {
@@ -416,6 +402,7 @@
   position: relative;
   width: 100%;
   padding-top: 100%;
+  border-radius: 12px 12px 0 0;
 }
 
 .teamImage {

@@ -98,7 +98,7 @@ const steps: Step[] = [
   {
     icon: FaWater,
     title: 'Wash',
-    img: '/images/24hour.png',
+    img: '/images/wash.png',
     description: 'Use our high-efficiency washing machines to clean your clothes.'
   },
   {
@@ -108,29 +108,6 @@ const steps: Step[] = [
     description: 'Dry your clothes quickly with our powerful dryers.'
   }
 ];
-
-// Remove the Christmas offer
-// const christmasOffers: PriceCategory = {
-//   title: "Christmas Specials 🎄",
-//   icon: FaGift,
-//   items: [
-//     {
-//       name: "Holiday Bundle",
-//       price: "999",
-//       description: "10kg mixed load + free fabric softener"
-//     },
-//     {
-//       name: "Family Festival Pack",
-//       price: "2500",
-//       description: "25kg mixed load + free delivery"
-//     },
-//     {
-//       name: "Party Dress Special",
-//       price: "300",
-//       description: "Perfect for your holiday events"
-//     }
-//   ]
-// };
 
 // Add the New Year offer
 const newYearOffers: PriceCategory = {
@@ -187,121 +164,59 @@ const pricingCategories: PriceCategory[] = [
         name: "Duvet Cover",
         price: { from: "300", to: "400" }
       },
-      {
-        name: "Underwear Load",
-        price: "400",
-        description: "Up to 2kg"
-      }
     ]
+  }
+];
+
+const teamMembers: TeamMember[] = [
+  {
+    name: "Kyree Abraham",
+    position: "Manager",
+    image: "/images/Kyree.png",
+    bio: "John is the manager at MEL Laundry with over 10 years of experience in the industry.",
+  
   },
   {
-    title: "Individual Items",
-    icon: IoShirt,
-    items: [
-      { name: "Sheer", price: "150" },
-      { name: "Bedsheet", price: { from: "150", to: "300" } },
-      { name: "Suit", price: { from: "500", to: "700" } },
-      { name: "Women's Suit/Dress", price: "250" },
-      { name: "Kanzu", price: "150" },
-      { name: "Sweater/Jacket", price: { from: "100", to: "200" } },
-      { name: "Trench Coat", price: "200" },
-      { name: "Trouser", price: "100" },
-      { name: "Shirt", price: "100" }
-    ]
+    name: "Angel Tamara",
+    position: "Operations Manager",
+    image: "/images/Tamara.png",
+    bio: "Jane has been with MEL Laundry for 5 years, ensuring smooth operations and customer satisfaction.",
+  
   },
   {
-    title: "Ironing Services",
-    icon: GiIronCross,
-    items: [
-      { name: "Shirt", price: "30" },
-      { name: "Suit (Trouser & Coat)", price: "100" },
-      { name: "Kazu", price: "50" },
-      { name: "Dress", price: "100" }
-    ]
+    name: "George Dralagar",
+    position: "Marketing Lead & Developer",
+    image: "/images/George.png",
+    bio: "George is the marketing lead and developer at MEL Laundry, ensuring smooth operations and customer satisfaction.",
+  },
+  {
+    name: "Betty Likavo",
+    position: "Customer Service Lead",
+    image: "/images/",
+    bio: "Betty leads our customer service team, dedicated to providing the best experience for our clients.",
+    
   }
 ];
 
 const testimonials: Testimonial[] = [
   {
     id: "1",
-    content: "MEL Laundry has made my life so much easier. Their machines are always clean and well-maintained!",
-    author: "David Tito."
+    content: "MEL Laundry provides excellent service and my clothes are always perfectly clean.",
+    author: "Ivy Mwende"
   },
   {
     id: "2",
-    content: "The best laundry service in Nairobi. Fast, efficient, and very affordable!",
-    author: "Collins Bokelo."
+    content: "The staff at MEL Laundry are friendly and professional. Highly recommend!",
+    author: "Kelvin Abwenje"
   },
   {
     id: "3",
-    content: "I love how convenient their locations are. 24/7 service is a game-changer!",
-    author: "Ouma Geofrey."
+    content: "Great service and affordable prices. I always use MEL Laundry for my laundry needs.",
+    author: "Cleopas Malala"
   }
 ];
 
-const teamMembers: TeamMember[] = [
-  {
-    name: 'Kyrre Abraham',
-    position: 'Founder & CEO',
-    image: '/images/Kyree.png',
-    bio: 'Visionary leader with extensive experience in laundry operations',
-    socialLinks: {
-      linkedin: 'https://linkedin.com/in/kyrre-abraham',
-      email: 'kyrre@mellaundry.com'
-    }
-  },
-  {
-    name: 'Angel Tamara',
-    position: 'Operations Manager',
-    image: '/images/Tamara.png',
-    bio: 'Expert in streamlining business operations and customer satisfaction',
-    
-  },
-  {
-    name: 'Dralagar George',
-    position: 'Marketing Lead & Developer',
-    image: '/images/George.png',
-    bio: 'Digital marketing specialist with full-stack development expertise',
-    
-  },
-  {
-    name: 'Betty Likavo',
-    position: 'Customer Relations Manager',
-    image: '/images/Bettymel.png',
-    bio: 'Dedicated to ensuring exceptional customer experience',
-    
-  }
-];
-
-// Update the promotional banner
-const PromotionalBanner = () => (
-  <motion.div 
-    className={styles.festivePromo}
-    initial={{ y: -100 }}
-    animate={{ y: 0 }}
-  >
-    <FaSnowflake className={styles.snowflake} />
-    <h3>🎉 New Year Special: 18kg mixed load washed & dried for KSh 1990 until January 10th! 🎊</h3>
-    <p>Participate in our draw for a chance to win a VOUCHER cash card worth KSh 500 - KSh 1000. Keep your receipt as your ticket!</p>
-  </motion.div>
-);
-
-const calculateHolidayDiscount = (basePrice: number, timeOfDay: string, dayOfWeek: string) => {
-  let discount = 0;
-  
-  // Peak hours adjustment
-  const peakHourDiscount = timeOfDay === 'off-peak' ? 0.15 : 0;
-  
-  // Weekend bonus
-  const weekendBonus = dayOfWeek === 'weekend' ? 0.10 : 0;
-  
-  // Holiday season multiplier
-  const holidayMultiplier = 0.20;
-  
-  return basePrice * (1 - (peakHourDiscount + weekendBonus + holidayMultiplier));
-};
-
-/// Update the announcement section for the New Year offer
+// Update the announcement section for the New Year offer
 const NewYearAnnouncement = () => (
   <motion.section
     className={styles.announcementSection}
@@ -376,9 +291,9 @@ const Home: React.FC = () => {
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.5, duration: 0.8 }}
           >
-          <h1 className={styles.heroTitle}>SELF CONTAINED 15 MIN QUICK WASH & DRYING PROFESSIONAL LAUNDRY SERVICES IN NAIROBI</h1>
+            <h1 className={styles.heroTitle}>SELF CONTAINED 15 MIN QUICK WASH & DRYING PROFESSIONAL LAUNDRY SERVICES IN NAIROBI</h1>
             <p className={styles.heroDescription}>
-              Experience Premium Hastle-Free Laundry Solutions with MEL Laundry&apos;s state-of-the-art facilities and expert care. Serving Nairobi with excellence.
+              Experience Premium Hassle-Free Laundry Solutions with MEL Laundry&apos;s state-of-the-art facilities and expert care. Serving Nairobi with excellence.
             </p>
             <motion.div
               whileHover={{ scale: 1.05 }}
@@ -509,7 +424,7 @@ const Home: React.FC = () => {
         >
           <motion.div className={styles.teamHeader} variants={fadeInUp}>
             <h2 className={styles.sectionTitle}>Meet Our Team</h2>
-            <p className={styles.teamSubtitle}>The passionate professionals behind MEL Laundry&apos;s success</p>
+            <p className={styles.teamSubtitle}>The passionate professionals behind MEL Laundry's success</p>
           </motion.div>
           
           <div className={styles.teamRow}>
@@ -535,6 +450,11 @@ const Home: React.FC = () => {
                   <h3>{member.name}</h3>
                   <h4>{member.position}</h4>
                   {member.bio && <p>{member.bio}</p>}
+                  <div className={styles.socialLinks}>
+                    {member.socialLinks?.linkedin && <a href={member.socialLinks.linkedin} target="_blank" rel="noopener noreferrer"><FaLinkedin /></a>}
+                    {member.socialLinks?.twitter && <a href={member.socialLinks.twitter} target="_blank" rel="noopener noreferrer"><FaTwitter /></a>}
+                    {member.socialLinks?.email && <a href={`mailto:${member.socialLinks.email}`}><FaEnvelope /></a>}
+                  </div>
                 </div>
               </motion.div>
             ))}
@@ -609,11 +529,26 @@ const Home: React.FC = () => {
         </motion.section>
 
         <NewYearAnnouncement />
+
+        <footer className={styles.footer}>
+          <div className={styles.footerContent}>
+            <p>&copy; {new Date().getFullYear()} MEL Laundry. All rights reserved.</p>
+            <div className={styles.socialLinks}>
+              <a href="https://www.facebook.com/mellaundry" target="_blank" rel="noopener noreferrer">
+                <FaLinkedin />
+              </a>
+              <a href="https://twitter.com/mellaundry" target="_blank" rel="noopener noreferrer">
+                <FaTwitter />
+              </a>
+              <a href="mailto:info@mellaundry.com">
+                <FaEnvelope />
+              </a>
+            </div>
+          </div>
+        </footer>
       </div>
     </>
   );
 };
 
 export default Home;
-
-
