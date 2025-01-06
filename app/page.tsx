@@ -291,7 +291,9 @@ const Home: React.FC = () => {
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.5, duration: 0.8 }}
           >
-            <h1 className={styles.heroTitle}>SELF CONTAINED 15 MIN QUICK WASH & DRYING PROFESSIONAL LAUNDRY SERVICES IN NAIROBI</h1>
+            <h1 className={styles.heroTitle}>
+              SELF CONTAINED 15 MIN QUICK WASH & DRYING PROFESSIONAL LAUNDRY SERVICES IN NAIROBI
+            </h1>
             <p className={styles.heroDescription}>
               Experience Premium Hassle-Free Laundry Solutions with MEL Laundry&apos;s state-of-the-art facilities and expert care. Serving Nairobi with excellence.
             </p>
