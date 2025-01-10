@@ -175,28 +175,21 @@ const teamMembers: TeamMember[] = [
     name: "Kyree Abraham",
     position: "Manager",
     image: "/images/Kyree.png",
-    bio: "John is the manager at MEL Laundry with over 10 years of experience in the industry.",
-  
+    
   },
   {
     name: "Angel Tamara",
     position: "Operations Manager",
     image: "/images/Tamara.png",
-    bio: "Jane has been with MEL Laundry for 5 years, ensuring smooth operations and customer satisfaction.",
-  
   },
   {
     name: "George Dralagar",
     position: "Marketing Lead & Developer",
-    image: "/images/George.png",
-    bio: "George is the marketing lead and developer at MEL Laundry, ensuring smooth operations and customer satisfaction.",
-  },
+    image: "/images/George.png",},
   {
     name: "Betty Likavo",
     position: "Customer Service Lead",
-    image: "/images/",
-    bio: "Betty leads our customer service team, dedicated to providing the best experience for our clients.",
-    
+    image: "/images/Betty.png",
   }
 ];
 
@@ -251,20 +244,19 @@ const Home: React.FC = () => {
   return (
     <>
       <Head>
-        <title>Mellaundry - Premier Laundry Services in Nairobi, Kenya</title>
-        <meta name="description" content="Discover Mellaundry, your go-to solution for fast, efficient, and affordable laundry services in Nairobi and across Kenya. Experience convenience and quality with us." />
-        <meta name="keywords" content="laundry Nairobi, laundry Kenya, Mellaundry, laundry services, Nairobi laundry, Kenya laundry" />
+        <title>MEL Laundry - Premier Laundry Services in Nairobi, Kenya</title>
+        <meta name="description" content="Discover MEL Laundry, your go-to solution for fast, efficient, and affordable laundry services in Nairobi and across Kenya. Experience convenience and quality with us." />
+        <meta name="keywords" content="laundry services Nairobi, self-service laundry Kenya, affordable laundry Nairobi, MEL Laundry, Nairobi laundry services" />
         <meta name="robots" content="index, follow" />
-        {/* Open Graph tags for better social media integration */}
-        <meta property="og:title" content="Mellaundry - Premier Laundry Services in Nairobi, Kenya" />
-        <meta property="og:description" content="Discover Mellaundry, your go-to solution for fast, efficient, and affordable laundry services in Nairobi and across Kenya." />
-        <meta property="og:url" content="https://www.mellaundry.com" />
+        <meta property="og:title" content="MEL Laundry - Hassle-Free Professional Laundry Services in Nairobi, Kenya" />
+        <meta property="og:description" content="Discover MEL Laundry, your go-to solution for fast, efficient, and affordable laundry services in Nairobi and across Kenya." />
+        <meta property="og:url" content="https://www.mellaundry.co.ke/page-path" />
+        <link rel="canonical" href="https://www.mellaundry.co.ke/page-path" />
         <meta property="og:type" content="website" />
         <meta property="og:image" content="https://www.mellaundry.com/images/og-image.jpg" />
-        {/* Twitter Card tags */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Mellaundry - Premier Laundry Services in Nairobi, Kenya" />
-        <meta name="twitter:description" content="Discover Mellaundry, your go-to solution for fast, efficient, and affordable laundry services in Nairobi and across Kenya." />
+        <meta name="twitter:title" content="MEL Laundry - Hassle-Free Laundry Services in Nairobi, Kenya" />
+        <meta name="twitter:description" content="Discover MEL Laundry, your go-to solution for fast, efficient, and affordable laundry services in Nairobi and across Kenya." />
         <meta name="twitter:image" content="https://www.mellaundry.com/images/twitter-image.jpg" />
       </Head>
       <div className={styles.homeContainer}>
@@ -294,10 +286,10 @@ const Home: React.FC = () => {
             transition={{ delay: 0.5, duration: 0.8 }}
           >
             <h1 className={styles.heroTitle}>
-              SELF CONTAINED 15 MIN QUICK WASH & DRYING PROFESSIONAL LAUNDRY SERVICES IN NAIROBI
+              SELF-CONTAINED 15 MIN QUICK WASH & DRYING PROFESSIONAL HAS LAUNDRY SERVICES IN NAIROBI
             </h1>
             <p className={styles.heroDescription}>
-              Experience Premium Hassle-Free Laundry Solutions with MEL Laundry&apos;s state-of-the-art facilities and expert care. Serving Nairobi with excellence.
+              Experience premium hassle-free laundry solutions with MEL Laundry&apos;s state-of-the-art facilities and expert care. Serving Nairobi with excellence in self-service and affordable laundry options.
             </p>
             <motion.div
               whileHover={{ scale: 1.05 }}
@@ -533,23 +525,6 @@ const Home: React.FC = () => {
         </motion.section>
 
         <NewYearAnnouncement />
-
-        <footer className={styles.footer}>
-          <div className={styles.footerContent}>
-            <p>&copy; {new Date().getFullYear()} MEL Laundry. All rights reserved.</p>
-            <div className={styles.socialLinks}>
-              <a href="https://www.facebook.com/mellaundry" target="_blank" rel="noopener noreferrer">
-                <FaLinkedin />
-              </a>
-              <a href="https://twitter.com/mellaundry" target="_blank" rel="noopener noreferrer">
-                <FaTwitter />
-              </a>
-              <a href="mailto:info@mellaundry.com">
-                <FaEnvelope />
-              </a>
-            </div>
-          </div>
-        </footer>
       </div>
     </>
   );

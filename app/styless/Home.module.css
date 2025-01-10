@@ -373,13 +373,11 @@
 
 .teamRow {
   display: flex;
-  flex-wrap: nowrap;
-  justify-content: space-around;
+  flex-wrap: wrap;
+  justify-content: center;
   align-items: stretch;
   gap: 1rem;
-  overflow-x: auto;
   padding-bottom: 1rem;
-  -webkit-overflow-scrolling: touch;
 }
 
 .teamMember {
@@ -454,25 +452,6 @@
 
 .teamSocial a:hover {
   color: #0051a2;
-}
-
-/* Hide scrollbar but keep functionality */
-.teamRow::-webkit-scrollbar {
-  height: 6px;
-}
-
-.teamRow::-webkit-scrollbar-track {
-  background: #f1f1f1;
-  border-radius: 3px;
-}
-
-.teamRow::-webkit-scrollbar-thumb {
-  background: #888;
-  border-radius: 3px;
-}
-
-.teamRow::-webkit-scrollbar-thumb:hover {
-  background: #555;
 }
 
 /* Call to Action Section */
