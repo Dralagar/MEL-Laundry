@@ -9,11 +9,14 @@ import Image from 'next/image';
 import { FaTshirt, FaWater, FaMapMarkerAlt, FaPhone, FaGift, FaSnowflake, FaLinkedin, FaTwitter, FaEnvelope } from 'react-icons/fa';
 import { MdLocalLaundryService, MdOutlineDryCleaning } from 'react-icons/md';
 import { IoShirt } from "react-icons/io5";
-import { GiWashingMachine, GiIronCross } from "react-icons/gi";
+import { GiWashingMachine, GiIronCross } from "react-icons/gi"; 
 import { motion, Variants } from 'framer-motion';
 import styles from './styless/Home.module.css';
 
-// Motion variants
+
+
+
+// Motion variants  
 const fadeInUp: Variants = {
   initial: { y: 60, opacity: 0 },
   animate: { y: 0, opacity: 1 },
@@ -75,7 +78,7 @@ interface TeamMember {
 const features: Feature[] = [
   { 
     title: 'Fast & Efficient',  
-    img: '/images/first.png', 
+    img: '/images/fast.png', 
     description: 'Get your laundry done quickly with our high-speed machines.' 
   },
   { 
@@ -111,22 +114,8 @@ const steps: Step[] = [
   }
 ];
 
-// Add the New Year offer
-const newYearOffers: PriceCategory = {
-  title: "New Year Specials 🎉",
-  icon: FaGift,
-  items: [
-    {
-      name: "New Year Mixed Load",
-      price: "1990",
-      description: "18kg washed & dried (Exclusive ironing and folding)"
-    }
-  ]
-};
-
-// Update pricingCategories to include the new offer
+// Update pricingCategories without the New Year offer
 const pricingCategories: PriceCategory[] = [
-  newYearOffers,
   {
     title: "Special Offers",
     icon: GiWashingMachine,
@@ -174,22 +163,22 @@ const teamMembers: TeamMember[] = [
   {
     name: "Kyree Abraham",
     position: "Manager",
-    image: "/images/Kyree.png",
-    
+    image: "/images/kyree.png",
   },
   {
     name: "Angel Tamara",
     position: "Operations Manager",
-    image: "/images/Tamara.png",
+    image: "/images/tamara.png",
   },
   {
     name: "George Dralagar",
     position: "Marketing Lead & Developer",
-    image: "/images/George.png",},
+    image: "/images/george.png",
+  },
   {
-    name: "Betty Likavo",
+    name: "Sylvia Achista",
     position: "Customer Service Lead",
-    image: "/images/Betty.png",
+    image: "/images/cylvia.png",
   }
 ];
 
@@ -207,40 +196,110 @@ const testimonials: Testimonial[] = [
   {
     id: "3",
     content: "Great service and affordable prices. I always use MEL Laundry for my laundry needs.",
-    author: "Cleopas Malala"
+    author: "Collins Mwenga"
   }
 ];
 
-// Update the announcement section for the New Year offer
-const NewYearAnnouncement = () => (
+// Define animation variants for the card
+const cardVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+  hover: { scale: 1.05, transition: { duration: 0.3 } },
+};
+
+// Update the announcement section with an animated card
+const LotteryAnnouncement = () => (
   <motion.section
-    className={styles.announcementSection}
-    initial={{ opacity: 0 }}
-    animate={{ opacity: 1 }}
-    transition={{ delay: 0.5, duration: 0.8 }}
+    className="announcementSection"
+    initial="hidden"
+    animate="visible"
+    whileHover="hover"
+    variants={cardVariants}
   >
-    <div className={styles.announcementContent}>
-      <p>Dear esteemed customer of MEL</p>
+    <div className="announcementCard">
+      <h2 className="announcementTitle">Exciting Lottery Announcement!</h2>
       <p>
-        MEL has a New Year offer for a load of mixed clothes of 18 kg washed &amp; dried for KSh 1990/= from 31/12/2024 - 10/01/2025 (Exclusive ironing and folding).
+        MEL's lottery drawing took place on 31/01/2025 at 8PM. Congratulations to the 10 winners of VOUCHER Cash cards worth 500/= KSh or 1000/= KSh.
       </p>
       <p>
-        During this period, MEL will also have a drawing of 5 lucky winners of VOUCHER cash cards worth KSh 500/= up to KSh 1000/=, which will be drawn and announced on Friday 10/01/2025 at 8PM.
+        This lottery was for all customers that used MEL's services in January 2025.
       </p>
-      <p>
-        The lottery tickets are for customers of MEL using MEL&apos;s services in this period, and the receipt is the ticket, so keep your receipt well.
-      </p>
-      <p>
-        Feel free to visit one of MEL&apos;s new branches at Embakasi Constituency, Donholm Phase 8 from Friday 31/01/2025.
-      </p>
-      <p>MEL wishes you a happy &amp; prosperous new year.</p>
+      <p>Thank you for participating!</p>
       <p>Sincerely,</p>
-      <p>MEL Team</p>
+      <p>The MEL Team</p>
+
+      {/* Lottery Announcement Video */}
+      <div className="videoWrapper">
+        <video controls width="100%">
+          <source src="/videos/lottery-announcement.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      </div>
+
+      {/* Winners Section */}
+      <div className={styles.winnersSection}>
+        <h3>Winners</h3>
+        <div className={styles.winnerRow}>
+          {['winner1', 'winner2', 'winner3'].map((winner, index) => (
+            <div key={index} className={styles.winner}>
+              <Image src={`/images/${winner}.png`} alt={`Winner ${index + 1}`} width={100} height={100} />
+              <p>Winner #{index + 1}</p>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   </motion.section>
 );
 
 const Home: React.FC = () => {
+  // Move window event listeners inside useEffect
+  React.useEffect(() => {
+    const handleScroll = () => {
+      const backToTopButton = document.querySelector('.back-to-top');
+      if (window.scrollY > 300) {
+        backToTopButton?.classList.add('show');
+      } else {
+        backToTopButton?.classList.remove('show');
+      }
+    };
+
+    const handleSectionScroll = () => {
+      const sections = document.querySelectorAll('section');
+      const navLinks = document.querySelectorAll('.sticky-nav a');
+
+      let currentSection = '';
+
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        if (window.pageYOffset >= sectionTop - 60) {
+          const id = section.getAttribute('id');
+          if (id) {
+            currentSection = id;
+          }
+        }
+      });
+
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        const href = link.getAttribute('href');
+        if (href && href.includes(currentSection)) {
+          link.classList.add('active');
+        }
+      });
+    };
+
+    // Add event listeners
+    window.addEventListener('scroll', handleScroll);
+    document.addEventListener('scroll', handleSectionScroll);
+
+    // Cleanup
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      document.removeEventListener('scroll', handleSectionScroll);
+    };
+  }, []); // Empty dependency array means this runs once on mount
+
   return (
     <>
       <Head>
@@ -253,7 +312,7 @@ const Home: React.FC = () => {
         <meta property="og:url" content="https://www.mellaundry.co.ke/page-path" />
         <link rel="canonical" href="https://www.mellaundry.co.ke/page-path" />
         <meta property="og:type" content="website" />
-        <meta property="og:image" content="https://www.mellaundry.com/images/og-image.jpg" />
+        <meta property="og:image" content="https://www.mellaundry.co.ke/images/og-image.jpg" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="MEL Laundry - Hassle-Free Laundry Services in Nairobi, Kenya" />
         <meta name="twitter:description" content="Discover MEL Laundry, your go-to solution for fast, efficient, and affordable laundry services in Nairobi and across Kenya." />
@@ -262,6 +321,7 @@ const Home: React.FC = () => {
       <div className={styles.homeContainer}>
         {/* Hero Section */}
         <motion.section
+          id="hero"
           className={styles.homeHero}
           initial="initial"
           whileInView="animate"
@@ -304,6 +364,7 @@ const Home: React.FC = () => {
 
         {/* Features Section */}
         <motion.section
+          id="features"
           className={styles.homeFeatures}
           initial="initial"
           whileInView="animate"
@@ -355,6 +416,7 @@ const Home: React.FC = () => {
 
         {/* Pricing Section */}
         <motion.section
+          id="pricing"
           className={styles.pricing}
           initial="initial"
           whileInView="animate"
@@ -412,6 +474,7 @@ const Home: React.FC = () => {
 
         {/* Meet the Team Section */}
         <motion.section
+          id="team"
           className={styles.meetTheTeam}
           initial="initial"
           whileInView="animate"
@@ -429,7 +492,6 @@ const Home: React.FC = () => {
                 key={member.name}
                 className={styles.teamMember}
                 variants={fadeInUp}
-                whileHover={{ scale: 1.02 }}
                 transition={{ duration: 0.3 }}
               >
                 <div className={styles.teamImageContainer}>
@@ -439,6 +501,9 @@ const Home: React.FC = () => {
                     width={150} 
                     height={150} 
                     className={styles.teamImage}
+                    style={{ objectFit: 'cover', borderRadius: '50%', transition: 'transform 0.3s ease' }}
+                    onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
+                    onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
                     priority={index < 2}
                   />
                 </div>
@@ -480,6 +545,7 @@ const Home: React.FC = () => {
 
         {/* Contact Section */}
         <motion.section
+          id="contact"
           className={styles.contactSection}
           initial="initial"
           whileInView="animate"
@@ -524,7 +590,12 @@ const Home: React.FC = () => {
           </motion.div>
         </motion.section>
 
-        <NewYearAnnouncement />
+        <LotteryAnnouncement />
+
+        {/* Back to Top Button */}
+        <button className="back-to-top" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+          ↑ Back to Top
+        </button>
       </div>
     </>
   );

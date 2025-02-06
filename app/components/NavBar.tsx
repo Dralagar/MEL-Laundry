@@ -1,23 +1,42 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 import styles from '../styless/Navbar.module.css'; 
 
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname();
+
+  // Close menu on window resize to desktop width
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 768) setIsOpen(false);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const toggleMenu = () => setIsOpen((prev) => !prev);
   const closeMenu = () => setIsOpen(false);
 
+  const navLinks = [
+    { href: '/', label: 'Home' },
+    { href: '/about', label: 'About' },
+    { href: '/service', label: 'Services' },
+    { href: '/blog', label: 'Blog' },
+    { href: '/contact', label: 'Contact' }
+  ];
+
   return (
-    <nav className={styles.nav} aria-label="Main navigation">
+    <nav className={`${styles.nav} ${styles.fixedNav}`} aria-label="Main navigation">
       {/* Logo Section */}
       <div className={styles.logo}>
         <Link href="/" aria-label="Go to homepage">
           <Image
-            src="/images/MELBrand.png"
+            src="/images/logo.png"
             alt="MEL Logo"
             width={150}
             height={50}
@@ -37,26 +56,22 @@ const NavBar = () => {
       </button>
 
       {/* Navigation List */}
-      <ul className={`${styles.navList} ${isOpen ? styles.show : ''}`} aria-hidden={!isOpen}>
-        <li>
-          <Link href="/" onClick={closeMenu} aria-label="Navigate to Home page">Home</Link>
-        </li>
-        
-        {/* About Link */}
-        <li>
-          <Link href="/about" onClick={closeMenu} aria-label="Learn more About us">About</Link>
-        </li>
-
-        {/* Other Links */}
-        <li>
-          <Link href="/service" onClick={closeMenu} aria-label="Explore our Services">Services</Link>
-        </li>
-        <li>
-          <Link href="/blog" onClick={closeMenu} aria-label="Read our Blog">Blog</Link>
-        </li>
-        <li>
-          <Link href="/contact" onClick={closeMenu} aria-label="Contact us">Contact</Link>
-        </li>
+      <ul
+        className={`${styles.navList} ${isOpen ? styles.show : ''}`}
+        aria-hidden={!isOpen ? true : undefined}
+      >
+        {navLinks.map(({ href, label }) => (
+          <li key={href}>
+            <Link 
+              href={href}
+              onClick={closeMenu}
+              className={pathname === href ? styles.active : ''}
+              aria-current={pathname === href ? 'page' : undefined}
+            >
+              {label}
+            </Link>
+          </li>
+        ))}
       </ul>
     </nav>
   );

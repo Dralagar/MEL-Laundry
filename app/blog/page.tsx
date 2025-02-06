@@ -71,7 +71,7 @@ const BlogPage: React.FC = () => {
   );
 
   return (
-    <>
+    <div className="page-container">
       <Head>
         <title>MEL Laundry Blog - Latest Updates and Tips</title>
         <meta name="description" content="Stay updated with the latest news, tips, and insights from MEL Laundry. Explore our blog for helpful articles and updates." />
@@ -157,7 +157,7 @@ const BlogPage: React.FC = () => {
           )}
         </section>
       </div>
-    </>
+    </div>
   );
 };
 

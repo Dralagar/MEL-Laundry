@@ -1,120 +1,78 @@
 /* NavBar.module.css */
 
 .nav {
-  background-color: rgba(15, 134, 15, 0.854);
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  padding: 0.75rem 1.5rem; /* Maintain compact padding */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: var(--white);
+  box-shadow: var(--shadow-sm);
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
+  width: 100%;
   z-index: 1000;
-  transition: all 0.3s ease;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 70px; /* Consistent height for Navbar */
+  transition: background-color 0.3s ease;
+  margin: 0;
+  border-radius: 0;
 }
 
-.nav:hover {
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
-}
-
-/* Logo styling */
 .logo {
   display: flex;
-  align-items: center; /* Ensures the logo is vertically centered */
-  justify-content: flex-start; /* Aligns logo to the left */
-}
-
-.logo img {
-  width: 120px; /* Adjust the width of the logo */
-  height: auto; /* Maintain aspect ratio */
-  max-height: 70px; /* Ensure logo height fits within Navbar */
-  padding: 5px;
-}
-
-.logo a {
-  display: flex; /* Makes the link a flex container */
-  color: var(--white);
-  font-size: 1.75rem;
-  font-weight: bold;
-  text-decoration: none;
-  letter-spacing: 0.5px;
-  transition: color 0.3s ease;
-  margin: 0;
-}
-
-.logo a:hover {
-  color: var(--light-green);
-}
-
-.navList {
-  display: flex;
-  justify-content: center;
   align-items: center;
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
 }
 
-.navList li {
-  margin: 0 1rem; /* Consistent spacing between links */
-}
-
-.navList li a {
-  color: var(--white);
-  text-decoration: none;
-  font-weight: 500;
-  font-size: 1rem; /* Standard font size */
-  transition: all 0.3s ease;
-  position: relative;
-  padding: 0.5rem 0;
-}
-
-.navList li a:hover {
-  color: var(--light-green);
-}
-
-.navList li a::after {
-  content: '';
-  position: absolute;
-  width: 100%;
-  height: 2px;
-  bottom: -4px;
-  left: 0;
-  background-color: var(--light-green);
-  visibility: hidden;
-  transform: scaleX(0);
-  transition: all 0.3s ease-in-out;
-}
-
-.navList li a:hover::after {
-  visibility: visible;
-  transform: scaleX(1);
-}
-
-/* Toggle Button for Mobile */
 .toggleButton {
   display: none;
   background: none;
   border: none;
   font-size: 1.5rem;
   cursor: pointer;
+  color: var(--primary-green);
+}
+
+.navList {
+  display: flex;
+  list-style: none;
+  gap: 2rem;
+  margin: 0;
+}
+
+.navList li {
+  display: flex;
+  align-items: center;
+}
+
+.logo img {
+  width: 100px; /* Adjusted width */
+  height: 50px; /* Adjusted height */   
+}
+
+.navList a {
+  color: var(--primary-green);
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s;
+  padding: 0.5rem 1rem;
+  border-radius: var(--border-radius-sm);
+}
+
+.navList a:hover {
+  color: var(--dark-green);
+  background-color: var(--light-green);
+}
+
+.navList a.active {
   color: var(--white);
-  transition: color 0.3s ease;
+  background-color: var(--primary-green);
 }
 
-.toggleButton:hover {
-  color: var(--light-green);
+.show {
+  display: flex;
 }
 
-/* Mobile Responsive Styles */
 @media (max-width: 768px) {
-  .nav {
-    padding: 0.5rem 1rem; /* Adjust padding for mobile */
-  }
-
   .toggleButton {
     display: block;
   }
@@ -124,12 +82,12 @@
     flex-direction: column;
     position: absolute;
     top: 100%;
-    left: 0;
     right: 0;
-    background-color: var(--dark-green);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    background-color: var(--white);
+    box-shadow: var(--shadow-md);
+    width: 200px;
     padding: 1rem;
-    border-radius: 5px;
+    border-radius: var(--border-radius-md);
   }
 
   .navList.show {
@@ -137,16 +95,18 @@
   }
 
   .navList li {
-    margin: 0.5rem 0;
+    width: 100%;
   }
 
-  .navList li a {
+  .navList a {
     display: block;
-    padding: 0.5rem 1rem;
+    width: 100%;
+    padding: 0.75rem 1rem;
   }
 
-  .navList li a::after {
-    display: none;
+  .navList a:hover,
+  .navList a.active {
+    background-color: var(--light-green);
   }
 }
 
@@ -163,5 +123,9 @@
 
 .show {
   animation: fadeIn 0.3s ease-out forwards;
+}
+
+.main {
+  padding-top: calc(var(--navbar-height) + 1rem);
 }
 

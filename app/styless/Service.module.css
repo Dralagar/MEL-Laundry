@@ -1,5 +1,24 @@
 /* This file contains only component-specific styles */
 
+/* Consistent color palette */
+
+
+/* General styles */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  
+  margin: 0;
+  padding: 0;
+}
+
+.page-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
 .heroContainer {
   position: relative;
   height: 60vh;
@@ -7,7 +26,6 @@
   justify-content: center;
   align-items: center;
   overflow: hidden;
- /* background-color: var(--dark-green); /* Use global variable */
 }
 
 .bgImage {
@@ -15,12 +33,10 @@
   top: 0;
   left: 0;
   width: 100%;
-  /*max-width: fit-content;*/
-  max-height: fit-content;
   height: 100%;
   z-index: -1;
   object-fit: cover;
-  opacity: 0.5;
+  opacity: 1;
 }
 
 .title {
@@ -39,26 +55,28 @@
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 1.5rem;
+  gap: 1rem;
   margin: 2.5rem 0;
   padding: 0 1rem;
 }
 
 .serviceButton {
   background-color: var(--primary-green);
-  color: #fff;
-  padding: 1.2rem 2rem;
+  color: var(--white);
+  padding: 1rem 1.5rem;
   border: none;
   border-radius: 12px;
   cursor: pointer;
   transition: all 0.3s ease;
   font-size: 1rem;
-  font-family: var(--secondary-font);
+  font-family: 'Arial', sans-serif;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.75rem;
+  width: 200px;
+  max-width: 100%;
 }
 
 .serviceButton:hover {
@@ -76,7 +94,7 @@
 }
 
 .serviceDetails {
-  background-color: #fff;
+  background-color: var(--white);
   margin: 0 auto;
   padding: 2rem;
   border-radius: 12px;
@@ -134,7 +152,7 @@
 
 .ctaButton {
   background-color: var(--primary-green);
-  color: white;
+  color: var(--white);
   padding: 1rem 2rem;
   border: none;
   border-radius: 50px;
@@ -208,4 +226,13 @@
     padding: 1.5rem 3rem;
     font-size: 1.4rem;
   }
+}
+
+.mainHeading {
+  font-size: 2.5rem;
+  color: var(--dark-gray);
+  text-align: center;
+  margin: 20px 0;
+  padding: 0;
+  font-weight: bold;
 }

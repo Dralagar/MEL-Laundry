@@ -33,11 +33,18 @@
   --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
 }
 
-/* Reset */
-* {
-  box-sizing: border-box;
+/* Reset margin and padding for body and html */
+html, body {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
+}
+
+/* Reset for all elements */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
 }
 
 /* Base Styles */

@@ -49,7 +49,6 @@ const ServicePage: React.FC = () => {
             priority
             className={styles.bgImage}
           />
-          <div className={styles.overlay}></div>
         </div>
       ),
     },
@@ -97,17 +96,10 @@ const ServicePage: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className="page-container">
+      <h1 className={styles.mainHeading}>Our Services</h1>
       <div className={styles.heroContainer}>
         {services['self-service'].image}
-        <motion.h1
-          className={styles.title}
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          Our Services
-        </motion.h1>
       </div>
 
       <div className={styles.serviceButtons}>

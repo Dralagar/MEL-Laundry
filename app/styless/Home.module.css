@@ -1,9 +1,9 @@
 .homeContainer {
   width: 100%;
   overflow-x: hidden;
-  background: linear-gradient(135deg, #f6f9fc 0%, #e9f2f9 100%);
+  background: linear-gradient(135deg, var(--light-green) 0%, var(--gray) 100%);
   font-family: var(--font-sans);
-  color: var(--text-color);
+  color: var(--black);
   padding: 0 1rem;
 }
 
@@ -24,8 +24,9 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.2);
   backdrop-filter: blur(4px);
+  z-index: 1;
 }
 
 .heroContent {
@@ -37,7 +38,7 @@
   animation: float 6s ease-in-out infinite, fadeIn 2s ease-in-out;
   backdrop-filter: blur(8px);
   border-radius: var(--border-radius-md);
-  background: rgba(16, 16, 16, 0.082);
+  background: rgba(16, 16, 16, 0.1);
 }
 
 .heroTitle {
@@ -153,7 +154,7 @@
   font-weight: 700;
   text-align: center;
   margin-bottom: 2.5rem;
-  color: var(--heading-color);
+  color: var(--dark-green);
 }
 
 .pricingSubtitle {
@@ -170,7 +171,7 @@
 }
 
 .categoryCard {
-  background-color: var(--secondary-color);
+  background-color: var(--light-green);
   padding: 1.5rem;
   border-radius: var(--border-radius-md);
   box-shadow: var(--shadow-sm);
@@ -224,7 +225,7 @@
 
 .itemName {
   font-weight: bold;
-  color: var(--heading-color);
+  color: var(--dark-green);
 }
 
 .itemDescription {
@@ -360,98 +361,100 @@
 
 /* Meet the Team Section */
 .meetTheTeam {
-  padding: var(--section-spacing);
-  background: #ffffff;
-  width: 100%;
-  overflow: hidden;
+  padding: 4rem 0;
+  background-color: var(--light-gray);
+  text-align: center;
 }
 
 .teamHeader {
-  text-align: center;
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
+}
+
+.sectionTitle {
+  font-size: 2.5rem;
+  color: var(--primary-green);
+  margin-bottom: 0.5rem;
+}
+
+.teamSubtitle {
+  font-size: 1.25rem;
+  color: var(--medium-gray);
 }
 
 .teamRow {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  align-items: stretch;
-  gap: 1rem;
-  padding-bottom: 1rem;
+  gap: 2rem;
 }
 
 .teamMember {
-  flex: 0 0 25%;
-  min-width: 200px;
-  max-width: 280px;
-  background: rgba(26, 157, 5, 0.463);
-  border-radius: var(--border-radius-md);
-  box-shadow: var(--shadow-sm);
+  background-color: var(--white);
+  border-radius: 8px;
+  box-shadow: var(--shadow-md);
+  padding: 1rem;
+  width: 250px;
   transition: transform 0.3s ease;
-  overflow: hidden;
 }
 
 .teamMember:hover {
   transform: translateY(-5px);
-  box-shadow: var(--shadow-md);
 }
 
 .teamImageContainer {
   position: relative;
-  width: 100%;
-  padding-top: 100%;
-  border-radius: 12px 12px 0 0;
+  width: 150px;
+  height: 150px;
+  margin: 0 auto 1rem;
+  overflow: hidden;
+  border-radius: 50%;
 }
 
 .teamImage {
-  position: absolute;
-  top: 0;
-  left: 0;
+  object-fit: cover;
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  border-radius: 12px 12px 0 0;
+  border-radius: 50%;
+  transition: transform 0.3s ease;
 }
 
-.teamInfo {
-  padding: 1.5rem;
-  text-align: center;
+.teamImage:hover {
+  transform: scale(1.05);
 }
 
 .teamInfo h3 {
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: var(--heading-color);
-  margin: 0 0 0.5rem 0;
+  font-size: 1.5rem;
+  color: var(--dark-gray);
+  margin: 0.5rem 0;
 }
 
 .teamInfo h4 {
-  font-size: 1rem;
-  color: #666;
-  margin: 0 0 1rem 0;
+  font-size: 1.1rem;
+  color: var(--medium-gray);
+  margin-bottom: 0.5rem;
 }
 
 .teamInfo p {
-  font-size: 0.9rem;
-  color: #777;
-  line-height: 1.4;
+  font-size: 1rem;
+  color: var(--medium-gray);
 }
 
-.teamSocial {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  margin-top: 1rem;
-}
-
-.teamSocial a {
+.socialLinks a {
   color: var(--primary-green);
-  font-size: 1.2rem;
+  margin: 0 0.5rem;
   transition: color 0.3s ease;
 }
 
-.teamSocial a:hover {
-  color: #0051a2;
+.socialLinks a:hover {
+  color: var(--dark-green);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .teamRow {
+    flex-direction: column;
+    align-items: center;
+  }
 }
 
 /* Call to Action Section */
@@ -506,32 +509,157 @@
 
 /* New Year Announcement Section */
 .announcementSection {
-  background-color: #f0f8ff; /* Light blue background for a festive feel */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.announcementCard {
+  background: var(--white);
   padding: 2rem;
   border-radius: var(--border-radius-md);
-  box-shadow: var(--shadow-sm);
-  margin: 2rem 0;
-  text-align: center;
-  color: var(--text-color);
+  box-shadow: var(--shadow-md);
+  max-width: 600px;
+  transition: var(--transition-base);
 }
 
-.announcementContent {
-  max-width: 800px;
-  margin: 0 auto;
+.announcementTitle {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--dark-green);
+  margin-bottom: 1rem;
 }
 
-.announcementContent p {
+.announcementCard p {
   margin-bottom: 1rem;
   font-size: 1rem;
   line-height: 1.5;
+  color: var(--black);
 }
 
-.announcementContent a {
+.winnersSection {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.winnerRow {
+  display: flex;
+  justify-content: space-around; /* Space items evenly */
+  align-items: center;
+  gap: 20px;
+  flex-wrap: nowrap; /* Ensure items stay in one row */
+  width: 100%; /* Ensure full width */
+}
+
+.winner {
+  flex: 1 1 30%; /* Three columns with equal width */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  box-sizing: border-box; /* Include padding and border in width */
+  padding: 10px;
+  background-color: #f9f9f9; /* Optional: background color for visibility */
+  border-radius: 8px; /* Optional: rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: shadow for depth */
+}
+
+.winner img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  object-fit: cover;
+}
+
+.videoWrapper {
+  width: 100%;
+  max-width: 600px;
+  margin: 20px 0;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.videoAnnouncement {
+  margin-top: 3rem;
+}
+
+.announcementVideo {
+  width: 100%;
+  max-width: 600px;
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+.sticky-nav {
+  position: sticky;
+  top: 0;
+  background-color: var(--white);
+  box-shadow: var(--shadow-sm);
+  z-index: 1000;
+  width: 100%;
+}
+
+.sticky-nav ul {
+  display: flex;
+  justify-content: space-around;
+  padding: 1rem;
+  list-style: none;
+  margin: 0;
+}
+
+.sticky-nav a {
   color: var(--primary-green);
   text-decoration: none;
   font-weight: bold;
+  transition: color 0.3s;
 }
 
-.announcementContent a:hover {
-  text-decoration: underline;
+.sticky-nav a:hover {
+  color: var(--dark-green);
+}
+
+.sticky-nav a.active {
+  border-bottom: 2px solid var(--primary-green);
+}
+
+.back-to-top {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  background-color: var(--primary-green);
+  color: var(--white);
+  border: none;
+  border-radius: var(--border-radius-md);
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  display: none; /* Initially hidden */
+  transition: opacity 0.3s;
+}
+
+.back-to-top.show {
+  display: block; /* Show when scrolled down */
+}
+
+/* General styles for the home page */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.heroImage {
+  width: 100%;
+  height: auto;
+  max-height: 100vh;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
 }
