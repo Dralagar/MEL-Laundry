@@ -1,27 +1,35 @@
 export const defaultMetadata = {
-  title: 'MEL Laundry - Professional Self-Service Laundry in Nairobi',
-  description: 'MEL Laundry offers 24/7 self-service laundry facilities in Nairobi for 2025. Professional washing, drying, and laundry services at competitive rates. Multiple locations including Donholm Phase 8.',
+  title: 'MEL Laundry - 24/7 Self-Service Laundry in Donholm, Nairobi | mellaundry.co.ke',
+  description: 'Professional laundry services in Donholm, Nairobi. 15-minute quick wash, self-service & drop-off available. Located at Shiloh Towers, opposite CFF Donholm. WhatsApp: +254740630890',
   keywords: 'quick wash Nairobi, 15-minute laundry, self-service washing machines, laundromat Donholm, 24/7 laundry service, affordable dry cleaning Nairobi, commercial laundry services, duvet cleaning Nairobi, blanket washing service, professional ironing service, eco-friendly laundry Nairobi, high-efficiency washing machines, mixed clothes washing, bulk laundry service, express laundry Donholm Phase 8, premium laundry care, industrial washing machines, same-day laundry service, affordable laundry prices Nairobi, MEL Laundry locations',
   authors: [{ name: 'MEL Laundry' }],
-  metadataBase: new URL('https://mellaundry.co.ke'),
+  metadataBase: new URL('https://www.mellaundry.co.ke'),
   alternates: {
     canonical: '/',
+    languages: {
+      'en-KE': '/',
+    },
   },
   openGraph: {
-    title: 'MEL Laundry - Professional Self-Service Laundry in Nairobi',
-    description: '15-minute quick wash & professional drying services in Nairobi. Self-service and full-service laundry solutions with state-of-the-art machines. Multiple locations including new branch in Donholm Phase 8. Affordable rates starting from KSh 99/kg.',
-    url: 'https://mellaundry.co.ke',
+    title: 'MEL Laundry - 24/7 Self-Service Laundry in Donholm, Nairobi | mellaundry.co.ke',
+    description: 'Professional laundry services in Donholm, Nairobi. Quick wash, self-service & drop-off available. Located at Shiloh Towers, opposite CFF Donholm. Contact us: +254740630890',
+    url: 'https://www.mellaundry.co.ke',
     siteName: 'MEL Laundry',
     images: [
       {
         url: '/images/og-image.jpg',
         width: 1200,
         height: 630,
-        alt: 'MEL Laundry Facilities',
+        alt: 'MEL Laundry Facilities in Donholm, Nairobi',
       },
     ],
     locale: 'en_KE',
     type: 'website',
+  },
+  geo: {
+    placename: 'Donholm, Nairobi, Kenya',
+    region: 'KE-30',
+    position: '-1.2833309990629,36.81985631475815',
   },
   robots: {
     index: true,
