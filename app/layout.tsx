@@ -10,7 +10,19 @@ import FooterStyles from "../app/styless/Footer.module.css"
 import { defaultMetadata } from './metadata'
 const inter = Inter({ subsets: ['latin'] })
 
-export const metadata = defaultMetadata;
+export const metadata = {
+  ...defaultMetadata,
+  icons: {
+    icon: [
+      { url: '/favicon.ico', sizes: '32x32' },
+      { url: '/icon.png', sizes: '192x192' },
+    ],
+    apple: [
+      { url: '/apple-icon.png', sizes: '180x180' },
+    ],
+    shortcut: ['/favicon.ico'],
+  },
+}
 
 export default function RootLayout({
   children,
@@ -19,6 +31,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <link rel="manifest" href="/manifest.json" />
       <body className={`${inter.className} no-scroll-padding`} suppressHydrationWarning>
         <div className="app-container">
           <NavBar />
