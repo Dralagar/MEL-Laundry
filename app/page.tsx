@@ -305,18 +305,19 @@ const Home: React.FC = () => {
       <Head>
         <title>MEL Laundry - Premier Laundry Services in Nairobi, Kenya</title>
         <meta name="description" content="Discover MEL Laundry, your go-to solution for fast, efficient, and affordable laundry services in Nairobi and across Kenya. Experience convenience and quality with us." />
-        <meta name="keywords" content="laundry services Nairobi, self-service laundry Kenya, affordable laundry Nairobi, MEL Laundry, Nairobi laundry services" />
+        <meta name="keywords" content="laundry services Nairobi, self-service laundry Kenya, affordable laundry Nairobi, MEL Laundry, Nairobi laundry services, professional laundry, drying services" />
         <meta name="robots" content="index, follow" />
         <meta property="og:title" content="MEL Laundry - Hassle-Free Professional Laundry Services in Nairobi, Kenya" />
         <meta property="og:description" content="Discover MEL Laundry, your go-to solution for fast, efficient, and affordable laundry services in Nairobi and across Kenya." />
-        <meta property="og:url" content="https://www.mellaundry.co.ke/page-path" />
-        <link rel="canonical" href="https://www.mellaundry.co.ke/page-path" />
+        <meta property="og:url" content="https://www.mellaundry.co.ke" />
+        <link rel="canonical" href="https://www.mellaundry.co.ke" />
         <meta property="og:type" content="website" />
         <meta property="og:image" content="https://www.mellaundry.co.ke/images/og-image.jpg" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="MEL Laundry - Hassle-Free Laundry Services in Nairobi, Kenya" />
         <meta name="twitter:description" content="Discover MEL Laundry, your go-to solution for fast, efficient, and affordable laundry services in Nairobi and across Kenya." />
         <meta name="twitter:image" content="https://www.mellaundry.com/images/twitter-image.jpg" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <div className={styles.homeContainer}>
         {/* Hero Section */}
