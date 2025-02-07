@@ -163,12 +163,12 @@ const teamMembers: TeamMember[] = [
   {
     name: "Kyree Abraham",
     position: "Manager",
-    image: "/images/kyree.png",
+    image: "/images/team/kyree.jpg",
   },
   {
     name: "Angel Tamara",
     position: "Operations Manager",
-    image: "/images/tamara.png",
+    image: "/images/team/tamara.jpg",
   },
   {
     name: "George Dralagar",
@@ -502,6 +502,8 @@ const Home: React.FC = () => {
                     width={150} 
                     height={150} 
                     className={styles.teamImage}
+                    placeholder="blur"
+                    blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRg..."
                     style={{ objectFit: 'cover', borderRadius: '50%', transition: 'transform 0.3s ease' }}
                     onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
                     onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
