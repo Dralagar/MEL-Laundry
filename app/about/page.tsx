@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { FaTshirt, FaMapMarkerAlt } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 import styles from '../styless/About.module.css';
+import { Helmet } from 'react-helmet-async';
 
 // Animation variants
 const fadeInUp = {
@@ -67,6 +68,17 @@ const AboutPage: React.FC = () => {
 
   return (
     <div className="page-container">
+      <Helmet>
+        <title>MEL Laundry - Professional Machine Washing Services in Nairobi</title>
+        <meta name="description" content="MEL Laundry offers professional machine washing services in Nairobi, including areas like Donholm. Experience top-quality laundry solutions across multiple locations." />
+        <meta name="keywords" content="MEL Laundry, professional laundry services, machine washing, Nairobi laundry, Donholm laundry, eco-friendly laundry, premium laundry services, laundry in Nairobi, laundry in Donholm, multiple locations laundry" />
+        <link rel="canonical" href="https://www.mellaundry.co.ke/about" />
+        <meta property="og:title" content="MEL Laundry - Professional Machine Washing Services in Nairobi" />
+        <meta property="og:description" content="MEL Laundry offers professional machine washing services in Nairobi, including areas like Donholm. Experience top-quality laundry solutions across multiple locations." />
+        <meta property="og:url" content="https://www.mellaundry.co.ke/about" />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="https://www.mellaundry.co.ke/images/aboutbg.jpg" />
+      </Helmet>
       <motion.div 
         className={`${styles.container}`}
         initial="hidden"
