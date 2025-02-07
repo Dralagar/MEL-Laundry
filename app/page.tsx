@@ -166,6 +166,8 @@ const teamMembers: TeamMember[] = [
     position: "Manager",
     image: "/images/kyree.png",
     blurDataURL: "data:image/jpeg;base64,/9j/4AAQSkZJRg...",
+
+
   },
   {
     name: "Angel Tamara",
@@ -174,6 +176,8 @@ const teamMembers: TeamMember[] = [
     blurDataURL: "data:image/jpeg;base64,/9j/4AAQSkZJRg...",
   },
 
+
+
   {
     name: "George Dralagar",
     position: "Marketing Lead & Developer",
@@ -181,12 +185,14 @@ const teamMembers: TeamMember[] = [
     blurDataURL: "data:image/jpeg;base64,/9j/4AAQSkZJRg...",
   },
 
+
   {
     name: "Sylvia Achista",
     position: "Customer Service Lead",
     image: "/images/cylvia.png",
     blurDataURL: "data:image/jpeg;base64,/9j/4AAQSkZJRg...",
   }
+
 
 ];
 
@@ -512,6 +518,7 @@ const Home: React.FC = () => {
                     className={styles.teamImage}
                     placeholder="blur"
                     blurDataURL={member.blurDataURL}
+                    unoptimized
                     style={{ 
                       objectFit: 'cover', 
                       borderRadius: '50%', 
