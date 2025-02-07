@@ -66,6 +66,7 @@ interface TeamMember {
   name: string;
   position: string;
   image: string;
+  blurDataURL: string;
   bio?: string;
   socialLinks?: {
     linkedin?: string;
@@ -163,23 +164,30 @@ const teamMembers: TeamMember[] = [
   {
     name: "Kyree Abraham",
     position: "Manager",
-    image: "/images/team/kyree.jpg",
+    image: "/images/kyree.png",
+    blurDataURL: "data:image/jpeg;base64,/9j/4AAQSkZJRg...",
   },
   {
     name: "Angel Tamara",
     position: "Operations Manager",
-    image: "/images/team/tamara.jpg",
+    image: "/images/tamara.png",
+    blurDataURL: "data:image/jpeg;base64,/9j/4AAQSkZJRg...",
   },
+
   {
     name: "George Dralagar",
     position: "Marketing Lead & Developer",
     image: "/images/george.png",
+    blurDataURL: "data:image/jpeg;base64,/9j/4AAQSkZJRg...",
   },
+
   {
     name: "Sylvia Achista",
     position: "Customer Service Lead",
     image: "/images/cylvia.png",
+    blurDataURL: "data:image/jpeg;base64,/9j/4AAQSkZJRg...",
   }
+
 ];
 
 const testimonials: Testimonial[] = [
@@ -503,8 +511,13 @@ const Home: React.FC = () => {
                     height={150} 
                     className={styles.teamImage}
                     placeholder="blur"
-                    blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRg..."
-                    style={{ objectFit: 'cover', borderRadius: '50%', transition: 'transform 0.3s ease' }}
+                    blurDataURL={member.blurDataURL}
+                    style={{ 
+                      objectFit: 'cover', 
+                      borderRadius: '50%', 
+                      transition: 'transform 0.3s ease',
+                      backgroundColor: '#f0f0f0'
+                    }}
                     onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
                     onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
                     priority={index < 2}
