@@ -316,7 +316,7 @@ const Home: React.FC = () => {
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="MEL Laundry - Hassle-Free Laundry Services in Nairobi, Kenya" />
         <meta name="twitter:description" content="Discover MEL Laundry, your go-to solution for fast, efficient, and affordable laundry services in Nairobi and across Kenya." />
-        <meta name="twitter:image" content="https://www.mellaundry.com/images/twitter-image.jpg" />
+        <meta name="twitter:image" content="https://www.mellaundry.co.ke/images/twitter-image.jpg" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <div className={styles.homeContainer}>
