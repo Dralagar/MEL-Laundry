@@ -10,13 +10,17 @@
 /* Hero Section */
 .homeHero {
   position: relative;
-  min-height: 100vh;
+  height: 100vh; /* Full viewport height */
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
   overflow: hidden;
-  padding: 1rem;
+  padding: 0;
+  margin: 0;
+  background-color: #c5ecd8; /* Consistent pale background */
+  color: var(--text-color);
 }
 
 .heroImageWrapper {
@@ -25,7 +29,15 @@
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 0;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.heroImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensure the image covers the container */
+  opacity: 0.8; /* Slight transparency for text visibility */
 }
 
 .heroOverlay {
@@ -34,62 +46,59 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(4px);
-  z-index: 1;
+  background: rgba(0, 0, 0, 0.3); /* Dark overlay for text contrast */
+  z-index: 2;
 }
 
 .heroContent {
   position: relative;
-  z-index: 2;
-  padding: 1.5rem;
-  max-width: 800px;
-  color: var(--white);
-  animation: fadeIn 2s ease-in-out;
-  backdrop-filter: blur(8px);
+  z-index: 3;
+  text-align: center;
+  color: #fff; /* White text for contrast */
+  padding: 2rem;
   border-radius: var(--border-radius-md);
-  background: rgba(0, 0, 0, 0.3);
+  box-shadow: var(--shadow-md);
+  max-width: 90%;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.5); /* Light overlay for text contrast */
   margin: 0 auto;
 }
 
 .heroTitle {
   font-size: clamp(1.5rem, 4vw, 2.5rem);
-  font-weight: 700;
+  color: var(--primary-color);
   margin-bottom: 1rem;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-  color: var(--white);
-  line-height: 1.3;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 .heroDescription {
-  font-size: clamp(0.9rem, 2.5vw, 1.25rem);
+  font-size: 1rem;
+  color: var(--primary-color);
   margin-bottom: 2rem;
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
-  color: var(--white);
-  line-height: 1.6;
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.highlightedText {
+  color: var(--secondary-color); /* Use a green color for emphasis */
+  font-weight: bold;
 }
 
 .ctaButton {
+  display: inline-block;
+  background-color: var(--secondary-color);
+  color: var(--text-color);
   padding: 0.75rem 1.5rem;
-  background-color: var(--primary-green);
-  color: var(--white);
-  border-radius: var(--border-radius-lg);
-  font-size: 1rem;
-  font-weight: 600;
+  border-radius: var(--border-radius-md);
   text-decoration: none;
   transition: var(--transition-base);
-  box-shadow: var(--shadow-sm);
-  display: inline-block;
+  font-size: 1rem;
   margin-top: 1rem;
 }
 
 .ctaButton:hover {
-  background-color: var(--dark-green);
-  transform: translateY(-2px);
+  background-color: var(--tertiary-color);
   box-shadow: var(--shadow-md);
+  transform: translateY(-3px);
 }
 
 /* Features Section */
@@ -144,13 +153,36 @@
 }
 
 .stepItem {
-  background: #e0e7ff;
-  padding: 2rem;
-  border-radius: var(--border-radius-md);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   text-align: center;
-  transition: var(--transition-base);
-  border: 1px solid rgba(59, 130, 246, 0.2);
+  padding: 2rem;
+  background-color: #E9EFEC; /* Consistent pale background */
+  border-radius: var(--border-radius-md);
   box-shadow: var(--shadow-sm);
+  transition: var(--transition-base);
+  margin: 1rem;
+}
+
+.stepItem img {
+  width: 64px; /* Ensure the image is a reasonable size */
+  height: 64px;
+  object-fit: cover;
+  margin-bottom: 1rem;
+}
+
+.itemTitle {
+  font-size: 1.25rem;
+  color: var(--primary-color);
+  margin-bottom: 0.5rem;
+}
+
+.itemDescription {
+  font-size: 1rem;
+  color: var(--primary-color);
+  margin-bottom: 1rem;
 }
 
 .stepItem:hover {
@@ -383,83 +415,53 @@
 
 /* Meet the Team Section */
 .meetTheTeam {
-  padding: 4rem 0;
-  background-color: var(--light-gray);
+  padding: 4rem 1rem;
+  background-color: #E9EFEC; /* Consistent pale background */
   text-align: center;
-}
-
-.teamHeader {
-  margin-bottom: 2rem;
-}
-
-.sectionTitle {
-  font-size: 2.5rem;
-  color: var(--primary-green);
-  margin-bottom: 0.5rem;
-}
-
-.teamSubtitle {
-  font-size: 1.25rem;
-  color: var(--medium-gray);
 }
 
 .teamRow {
   display: flex;
-  justify-content: center;
-  align-items: stretch;
-  gap: 2rem;
-  max-width: 1200px;
-  margin: 2rem auto;
-  padding: 0 1rem;
-  flex-wrap: wrap;
+  justify-content: center; /* Center the team members */
+  align-items: center; /* Center items vertically */
+  flex-wrap: wrap; /* Allow wrapping on smaller screens */
+  gap: 1rem; /* Space between team members */
 }
 
 .teamMember {
-  background-color: var(--white);
-  border-radius: 12px;
-  box-shadow: var(--shadow-md);
-  padding: 2rem;
-  width: calc(25% - 2rem); /* Four columns with gap consideration */
-  flex: 0 1 auto;
-  transition: transform 0.3s ease;
+  flex: 1 1 calc(20% - 1rem); /* Proportionate size with gap consideration */
+  max-width: 200px; /* Set a maximum width for each card */
+  background-color: #fff;
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-sm);
+  padding: 1rem;
+  transition: var(--transition-base);
   text-align: center;
-}
-
-.teamMember:hover {
-  transform: translateY(-5px);
+  margin: 0 auto; /* Center the card on smaller screens */
 }
 
 .teamImageContainer {
-  position: relative;
-  width: 120px;
-  height: 120px;
-  margin: 0 auto 1.5rem;
-  overflow: hidden;
-  border-radius: 50%;
-  border: 4px solid var(--primary-green);
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: center; /* Center the image */
+  align-items: center; /* Center the image vertically */
 }
 
 .teamImage {
-  object-fit: cover;
-  width: 100%;
-  height: 100%;
   border-radius: 50%;
-  transition: transform 0.3s ease;
-}
-
-.teamImage:hover {
-  transform: scale(1.05);
+  width: 100%;
+  height: auto;
 }
 
 .teamInfo h3 {
-  font-size: 1.5rem;
-  color: var(--dark-gray);
-  margin: 0.5rem 0;
+  font-size: 1.25rem;
+  color: var(--primary-color);
+  margin-bottom: 0.5rem;
 }
 
 .teamInfo h4 {
-  font-size: 1.1rem;
-  color: var(--medium-gray);
+  font-size: 1rem;
+  color: var(--secondary-color);
   margin-bottom: 0.5rem;
 }
 
@@ -507,9 +509,8 @@
   }
   
   .teamMember {
-    width: 100%;
-    max-width: 400px;
-    margin-bottom: 1.5rem;
+    flex: 1 1 100%; /* Full width on smaller screens */
+    max-width: none; /* Remove max-width restriction */
   }
 }
 
@@ -564,8 +565,7 @@
   width: 100%;
   text-align: center;
   transition: opacity 0.2s ease;
-}
-
+} 
 .paymentButton:hover {
   opacity: 0.8;
 }
@@ -943,19 +943,18 @@
 /* Media queries for larger screens */
 @media (min-width: 768px) {
   .heroContent {
-    padding: 2rem;
+    max-width: 800px;
   }
 
   .heroTitle {
-    font-size: clamp(2rem, 6vw, 4rem);
+    font-size: clamp(2rem, 5vw, 3rem);
   }
 
   .heroDescription {
-    font-size: clamp(1rem, 3vw, 1.5rem);
+    font-size: 1.25rem;
   }
 
   .ctaButton {
-    padding: 1rem 2.5rem;
     font-size: 1.125rem;
   }
 }
@@ -1113,4 +1112,11 @@
   100% {
     transform: scale(1);
   }
+}
+
+/* Ensure Navbar styles do not add margin or padding at the bottom */
+.navbar {
+  margin: 0;
+  padding: 0;
+  background-color: var(--navbar-background-color); /* Ensure consistent Navbar color */
 }

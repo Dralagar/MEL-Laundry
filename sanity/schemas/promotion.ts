@@ -5,9 +5,9 @@ export default {
   fields: [
     {
       name: 'title',
-      title: 'Promotion Title',
+      title: 'Title',
       type: 'string',
-      validation: Rule => Rule.required()
+      validation: (Rule: any) => Rule.required()
     },
     {
       name: 'description',
@@ -63,6 +63,14 @@ export default {
       name: 'endDate',
       title: 'End Date',
       type: 'datetime'
+    },
+    {
+      name: 'image',
+      title: 'Image',
+      type: 'image',
+      options: {
+        hotspot: true
+      }
     }
   ]
 } 

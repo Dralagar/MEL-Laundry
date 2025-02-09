@@ -1,88 +1,98 @@
 "use client";
 
 import { useEffect, useState } from 'react';
-import Image from 'next/image';
-import { urlFor } from '../lib/sanity';
+import { motion } from 'framer-motion';
 import styles from '../styless/Home.module.css';
 
 interface Winner {
-  name: string;
-  prize: string;
-  image: any;
+  phoneNumber: string;
+  prize: number;
 }
 
-interface Promotion {
-  title: string;
-  description: string;
-  videoUrl: string;
+interface LotteryData {
+  drawingDate: string;
   winners: Winner[];
-  active: boolean;
-  startDate: string;
-  endDate: string;
+  videoUrl: string;
 }
 
 export default function LotteryAnnouncement() {
-  const [promotion, setPromotion] = useState<Promotion | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [lotteryData, setLotteryData] = useState<LotteryData | null>(null);
 
   useEffect(() => {
-    async function fetchActivePromotion() {
+    async function fetchLotteryData() {
       try {
-        const response = await fetch('/api/promotions');
+        const response = await fetch('/api/lottery');
         const data = await response.json();
-        setPromotion(data);
+        setLotteryData(data);
       } catch (error) {
-        console.error('Error fetching promotion:', error);
-      } finally {
-        setLoading(false);
+        console.error('Failed to fetch lottery data:', error);
       }
     }
 
-    fetchActivePromotion();
+    fetchLotteryData();
   }, []);
 
-  if (loading) return null;
-  if (!promotion?.active) return null;
+  if (!lotteryData) return null;
 
   return (
-    <section className={styles.announcementSection}>
+    <motion.section
+      className={styles.announcementSection}
+      initial="hidden"
+      animate="visible"
+      whileHover="hover"
+      variants={{
+        hidden: { opacity: 0, y: 20 },
+        visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+        hover: { scale: 1.02, transition: { duration: 0.3 } }
+      }}
+    >
       <div className={styles.announcementCard}>
-        <h2 className={styles.announcementTitle}>{promotion.title}</h2>
-        <p>{promotion.description}</p>
+        <h2 className={styles.announcementTitle}>MEL Laundry Lottery Winners!</h2>
+        <p className={styles.announcementDate}>
+          Drawing held on {new Date(lotteryData.drawingDate).toLocaleDateString('en-US', {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit'
+          })}
+        </p>
 
-        {promotion.videoUrl && (
+        {lotteryData.videoUrl && (
           <div className={styles.videoWrapper}>
-            <iframe
-              src={promotion.videoUrl}
-              title="Promotion Video"
+            <video 
+              controls 
               className={styles.announcementVideo}
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            />
+              playsInline
+              preload="metadata"
+            >
+              <source src={lotteryData.videoUrl} type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
           </div>
         )}
 
-        {promotion.winners?.length > 0 && (
-          <div className={styles.winnersSection}>
-            <h3>Congratulations to Our Winners!</h3>
-            <div className={styles.winnerRow}>
-              {promotion.winners.map((winner, index) => (
-                <div key={index} className={styles.winner}>
-                  <Image
-                    src={urlFor(winner.image).url()}
-                    alt={winner.name}
-                    width={100}
-                    height={100}
-                    className={styles.winnerImage}
-                  />
-                  <h4>{winner.name}</h4>
-                  <p>{winner.prize}</p>
-                </div>
-              ))}
-            </div>
+        <div className={styles.winnersSection}>
+          <h3>Congratulations to Our Winners!</h3>
+          <div className={styles.winnersList}>
+            {lotteryData.winners.map((winner, index) => (
+              <motion.div 
+                key={index}
+                className={styles.winnerItem}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
+              >
+                <span className={styles.winnerNumber}>
+                  {winner.phoneNumber.replace(/(\d{2})(\d{3})(\d{3})(\d{2})/, '**-***-$3-$4')}
+                </span>
+                <span className={styles.winnerPrize}>KSh {winner.prize}</span>
+              </motion.div>
+            ))}
           </div>
-        )}
+        </div>
       </div>
-    </section>
+    </motion.section>
   );
 } 

@@ -99,8 +99,9 @@ const steps: Step[] = [
   {
     icon: FaTshirt,
     title: 'Bring Your Laundry',
-    img: '/images/dirttowel.jpg',
+    img: '/images/Dirttowel.jpg',
     description: 'Bring your dirty clothes to any MEL Laundry location.'
+
   },
   {
     icon: FaWater,
@@ -164,37 +165,36 @@ const pricingCategories: PriceCategory[] = [
 const teamMembers: TeamMember[] = [
   {
     name: "Kyree Abraham",
-    position: "Manager",
+    position: "Investor/Director",
     image: "/images/kyre.png",
-    blurDataURL: "data:image/jpeg;base64,/9j/4AAQSkZJRg...",
-
+    blurDataURL: "/images/kyree-blur.png"
 
   },
   {
     name: "Angel Tamara",
-    position: "Operations Manager",
+    position: "Executive Director",
     image: "/images/tamara.png",
-    blurDataURL: "data:image/jpeg;base64,/9j/4AAQSkZJRg...",
+    blurDataURL: "/images/tamara-blur.png"
   },
-
-
 
   {
     name: "George Dralagar",
     position: "Marketing Lead & Developer",
     image: "/images/george.png",
-    blurDataURL: "data:image/jpeg;base64,/9j/4AAQSkZJRg...",
+    blurDataURL: "/images/george-blur.png"
   },
-
-
   {
     name: "Sylvia Achista",
-    position: "Customer Service Lead",
+    position: "Manager",
     image: "/images/cylvia.png",
-    blurDataURL: "data:image/jpeg;base64,/9j/4AAQSkZJRg...",
+    blurDataURL: "/images/sylvia-blur.png"
+  },
+  {
+    name: "Benard Mweke",
+    position: "Supervisor",
+    image: "/images/benard.png",
+    blurDataURL: "/images/benard-blur.png"
   }
-
-
 ];
 
 const testimonials: Testimonial[] = [
@@ -311,18 +311,16 @@ const Home: React.FC = () => {
         >
           <div className={styles.heroImageWrapper}>
             <Image
-              src="/images/aboutbg.jpg"
+              src="/images/Aboutbg.jpg"
               alt="MEL Laundry Professional Services"
-              fill
-              style={{ 
-                objectFit: 'cover',
-                objectPosition: 'center',
-              }}
+              layout="fill"
+              objectFit="cover"
+              objectPosition="center"
               quality={100}
-              priority
+
             />
-            <div className={styles.heroOverlay}></div>
           </div>
+          <div className={styles.heroOverlay}></div>
           <motion.div
             className={styles.heroContent}
             initial={{ y: 50, opacity: 0 }}
@@ -330,10 +328,10 @@ const Home: React.FC = () => {
             transition={{ delay: 0.5, duration: 0.8 }}
           >
             <h1 className={styles.heroTitle}>
-              SELF-CONTAINED 15 MIN QUICK WASH & DRYING PROFESSIONAL HAS LAUNDRY SERVICES IN NAIROBI
+              SELF-CONTAINED 15 MIN QUICK WASH & DRYING
             </h1>
-            <p className={styles.heroDescription}>
-              Experience premium hassle-free laundry solutions with MEL Laundry&apos;s state-of-the-art facilities and expert care. Serving Nairobi with excellence in self-service and affordable laundry options.
+            <p className={`${styles.heroDescription} ${styles.highlightedText}`}>
+              Experience premium hassle-free laundry solutions with MEL Laundry's state-of-the-art facilities and expert care. Serving Nairobi with excellence in self-service and affordable laundry options.
             </p>
             <motion.div
               whileHover={{ scale: 1.05 }}
@@ -393,8 +391,15 @@ const Home: React.FC = () => {
               <motion.div key={index} className={styles.stepItem} variants={fadeInUp}>
                 {React.createElement(step.icon, { className: styles.icon })}
                 <h3 className={styles.itemTitle}>{step.title}</h3>
-                <p>{step.description}</p>
-                <Image src={step.img} alt={step.title} width={64} height={64} />
+                <p className={styles.itemDescription}>{step.description}</p>
+                <Image
+                  src={step.img}
+                  alt={step.title}
+                  width={64}
+                  height={64}
+                  objectFit="cover"
+                  objectPosition="center"
+                />
               </motion.div>
             ))}
           </div>

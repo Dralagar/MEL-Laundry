@@ -157,7 +157,7 @@ const AboutPage: React.FC = () => {
               <div>
                 <h3>Multiple Locations in Nairobi</h3>
                 <p>Find your nearest MEL Laundry outlet</p>
-                <Link href="/contact" className={styles.locationLink}>
+                <Link href="/locations" className={styles.locationLink}>
                   View All Locations
                 </Link>
               </div>
@@ -170,10 +170,11 @@ const AboutPage: React.FC = () => {
           >
             <h2>Experience Premium Laundry Service</h2>
             <p>Join thousands of satisfied customers who trust MEL Laundry</p>
-            <Link href="/contact" className={styles.ctaButton}>
+                <Link href="/locations" className={styles.ctaButton}>
               Get Started Today
             </Link>
           </motion.section>
+
         </motion.div>
       </motion.div>
     </div>

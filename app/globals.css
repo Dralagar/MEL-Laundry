@@ -1,14 +1,11 @@
 :root {
   /* Colors */
-  --primary-green: #2ecc71;
-  --dark-green: #27ae60;
-  --light-green: #eafaf1;
-  --white: #ffffff;
-  --black: #333333;
-  --gray: #f4f4f4;
-  --gray-700: #4a5568;
-  --dark-bg: #1a1a1a;
-  --dark-green-alpha: rgba(39, 174, 96, 0.1);
+  --primary-color: #16423C; /* Dark green for text */
+  --secondary-color: #6A9C89; /* Medium green for accents */
+  --tertiary-color: #C4DAD2; /* Light green for backgrounds */
+  --background-color: #F5F5F5; /* Light gray for better contrast */
+  --text-color: #333333; /* Dark gray for text */
+  --logo-color: #2ecc71; /* Bright green for logo */
 
   /* Typography */
   --font-sans: 'Inter', 'Arial', 'Helvetica', sans-serif;
@@ -38,6 +35,8 @@ html, body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  background-color: #F0F5F3; /* Pale greenish-white background */
+  color: var(--text-color); /* Ensure text color is consistent */
 }
 
 /* Reset for all elements */
@@ -56,10 +55,10 @@ html {
 }
 
 body {
-  font-family: var(--font-sans);
+  background-color: #F0F5F3; /* Pale greenish-white background */
+  color: var(--text-color); /* Ensure text color is consistent */
+  font-family: var(--font-sans); /* Use a consistent font */
   line-height: 1.6;
-  color: var(--black);
-  background-color: var(--white);
   padding-top: var(--navbar-height);
   overflow-x: hidden;
 }
@@ -69,7 +68,7 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 700;
   line-height: 1.2;
   margin-bottom: 1rem;
-  color: var(--dark-green);
+  color: var(--primary-color);
   letter-spacing: -0.02em;
 }
 
@@ -80,17 +79,18 @@ h3 { font-size: clamp(1.5rem, 3vw, 1.75rem); }
 p {
   margin-bottom: 1rem;
   max-width: 65ch; /* Optimal reading length */
+  color: var(--text-color); /* Ensure text is visible */
 }
 
 /* Links */
 a {
-  color: var(--primary-green);
+  color: var(--logo-color);
   text-decoration: none;
   transition: var(--transition-base);
 }
 
 a:hover {
-  color: var(--dark-green);
+  color: var(--secondary-color);
 }
 
 /* Images */
@@ -111,8 +111,8 @@ button, .button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--primary-green);
-  color: var(--white);
+  background-color: var(--secondary-color);
+  color: var(--text-color);
   padding: 0.75rem 1.5rem;
   border: none;
   border-radius: var(--border-radius-lg);
@@ -125,7 +125,7 @@ button, .button {
 }
 
 button:hover, .button:hover {
-  background-color: var(--dark-green);
+  background-color: var(--tertiary-color);
   transform: translateY(-2px);
   box-shadow: var(--shadow-md);
 }
@@ -136,6 +136,10 @@ button:hover, .button:hover {
   max-width: var(--container-width);
   margin: 0 auto;
   padding: 0 clamp(1rem, 3vw, 2rem);
+  background-color: var(--tertiary-color);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-sm);
+  color: var(--text-color); /* Ensure text is visible */
 }
 
 .section {

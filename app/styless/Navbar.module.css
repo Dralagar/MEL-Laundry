@@ -1,21 +1,18 @@
 /* NavBar.module.css */
 
 .nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 2rem;
-  background-color: var(--white);
-  box-shadow: var(--shadow-sm);
   position: fixed;
   top: 0;
   left: 0;
-  right: 0;
   width: 100%;
+  padding: 1rem 2rem;
+  background-color: #16423C;
+  color: #FFFFFF;
+  box-shadow: var(--shadow-sm);
   z-index: 1000;
-  transition: background-color 0.3s ease;
-  margin: 0;
-  border-radius: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .logo {
@@ -29,19 +26,21 @@
   border: none;
   font-size: 1.5rem;
   cursor: pointer;
-  color: var(--primary-green);
+  color: #FFFFFF;
 }
 
 .navList {
   display: flex;
   list-style: none;
-  gap: 2rem;
   margin: 0;
+  padding: 0;
+  color: #19b43d;
+  background-attachment: fixed;
+  transition: max-height 0.3s ease;
 }
 
 .navList li {
-  display: flex;
-  align-items: center;
+  margin: 0 1rem;
 }
 
 .logo img {
@@ -50,26 +49,19 @@
 }
 
 .navList a {
-  color: var(--primary-green);
   text-decoration: none;
+  color: #FFFFFF;
   font-weight: bold;
-  transition: color 0.3s;
-  padding: 0.5rem 1rem;
-  border-radius: var(--border-radius-sm);
+  transition: color 0.3s ease;
 }
 
-.navList a:hover {
-  color: var(--dark-green);
-  background-color: var(--light-green);
-}
-
+.navList a:hover,
 .navList a.active {
-  color: var(--white);
-  background-color: var(--primary-green);
+  color: var(--highlight-color);
 }
 
 .show {
-  display: flex;
+  display: block;
 }
 
 @media (max-width: 768px) {
@@ -82,12 +74,11 @@
     flex-direction: column;
     position: absolute;
     top: 100%;
-    right: 0;
-    background-color: var(--white);
-    box-shadow: var(--shadow-md);
-    width: 200px;
-    padding: 1rem;
-    border-radius: var(--border-radius-md);
+    left: 0;
+    width: 100%;
+    background-color: #16423C;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    align-items: center;
   }
 
   .navList.show {
@@ -95,18 +86,14 @@
   }
 
   .navList li {
-    width: 100%;
+    margin: 0.5rem 0;
   }
 
   .navList a {
-    display: block;
+    color: #FFFFFF;
+    padding: 0.5rem 0;
     width: 100%;
-    padding: 0.75rem 1rem;
-  }
-
-  .navList a:hover,
-  .navList a.active {
-    background-color: var(--light-green);
+    text-align: center;
   }
 }
 

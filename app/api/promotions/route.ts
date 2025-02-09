@@ -1,19 +1,20 @@
-import { createClient } from '@sanity/client';
-
-const client = createClient({
-  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
-  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET,
-  apiVersion: '2024-01-01',
-  useCdn: true,
-});
+import { client } from '@/lib/sanity';
+import { NextResponse } from 'next/server';
 
 export async function GET() {
   try {
-    const query = `*[_type == "promotion" && active == true] | order(_createdAt desc)[0]`;
-    const promotion = await client.fetch(query);
+    const promotions = await client.fetch(`
+      *[_type == "promotion"] | order(startDate desc) {
+        title,
+        description,
+        startDate,
+        endDate,
+        "imageUrl": image.asset->url
+      }
+    `);
     
-    return Response.json(promotion);
+    return NextResponse.json(promotions);
   } catch (error) {
-    return Response.json({ error: 'Failed to fetch promotion' }, { status: 500 });
+    return NextResponse.json({ error: 'Failed to fetch promotions' }, { status: 500 });
   }
 } 
