@@ -10,8 +10,32 @@ import FooterStyles from "../app/styless/Footer.module.css"
 import { defaultMetadata } from './metadata'
 const inter = Inter({ subsets: ['latin'] })
 
-export const metadata = {
-  ...defaultMetadata,
+export const metadata: Metadata = {
+  title: 'MEL Laundry - Premier Laundry Services in Nairobi, Kenya',
+  description: 'Discover MEL Laundry, your go-to solution for fast, efficient, and affordable laundry services in Nairobi and across Kenya. Experience convenience and quality with us.',
+  keywords: 'laundry services Nairobi, self-service laundry Kenya, affordable laundry Nairobi, MEL Laundry, Nairobi laundry services, professional laundry, drying services',
+  robots: 'index, follow',
+  openGraph: {
+    title: 'MEL Laundry - Hassle-Free Professional Laundry Services in Nairobi, Kenya',
+    description: 'Discover MEL Laundry, your go-to solution for fast, efficient, and affordable laundry services in Nairobi and across Kenya.',
+    url: 'https://www.mellaundry.co.ke',
+    type: 'website',
+    images: [
+      {
+        url: 'https://www.mellaundry.co.ke/images/og-image.jpg',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'MEL Laundry - Hassle-Free Laundry Services in Nairobi, Kenya',
+    description: 'Discover MEL Laundry, your go-to solution for fast, efficient, and affordable laundry services in Nairobi and across Kenya.',
+    images: ['https://www.mellaundry.co.ke/images/twitter-image.jpg'],
+  },
+  viewport: 'width=device-width, initial-scale=1',
+  alternates: {
+    canonical: 'https://www.mellaundry.co.ke',
+  },
   icons: {
     icon: [
       { url: '/favicon.ico', sizes: '32x32' },

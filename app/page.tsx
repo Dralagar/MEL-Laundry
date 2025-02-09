@@ -2,11 +2,11 @@
 
 "use client";
 
-import React from 'react';
-import Head from 'next/head';
+import React, { useState, useEffect } from 'react';
+import { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
-import { FaTshirt, FaWater, FaMapMarkerAlt, FaPhone, FaGift, FaSnowflake, FaLinkedin, FaTwitter, FaEnvelope } from 'react-icons/fa';
+import { FaTshirt, FaWater, FaMapMarkerAlt, FaPhone, FaGift, FaSnowflake, FaLinkedin, FaTwitter, FaEnvelope, FaArrowUp } from 'react-icons/fa';
 import { MdLocalLaundryService, MdOutlineDryCleaning } from 'react-icons/md';
 import { IoShirt } from "react-icons/io5";
 import { GiWashingMachine, GiIronCross } from "react-icons/gi"; 
@@ -79,17 +79,18 @@ interface TeamMember {
 const features: Feature[] = [
   { 
     title: 'Fast & Efficient',  
-    img: '/images/fast.png', 
+    img: '/images/effect.png', 
     description: 'Get your laundry done quickly with our high-speed machines.' 
   },
   { 
     title: 'Convenient Locations',  
     img: '/images/servicelogo.png', 
     description: 'Find us easily across Nairobi with locations close to you.'
+
   },
   { 
     title: '24/7 Availability', 
-    img: '/images/24hour.png', 
+    img: '/images/247.png', 
     description: 'Do your laundry on your schedule, anytime, day or night.' 
   },
 ];
@@ -164,7 +165,7 @@ const teamMembers: TeamMember[] = [
   {
     name: "Kyree Abraham",
     position: "Manager",
-    image: "/images/kyree.png",
+    image: "/images/kyre.png",
     blurDataURL: "data:image/jpeg;base64,/9j/4AAQSkZJRg...",
 
 
@@ -221,44 +222,62 @@ const cardVariants = {
   hover: { scale: 1.05, transition: { duration: 0.3 } },
 };
 
-// Update the announcement section with an animated card
+const winners = [
+  { number: "07****7314", prize: "500" },
+  { number: "07****8600", prize: "500" },
+  { number: "07****2615", prize: "500" },
+  { number: "07****7431", prize: "500" },
+  { number: "07****7097", prize: "500" },
+  { number: "07****0190", prize: "1000" },
+  { number: "07****3356", prize: "1000" },
+  { number: "07****7781", prize: "500" },
+  { number: "07****1349", prize: "500" },
+  { number: "07****3899", prize: "500" }
+];
+
 const LotteryAnnouncement = () => (
   <motion.section
-    className="announcementSection"
+    className={styles.announcementSection}
     initial="hidden"
     animate="visible"
     whileHover="hover"
     variants={cardVariants}
   >
-    <div className="announcementCard">
-      <h2 className="announcementTitle">Exciting Lottery Announcement!</h2>
-      <p>
-        MEL's lottery drawing took place on 31/01/2025 at 8PM. Congratulations to the 10 winners of VOUCHER Cash cards worth 500/= KSh or 1000/= KSh.
+    <div className={styles.announcementCard}>
+      <h2 className={styles.announcementTitle}>MEL Laundry Lottery Winners!</h2>
+      <p className={styles.announcementDate}>
+        Drawing held on Friday, January 31st, 2025 at 8:00 PM
       </p>
-      <p>
-        This lottery was for all customers that used MEL's services in January 2025.
-      </p>
-      <p>Thank you for participating!</p>
-      <p>Sincerely,</p>
-      <p>The MEL Team</p>
 
-      {/* Lottery Announcement Video */}
-      <div className="videoWrapper">
-        <video controls width="100%">
-          <source src="/videos/lottery-announcement.mp4" type="video/mp4" />
+      {/* Video Announcement */}
+      <div className={styles.videoWrapper}>
+        <video 
+          controls 
+          width="100%" 
+          className={styles.announcementVideo}
+          playsInline
+          preload="metadata"
+        >
+          <source src="/images/Anounce.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
       </div>
 
-      {/* Winners Section */}
+      {/* Winners List */}
       <div className={styles.winnersSection}>
-        <h3>Winners</h3>
-        <div className={styles.winnerRow}>
-          {['winner1', 'winner2', 'winner3'].map((winner, index) => (
-            <div key={index} className={styles.winner}>
-              <Image src={`/images/${winner}.png`} alt={`Winner ${index + 1}`} width={100} height={100} />
-              <p>Winner #{index + 1}</p>
-            </div>
+        <h3>Congratulations to Our Winners!</h3>
+        <div className={styles.winnersList}>
+          {winners.map((winner, index) => (
+            <motion.div 
+              key={index}
+              className={styles.winnerItem}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.1 }}
+            >
+              <span className={styles.winnerNumber}>{winner.number}</span>
+              <span className={styles.winnerPrize}>KSh {winner.prize}</span>
+            </motion.div>
           ))}
         </div>
       </div>
@@ -267,72 +286,19 @@ const LotteryAnnouncement = () => (
 );
 
 const Home: React.FC = () => {
-  // Move window event listeners inside useEffect
-  React.useEffect(() => {
+  const [showBackToTop, setShowBackToTop] = useState(false);
+
+  useEffect(() => {
     const handleScroll = () => {
-      const backToTopButton = document.querySelector('.back-to-top');
-      if (window.scrollY > 300) {
-        backToTopButton?.classList.add('show');
-      } else {
-        backToTopButton?.classList.remove('show');
-      }
+      setShowBackToTop(window.scrollY > 300);
     };
 
-    const handleSectionScroll = () => {
-      const sections = document.querySelectorAll('section');
-      const navLinks = document.querySelectorAll('.sticky-nav a');
-
-      let currentSection = '';
-
-      sections.forEach(section => {
-        const sectionTop = section.offsetTop;
-        if (window.pageYOffset >= sectionTop - 60) {
-          const id = section.getAttribute('id');
-          if (id) {
-            currentSection = id;
-          }
-        }
-      });
-
-      navLinks.forEach(link => {
-        link.classList.remove('active');
-        const href = link.getAttribute('href');
-        if (href && href.includes(currentSection)) {
-          link.classList.add('active');
-        }
-      });
-    };
-
-    // Add event listeners
     window.addEventListener('scroll', handleScroll);
-    document.addEventListener('scroll', handleSectionScroll);
-
-    // Cleanup
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      document.removeEventListener('scroll', handleSectionScroll);
-    };
-  }, []); // Empty dependency array means this runs once on mount
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
     <>
-      <Head>
-        <title>MEL Laundry - Premier Laundry Services in Nairobi, Kenya</title>
-        <meta name="description" content="Discover MEL Laundry, your go-to solution for fast, efficient, and affordable laundry services in Nairobi and across Kenya. Experience convenience and quality with us." />
-        <meta name="keywords" content="laundry services Nairobi, self-service laundry Kenya, affordable laundry Nairobi, MEL Laundry, Nairobi laundry services, professional laundry, drying services" />
-        <meta name="robots" content="index, follow" />
-        <meta property="og:title" content="MEL Laundry - Hassle-Free Professional Laundry Services in Nairobi, Kenya" />
-        <meta property="og:description" content="Discover MEL Laundry, your go-to solution for fast, efficient, and affordable laundry services in Nairobi and across Kenya." />
-        <meta property="og:url" content="https://www.mellaundry.co.ke" />
-        <link rel="canonical" href="https://www.mellaundry.co.ke" />
-        <meta property="og:type" content="website" />
-        <meta property="og:image" content="https://www.mellaundry.co.ke/images/og-image.jpg" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="MEL Laundry - Hassle-Free Laundry Services in Nairobi, Kenya" />
-        <meta name="twitter:description" content="Discover MEL Laundry, your go-to solution for fast, efficient, and affordable laundry services in Nairobi and across Kenya." />
-        <meta name="twitter:image" content="https://www.mellaundry.co.ke/images/twitter-image.jpg" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-      </Head>
       <div className={styles.homeContainer}>
         {/* Hero Section */}
         <motion.section
@@ -348,7 +314,10 @@ const Home: React.FC = () => {
               src="/images/aboutbg.jpg"
               alt="MEL Laundry Professional Services"
               fill
-              style={{ objectFit: 'cover' }}
+              style={{ 
+                objectFit: 'cover',
+                objectPosition: 'center',
+              }}
               quality={100}
               priority
             />
@@ -379,28 +348,30 @@ const Home: React.FC = () => {
 
         {/* Features Section */}
         <motion.section
-          id="features"
-          className={styles.homeFeatures}
+          className={styles.featuresSection}
           initial="initial"
           whileInView="animate"
           viewport={{ once: true }}
           variants={staggerChildren}
         >
-          <motion.h2 className={styles.sectionTitle} variants={fadeInUp}>
-            Why Choose MEL Laundry?
-          </motion.h2>
+          <h2 className={styles.sectionTitle}>Our Features</h2>
           <div className={styles.featuresGrid}>
             {features.map((feature, index) => (
-              <motion.div key={index} className={styles.featureItem} variants={fadeInUp}>
-                <Image 
-                  src={feature.img} 
-                  alt={feature.title} 
-                  width={64} 
-                  height={64} 
-                  className={styles.featureImage} 
-                />
-                <h3 className={styles.itemTitle}>{feature.title}</h3>
-                <p>{feature.description}</p>
+              <motion.div
+                key={index}
+                className={styles.featureCard}
+                variants={fadeInUp}
+              >
+                <div className={styles.featureImageContainer}>
+                  <Image
+                    src={feature.img}
+                    alt={feature.title}
+                    fill
+                    className={styles.featureImage}
+                  />
+                </div>
+                <h3 className={styles.featureTitle}>{feature.title}</h3>
+                <p className={styles.featureDescription}>{feature.description}</p>
               </motion.div>
             ))}
           </div>
@@ -616,9 +587,15 @@ const Home: React.FC = () => {
         <LotteryAnnouncement />
 
         {/* Back to Top Button */}
-        <button className="back-to-top" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-          ↑ Back to Top
-        </button>
+        <motion.button
+          className={`${styles.backToTop} ${showBackToTop ? styles.visible : ''}`}
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+          aria-label="Scroll to top"
+        >
+          <FaArrowUp />
+        </motion.button>
       </div>
     </>
   );

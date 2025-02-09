@@ -1,5 +1,5 @@
 ﻿# Kill all Node processes
-taskkill /F /IM node.exe 2>
+taskkill /F /IM node.exe 2>nul
 
 # Remove problematic directories and files
 Remove-Item -Path '.next' -Recurse -Force -ErrorAction SilentlyContinue
