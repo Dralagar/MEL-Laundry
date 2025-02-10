@@ -1,11 +1,14 @@
 import { NextResponse } from 'next/server';
 import mongoose from 'mongoose';
-import BlogPost from '../../models/BlogPost';
+import BlogPost from '@/models/BlogPost';
+import { createClient } from '@sanity/client';
+import config from '../../../sanity.config';
 
+// Initialize MongoDB connection
 const connectDB = async () => {
   if (mongoose.connections[0].readyState) return;
   try {
-    await mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/blogDB', {
+    await mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/MEL', {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
@@ -16,22 +19,26 @@ const connectDB = async () => {
   }
 };
 
+// Initialize Sanity client
+const client = createClient(config);
+
+// GET request handler
 export async function GET() {
-  await connectDB();
   try {
-    const blogs = await BlogPost.find();
-    return NextResponse.json(blogs);
+    const posts = await client.fetch(`*[_type == "post"]`);
+    return NextResponse.json(posts);
   } catch (error) {
-    console.error('Failed to fetch blogs:', error);
-    return NextResponse.json({ error: 'Failed to fetch blogs' }, { status: 500 });
+    console.error('Failed to fetch posts:', error);
+    return NextResponse.json({ error: 'Failed to fetch posts' }, { status: 500 });
   }
 }
 
+// POST request handler
 export async function POST(request) {
   await connectDB();
   try {
     const body = await request.json();
-    const { title, content, author, image } = body;
+    const { title, content, author, image, tags } = body;
 
     if (!title || !content || !author) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
@@ -41,7 +48,10 @@ export async function POST(request) {
       title,
       content,
       author,
-      image: image || null,
+      image: image || '/default-blog-image.jpg',
+      tags: tags || [],
+      createdAt: new Date(),
+      updatedAt: new Date(),
     });
 
     return NextResponse.json(newBlog, { status: 201 });
@@ -51,11 +61,12 @@ export async function POST(request) {
   }
 }
 
+// PUT request handler
 export async function PUT(request) {
   await connectDB();
   try {
     const body = await request.json();
-    const { id, title, content, author, image } = body;
+    const { id, title, content, author, image, tags } = body;
 
     if (!id || !title || !content || !author) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
@@ -63,7 +74,7 @@ export async function PUT(request) {
 
     const updatedBlog = await BlogPost.findByIdAndUpdate(
       id,
-      { title, content, author, image: image || null },
+      { title, content, author, image: image || '/default-blog-image.jpg', tags: tags || [] },
       { new: true, runValidators: true }
     );
 
@@ -78,6 +89,7 @@ export async function PUT(request) {
   }
 }
 
+// DELETE request handler
 export async function DELETE(request) {
   await connectDB();
   try {

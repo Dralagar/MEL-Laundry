@@ -1,8 +1,10 @@
 import { NextResponse } from 'next/server';
 import mongoose from 'mongoose';
 import BlogPost from '@/models/BlogPost';
-import { createClient } from 'next-sanity';
+import { createClient } from '@sanity/client';
 import config from '../../../sanity.config';
+
+
 
 
 const connectDB = async () => {
