@@ -1,10 +1,8 @@
 import { NextResponse } from 'next/server';
 import mongoose from 'mongoose';
 import BlogPost from '@/models/BlogPost';
-import { createClient } from '@sanity/client';
-import config from '../../../sanity.config';
 
-// Initialize MongoDB connection
+// Connect to MongoDB
 const connectDB = async () => {
   if (mongoose.connections[0].readyState) return;
   try {
@@ -19,13 +17,11 @@ const connectDB = async () => {
   }
 };
 
-// Initialize Sanity client
-const client = createClient(config);
-
 // GET request handler
 export async function GET() {
+  await connectDB();
   try {
-    const posts = await client.fetch(`*[_type == "post"]`);
+    const posts = await BlogPost.find();
     return NextResponse.json(posts);
   } catch (error) {
     console.error('Failed to fetch posts:', error);
@@ -58,57 +54,5 @@ export async function POST(request) {
   } catch (error) {
     console.error('Failed to create blog:', error);
     return NextResponse.json({ error: 'Failed to create blog' }, { status: 500 });
-  }
-}
-
-// PUT request handler
-export async function PUT(request) {
-  await connectDB();
-  try {
-    const body = await request.json();
-    const { id, title, content, author, image, tags } = body;
-
-    if (!id || !title || !content || !author) {
-      return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
-    }
-
-    const updatedBlog = await BlogPost.findByIdAndUpdate(
-      id,
-      { title, content, author, image: image || '/default-blog-image.jpg', tags: tags || [] },
-      { new: true, runValidators: true }
-    );
-
-    if (!updatedBlog) {
-      return NextResponse.json({ error: 'Blog post not found' }, { status: 404 });
-    }
-
-    return NextResponse.json(updatedBlog);
-  } catch (error) {
-    console.error('Failed to update blog:', error);
-    return NextResponse.json({ error: 'Failed to update blog' }, { status: 500 });
-  }
-}
-
-// DELETE request handler
-export async function DELETE(request) {
-  await connectDB();
-  try {
-    const { searchParams } = new URL(request.url);
-    const id = searchParams.get('id');
-
-    if (!id) {
-      return NextResponse.json({ error: 'Missing blog post ID' }, { status: 400 });
-    }
-
-    const deletedBlog = await BlogPost.findByIdAndDelete(id);
-
-    if (!deletedBlog) {
-      return NextResponse.json({ error: 'Blog post not found' }, { status: 404 });
-    }
-
-    return NextResponse.json({ message: 'Blog post deleted successfully' });
-  } catch (error) {
-    console.error('Failed to delete blog:', error);
-    return NextResponse.json({ error: 'Failed to delete blog' }, { status: 500 });
   }
 }
