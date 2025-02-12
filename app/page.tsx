@@ -112,7 +112,7 @@ const steps: Step[] = [
   {
     icon: MdLocalLaundryService,
     title: 'Dry',
-    img: '/images/dryclothes.jpeg',
+    img: '/images/Dryclothes.jpeg',
     description: 'Dry your clothes quickly with our powerful dryers.'
   }
 ];
