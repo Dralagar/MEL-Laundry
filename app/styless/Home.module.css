@@ -72,8 +72,13 @@
 }
 
 .heroDescription {
-  font-size: 1rem;
-  color: var(--primary-color);
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #333333;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   margin-bottom: 2rem;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
 }
