@@ -79,7 +79,7 @@ interface TeamMember {
 const features: Feature[] = [
   { 
     title: 'Fast & Efficient',  
-    img: '/images/effect.png', 
+    img: '/images/Effect.png', 
     description: 'Get your laundry done quickly with our high-speed machines.' 
   },
   { 
