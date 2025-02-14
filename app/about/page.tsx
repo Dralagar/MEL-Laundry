@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { FaTshirt, FaMapMarkerAlt } from 'react-icons/fa';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import styles from '../styless/About.module.css';
 import Head from 'next/head';
 
@@ -63,6 +63,12 @@ const tabContents = {
 
 type TabKey = keyof typeof tabContents;
 
+const fadeIn = {
+  initial: { opacity: 0, y: 20 },
+  animate: { opacity: 1, y: 0 },
+  exit: { opacity: 0, y: -20 }
+};
+
 const AboutPage: React.FC = () => {
   const [activeTab, setActiveTab] = useState<TabKey>('mission');
 
@@ -77,20 +83,20 @@ const AboutPage: React.FC = () => {
         <meta property="og:description" content="MEL Laundry offers professional machine washing services in Nairobi, including areas like Donholm. Experience top-quality laundry solutions across multiple locations." />
         <meta property="og:url" content="https://www.mellaundry.co.ke/about" />
         <meta property="og:type" content="website" />
-        <meta property="og:image" content="https://www.mellaundry.co.ke/images/aboutbg.jpg" />
+        <meta property="og:image" content="https://www.mellaundry.co.ke/images/Aboutbg.jpg" />
       </Head>
       <motion.div 
-        className={`${styles.container}`}
-        initial="hidden"
-        animate="visible"
-        variants={staggerContainer}
+        className={styles.container}
+        initial="initial"
+        animate="animate"
+        variants={fadeIn}
       >
         <div className={styles.heroSection}>
           <div className={styles.imageWrapper}>
             <Image
-              src="/images/aboutbg.jpg" 
+              src="/images/Aboutbg.jpg" 
               alt="MEL Laundry Hero"
-              fill  
+              fill
               style={{ objectFit: 'cover' }}
               quality={100}
               priority
@@ -124,28 +130,44 @@ const AboutPage: React.FC = () => {
             ))}
           </div>
 
-          <motion.div
-            className={styles.contentSection}
-            key={activeTab}
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <h2>{tabContents[activeTab].title}</h2>
-            <p>{tabContents[activeTab].content}</p>
-            <ul className={styles.featureList}>
-              {tabContents[activeTab].list.map((item, index) => (
-                <motion.li
-                  key={index}
-                  variants={fadeInUp}
-                  custom={index}
-                >
-                  <FaTshirt className={styles.icon} />
-                  <span>{item}</span>
-                </motion.li>
-              ))}
-            </ul>
-          </motion.div>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeTab}
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              transition={{ duration: 0.3 }}
+              className={styles.contentSection}
+            >
+              <h2>{tabContents[activeTab].title}</h2>
+              <p>{tabContents[activeTab].content}</p>
+              <ul className={styles.featureList}>
+                {tabContents[activeTab as TabKey].list.map((item: string | React.ReactElement, index: number) => (
+                  <motion.li
+                    key={index}
+                    variants={fadeInUp}
+                    custom={index}
+                    className={styles.featureListItem}
+                  >
+                    {typeof item === 'string' ? (
+                      <div className={styles.featureContent}>
+                        <Image
+                          src="/images/247.png"
+                          alt="Feature Icon"
+                          width={48}
+                          height={48}
+                          className={styles.iconImage}
+                        />
+                        <span>{item}</span>
+                      </div>
+                    ) : (
+                      item
+                    )}
+                  </motion.li>
+                ))}
+              </ul>
+            </motion.div>
+          </AnimatePresence>
 
           <motion.section
             className={styles.locationSection}

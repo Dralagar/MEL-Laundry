@@ -99,7 +99,7 @@ const steps: Step[] = [
   {
     icon: FaTshirt,
     title: 'Bring Your Laundry',
-    img: '/images/Dirttowel.jpg',
+    img: '/images/Dirttowel.png',
     description: 'Bring your dirty clothes to any MEL Laundry location.'
 
   },

@@ -1,11 +1,11 @@
 :root {
   /* Colors */
-  --primary-color: #16423C; /* Dark green for text */
+  --primary-color: #167130; /* Dark green for text */
   --secondary-color: #6A9C89; /* Medium green for accents */
   --tertiary-color: #C4DAD2; /* Light green for backgrounds */
   --background-color: #F5F5F5; /* Light gray for better contrast */
-  --text-color: #333333; /* Dark gray for text */
-  --logo-color: #2ecc71; /* Bright green for logo */
+  --text-color: #6c6868; /* Dark gray for text */
+  --logo-color: #167130; /* Bright green for logo */
 
   /* Typography */
   --font-sans: 'Inter', 'Arial', 'Helvetica', sans-serif;

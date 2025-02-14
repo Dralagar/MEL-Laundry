@@ -1,18 +1,23 @@
-/* Mobile-First Container */
+/* Container and Layout */
 .container {
     width: 100%;
     max-width: var(--container-width);
     margin: 0 auto;
-    padding: 0 clamp(1rem, 3vw, 2rem);
-    overflow-x: hidden;
+    padding: 2rem clamp(1rem, 3vw, 2rem);
+    display: flex;
+    flex-direction: column;
+    gap: clamp(3rem, 5vw, 5rem);
 }
 
 /* Hero Section */
 .heroSection {
     position: relative;
-    height: 60vh;
+    height: clamp(400px, 70vh, 800px);
     min-height: 400px;
+    width: 100%;
     overflow: hidden;
+    border-radius: var(--border-radius-lg);
+    margin-top: clamp(2rem, 4vw, 4rem);
     background-color: var(--gray);
     display: flex;
     align-items: center;
@@ -24,18 +29,22 @@
 
 .imageWrapper {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    inset: 0;
     z-index: 1;
+    border-radius: inherit;
+    overflow: hidden;
 }
 
 .bgImage {
     object-fit: cover;
-    object-position: center;
     width: 100%;
     height: 100%;
+    transform: scale(1.1);
+    transition: transform 0.3s ease-out;
+}
+
+.heroSection:hover .bgImage {
+    transform: scale(1);
 }
 
 .overlay {
@@ -48,10 +57,13 @@
 .title {
     position: relative;
     color: var(--white);
-    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-size: clamp(2rem, 5vw, 4rem);
     z-index: 3;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-    margin: 0;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    max-width: 20ch;
+    margin: 0 auto;
 }
 
 /* Main Content */
@@ -66,20 +78,22 @@
 /* Tab Container */
 .tabContainer {
     display: flex;
-    flex-direction: column;
-    gap: var(--spacing-md);
-    margin: var(--section-spacing) 0;
+    justify-content: center;
+    gap: clamp(1rem, 2vw, 2rem);
+    margin: clamp(2rem, 4vw, 3rem) 0;
+    flex-wrap: wrap;
 }
 
 .tabButton {
-    padding: var(--spacing-xs) var(--spacing-md);
+    padding: clamp(0.5rem, 1vw, 1rem) clamp(1rem, 2vw, 2rem);
     border: none;
     background: transparent;
     border-bottom: 2px solid var(--gray-700);
     cursor: pointer;
-    transition: var(--transition-base);
-    font-size: 1rem;
+    transition: all 0.3s ease;
+    font-size: clamp(0.9rem, 1.5vw, 1.1rem);
     color: var(--text-color);
+    border-radius: var(--border-radius-sm);
 }
 
 .activeTab {
@@ -89,31 +103,36 @@
 
 /* Content Section */
 .contentSection {
-    margin: var(--spacing-lg) 0;
+    margin: clamp(2rem, 4vw, 4rem) 0;
+    padding: clamp(1.5rem, 3vw, 2.5rem);
+    background: var(--background-color);
+    border-radius: var(--border-radius-lg);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
     text-align: left;
-    padding: 0 var(--spacing-md);
+    line-height: 1.8;
 }
 
 .contentSection h2 {
-    font-size: 1.75rem;
-    margin-bottom: var(--spacing-sm);
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
+    margin-bottom: clamp(1rem, 3vw, 2rem);
     color: var(--dark-green);
 }
 
 .contentSection p {
-    font-size: 1rem;
+    font-size: clamp(1rem, 1.5vw, 1.2rem);
     line-height: 1.6;
-    margin-bottom: var(--spacing-md);
+    max-width: 65ch;
+    margin: 0 auto;
     color: var(--black);
 }
 
 /* Feature List */
 .featureList {
-    list-style: none;
-    padding: 0;
     display: grid;
-    gap: var(--spacing-md);
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: clamp(2rem, 4vw, 3rem);
+    padding: clamp(2rem, 4vw, 3rem);
+    margin-top: clamp(2rem, 4vw, 3rem);
 }
 
 .featureList li {
@@ -138,21 +157,26 @@
 
 /* Location Section */
 .locationSection {
-    margin: var(--section-spacing) 0;
-    padding: var(--section-spacing);
+    margin-top: clamp(4rem, 6vw, 6rem);
+    background: var(--primary-color);
+    color: white;
+    padding: clamp(3rem, 5vw, 4rem);
     border-radius: var(--border-radius-lg);
-    background: var(--light-green);
-    text-align: center;
-    box-shadow: var(--shadow-md);
+    position: relative;
+    overflow: hidden;
 }
 
 .locationCard {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: var(--spacing-sm);
-    margin-top: var(--spacing-sm);
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    padding: clamp(2rem, 3vw, 2.5rem);
+    border-radius: var(--border-radius-md);
+    transform: translateY(0);
+    transition: transform 0.3s ease;
+}
+
+.locationCard:hover {
+    transform: translateY(-5px);
 }
 
 .mapIcon {
@@ -177,27 +201,32 @@
 
 /* CTA Section */
 .ctaSection {
-    margin: var(--section-spacing) 0;
-    padding: var(--section-spacing);
+    margin-top: clamp(4rem, 6vw, 6rem);
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    padding: clamp(3rem, 5vw, 4rem);
     border-radius: var(--border-radius-lg);
-    background: var(--light-green);
     text-align: center;
-    box-shadow: var(--shadow-md);
+    position: relative;
+    overflow: hidden;
 }
 
 .ctaButton {
-    display: inline-block;
-    margin-top: var(--spacing-sm);
-    padding: var(--spacing-xs) var(--spacing-md);
-    background: var(--primary-green);
-    color: var(--white);
-    text-decoration: none;
+    margin-top: 2rem;
+    padding: 1rem 2.5rem;
+    font-size: clamp(1rem, 1.5vw, 1.2rem);
+    font-weight: 600;
+    background: white;
+    color: var(--primary-color);
     border-radius: var(--border-radius-md);
-    transition: background 0.3s ease;
+    transform: translateY(0);
+    transition: all 0.3s ease;
 }
 
 .ctaButton:hover {
-    background: var(--dark-green);
+    background: var(--tertiary-color);
+    transform: translateY(-3px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
 
 /* Tablet Breakpoint */
@@ -290,4 +319,43 @@
     content: '✔️';
     color: var(--primary-green);
     font-size: 1.5rem;
+}
+
+.featureListItem {
+    background: var(--tertiary-color);
+    border-radius: var(--border-radius-lg);
+    padding: clamp(2rem, 3vw, 2.5rem);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.featureListItem:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+}
+
+.featureContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    width: 100%;
+}
+
+.featureText {
+    font-size: clamp(1rem, 1.5vw, 1.2rem);
+    color: var(--text-color);
+    font-weight: 500;
+    line-height: 1.4;
+}
+
+.iconImage {
+    width: clamp(48px, 5vw, 64px);
+    height: auto;
+    margin-bottom: clamp(1rem, 2vw, 1.5rem);
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
 }
