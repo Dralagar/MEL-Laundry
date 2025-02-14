@@ -311,13 +311,12 @@ const Home: React.FC = () => {
         >
           <div className={styles.heroImageWrapper}>
             <Image
-              src="/images/Aboutbg.jpg"
+              src="/images/AboutBg.jpg"
               alt="MEL Laundry Professional Services"
               layout="fill"
               objectFit="cover"
               objectPosition="center"
               quality={100}
-
             />
           </div>
           <div className={styles.heroOverlay}></div>
