@@ -3,6 +3,10 @@
   color: #ffffff;
   padding: 4rem 0 2rem;
   font-family: Arial, sans-serif;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  z-index: 1000;
 }
 
 .footerContent {
