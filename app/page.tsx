@@ -173,14 +173,14 @@ const teamMembers: TeamMember[] = [
   {
     name: "Angel Tamara",
     position: "Executive Director",
-    image: "/images/tamara.png",
+    image: "/images/Tamara.png",
     blurDataURL: "/images/tamara-blur.png"
   },
 
   {
     name: "George Dralagar",
     position: "Marketing Lead & Developer",
-    image: "/images/george.png",
+    image: "/images/George.png",
     blurDataURL: "/images/george-blur.png"
   },
   {
