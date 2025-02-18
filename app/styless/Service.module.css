@@ -1,10 +1,5 @@
-/* This file contains only component-specific styles */
-
-/* Consistent color palette */
-
-
 /* General styles */
-.page-container {
+.pageContainer {
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
@@ -17,29 +12,27 @@
   justify-content: center;
   align-items: center;
   overflow: hidden;
+  background-image: url('/images/inside.jpg');
+  background-size: cover;
+  background-position: center;
 }
-  
-.bgImage {
-  position: relative;
+
+.imageOverlay {
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: -1;
-  object-fit: cover;
-  opacity: 1;
+  background: rgba(0, 0, 0, 0.3); /* Optional overlay for better text contrast */
 }
 
-.title {
-  font-size: 2rem;
-  color: rgba(255, 255, 255, 0.521);
-  text-align:center;
+.mainHeading {
+  font-size: 2.5rem;
+  color: var(--dark-gray);
+  text-align: center;
+  margin: 20px 0;
+  padding: 0;
   font-weight: bold;
-  z-index: 1;
-  padding: 1rem;
-  padding-top: 0cap;
-  border-radius: 8px;
-  background-color: rgba(14, 155, 54, 0.605);
 }
 
 .serviceButtons {
@@ -164,7 +157,7 @@
 
 /* Media Queries for larger screens */
 @media (min-width: 768px) {
-  .title {
+  .mainHeading {
     font-size: 2.5rem;
     padding: 1.5rem;
   }
@@ -217,13 +210,4 @@
     padding: 1.5rem 3rem;
     font-size: 1.4rem;
   }
-}
-
-.mainHeading {
-  font-size: 2.5rem;
-  color: var(--dark-gray);
-  text-align: center;
-  margin: 20px 0;
-  padding: 0;
-  font-weight: bold;
 }

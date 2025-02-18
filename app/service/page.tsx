@@ -5,7 +5,6 @@ import { motion } from 'framer-motion';
 import { FaTshirt, FaTruck, FaWind } from 'react-icons/fa';
 import { GiWashingMachine } from 'react-icons/gi';
 import { IconType } from 'react-icons';
-import Image from 'next/image';
 import styles from '../styless/Service.module.css';
 
 interface Service {
@@ -13,7 +12,6 @@ interface Service {
   title: string;
   description: string;
   features: string[];
-  image?: React.ReactNode;
 }
 
 type Services = {
@@ -38,19 +36,6 @@ const ServicePage: React.FC = () => {
         "Affordable rates",
         "Clean and comfortable environment",
       ],
-      image: (
-        <div className={styles.imageContainer}>
-          <Image
-            src="/images/Inside.jpg" 
-            alt="MEL Laundry Hero"
-            fill
-            style={{ objectFit: 'cover' }}
-            quality={100}
-            priority
-            className={styles.bgImage}
-          />
-        </div>
-      ),
     },
     'dry-cleaning': {
       icon: FaTshirt,
@@ -96,10 +81,10 @@ const ServicePage: React.FC = () => {
   };
 
   return (
-    <div className="page-container">
+    <div className={styles.pageContainer}>
       <h1 className={styles.mainHeading}>Our Services</h1>
       <div className={styles.heroContainer}>
-        {services['self-service'].image}
+        <div className={styles.imageOverlay}></div>
       </div>
 
       <div className={styles.serviceButtons}>
@@ -156,7 +141,6 @@ const ServicePage: React.FC = () => {
         >
           Book Now via WhatsApp
         </motion.button>
-        
       </motion.div>
     </div>
   );

@@ -311,7 +311,7 @@ const Home: React.FC = () => {
         >
           <div className={styles.heroImageWrapper}>
             <Image
-              src="/images/AboutBg.jpg"
+              src="/images/ABoutbg.jpg"
               alt="MEL Laundry Professional Services"
               layout="fill"
               objectFit="cover"
