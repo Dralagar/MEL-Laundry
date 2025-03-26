@@ -83,7 +83,7 @@ const AboutPage: React.FC = () => {
         <meta property="og:description" content="MEL Laundry offers professional machine washing services in Nairobi, including areas like Donholm. Experience top-quality laundry solutions across multiple locations." />
         <meta property="og:url" content="https://www.mellaundry.co.ke/about" />
         <meta property="og:type" content="website" />
-        <meta property="og:image" content="https://www.mellaundry.co.ke/images/inside.jpg" />
+        <meta property="og:image" content="https://www.mellaundry.co.ke/images/Inside.jpg" />
       </Head>
       <motion.div 
         className={styles.container}
@@ -94,7 +94,7 @@ const AboutPage: React.FC = () => {
         <div className={styles.heroSection}>
           <div className={styles.imageWrapper}>
             <Image
-              src="/images/inside.jpg" 
+              src="/images/Inside.jpg" 
               alt="MEL Laundry Hero"
               fill
               style={{ objectFit: 'cover' }}
