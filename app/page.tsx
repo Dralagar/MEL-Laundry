@@ -59,6 +59,7 @@ interface PriceItem {
 interface Testimonial {
   id: string;
   content: string;
+  
   author: string;
 }
 
@@ -235,56 +236,6 @@ const winners = [
   { number: "07****3899", prize: "500" }
 ];
 
-const LotteryAnnouncement = () => (
-  <motion.section
-    className={styles.announcementSection}
-    initial="hidden"
-    animate="visible"
-    whileHover="hover"
-    variants={cardVariants}
-  >
-    <div className={styles.announcementCard}>
-      <h2 className={styles.announcementTitle}>MEL Laundry Lottery Winners!</h2>
-      <p className={styles.announcementDate}>
-        Drawing held on Friday, January 31st, 2025 at 8:00 PM
-      </p>
-
-      {/* Video Announcement */}
-      <div className={styles.videoWrapper}>
-        <video 
-          controls 
-          width="100%" 
-          className={styles.announcementVideo}
-          playsInline
-          preload="metadata"
-        >
-          <source src="/images/Anounce.mp4" type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
-      </div>
-
-      {/* Winners List */}
-      <div className={styles.winnersSection}>
-        <h3>Congratulations to Our Winners!</h3>
-        <div className={styles.winnersList}>
-          {winners.map((winner, index) => (
-            <motion.div 
-              key={index}
-              className={styles.winnerItem}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 }}
-            >
-              <span className={styles.winnerNumber}>{winner.number}</span>
-              <span className={styles.winnerPrize}>KSh {winner.prize}</span>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </div>
-  </motion.section>
-);
-
 const Home: React.FC = () => {
   const [showBackToTop, setShowBackToTop] = useState(false);
 
@@ -311,7 +262,7 @@ const Home: React.FC = () => {
         >
           <div className={styles.heroImageWrapper}>
             <Image
-              src="/images/ABoutbg.jpg"
+              src="/images/Aboutbg.jpg"
               alt="MEL Laundry Professional Services"
               layout="fill"
               objectFit="cover"
@@ -587,8 +538,6 @@ const Home: React.FC = () => {
             </Link>
           </motion.div>
         </motion.section>
-
-        <LotteryAnnouncement />
 
         {/* Back to Top Button */}
         <motion.button
