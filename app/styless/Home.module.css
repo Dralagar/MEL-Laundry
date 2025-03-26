@@ -10,7 +10,7 @@
 /* Hero Section */
 .homeHero {
   position: relative;
-  min-height: 80vh; /* Adjusted for better mobile view */
+  min-height: 80vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -55,7 +55,7 @@
   z-index: 3;
   text-align: center;
   color: #fff;
-  padding: 1.5rem; /* Reduced padding to allow more space for content */
+  padding: 0;
   border-radius: var(--border-radius-md);
   box-shadow: var(--shadow-md);
   max-width: 90%;
@@ -65,22 +65,22 @@
 }
 
 .heroTitle {
-  font-size: clamp(1.5rem, 4vw, 2.2rem); /* Reduced max size slightly */
-  line-height: 1.2; /* Adjusted line height for better spacing */
+  font-size: clamp(1.5rem, 4vw, 2.2rem);
+  line-height: 1.2;
   color: var(--primary-color);
-  margin-bottom: 0.5rem; /* Reduced margin to minimize whitespace */
+  margin-bottom: 0.5rem;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 .heroDescription {
-  font-size: 1.1rem; /* Slightly reduced font size */
+  font-size: 1.1rem;
   font-weight: 600;
   color: #333333;
   background-color: rgba(255, 255, 255, 0.8);
   padding: 15px;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  margin-bottom: 1.5rem; /* Reduced margin to minimize whitespace */
+  margin-bottom: 1.5rem;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
 }
 
