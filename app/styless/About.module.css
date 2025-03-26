@@ -155,22 +155,25 @@
 
 /* Location Section */
 .locationSection {
-    margin-top: clamp(4rem, 6vw, 6rem);
+    margin-top: clamp(3rem, 5vw, 5rem);
     background: var(--primary-color);
     color: white;
-    padding: clamp(3rem, 5vw, 4rem);
+    padding: clamp(2rem, 4vw, 3rem);
     border-radius: var(--border-radius-lg);
     position: relative;
     overflow: hidden;
+    text-align: center;
 }
 
 .locationCard {
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
-    padding: clamp(2rem, 3vw, 2.5rem);
+    padding: clamp(1.5rem, 3vw, 2rem);
     border-radius: var(--border-radius-md);
     transform: translateY(0);
     transition: transform 0.3s ease;
+    max-width: 800px;
+    margin: 0 auto;
 }
 
 .locationCard:hover {
@@ -180,12 +183,13 @@
 .mapIcon {
     color: var(--primary-green);
     font-size: 2rem;
+    margin-bottom: 1rem;
 }
 
 .locationLink {
     display: inline-block;
-    margin: var(--spacing-sm) auto 0;
-    padding: var(--spacing-xs) var(--spacing-md);
+    margin-top: 1rem;
+    padding: 0.75rem 1.5rem;
     background: var(--primary-green);
     color: var(--white);
     text-decoration: none;
@@ -199,10 +203,10 @@
 
 /* CTA Section */
 .ctaSection {
-    margin-top: clamp(4rem, 6vw, 6rem);
+    margin-top: clamp(3rem, 5vw, 5rem);
     background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
     color: white;
-    padding: clamp(3rem, 5vw, 4rem);
+    padding: clamp(2rem, 4vw, 3rem);
     border-radius: var(--border-radius-lg);
     text-align: center;
     position: relative;
@@ -210,8 +214,8 @@
 }
 
 .ctaButton {
-    margin-top: 2rem;
-    padding: 1rem 2.5rem;
+    margin-top: 1.5rem;
+    padding: 0.75rem 2rem;
     font-size: clamp(1rem, 1.5vw, 1.2rem);
     font-weight: 600;
     background: white;
