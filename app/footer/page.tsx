@@ -14,7 +14,7 @@ const Footer = () => {
         <div className={`${styles.footerSection} ${styles.brandSection}`} aria-label="Company branding">
           <Link href="/" aria-label="Home">
             <Image 
-              src="/images/Washer.png" 
+              src="/images/washer.png" 
               alt="MEL Laundry Logo" 
               width={100} 
               height={50}
