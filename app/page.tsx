@@ -126,7 +126,7 @@ const pricingCategories: PriceCategory[] = [
     items: [
       {
         name: "Mixed Clothes Special",
-        price: "500",
+        price: "600",
         description: "Up to 8kg of mixed clothes"
       },
       {
@@ -142,12 +142,12 @@ const pricingCategories: PriceCategory[] = [
     items: [
       {
         name: "Full Load (8kg)",
-        price: "1000",
+        price: "1200",
         description: "Assorted clothes - complete service"
       },
       {
         name: "Washing Only (8kg)",
-        price: "500",
+        price: "600",
         description: "Washing service only"
       },
       {
@@ -185,7 +185,7 @@ const teamMembers: TeamMember[] = [
     blurDataURL: "/images/george-blur.png"
   },
   {
-    name: "Sylvia Achista",
+    name: "Purity Ikapel",
     position: "Manager",
     image: "/images/cylvia.png",
     blurDataURL: "/images/sylvia-blur.png"
