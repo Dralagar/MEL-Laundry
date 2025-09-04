@@ -187,14 +187,14 @@ const teamMembers: TeamMember[] = [
   {
     name: "Purity Ikapel",
     position: "Manager",
-    image: "/images/cylvia.png",
-    blurDataURL: "/images/sylvia-blur.png"
+    image: "/images/Ikapel.jpg",
+    blurDataURL: "/images/Ikapel.jpg"
   },
   {
     name: "Benard Mweke",
     position: "Supervisor",
-    image: "/images/benard.png",
-    blurDataURL: "/images/benard-blur.png"
+    image: "/images/Ben.png",
+    blurDataURL: "/images/Ben.png"
   }
 ];
 
