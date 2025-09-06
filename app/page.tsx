@@ -185,17 +185,18 @@ const teamMembers: TeamMember[] = [
     blurDataURL: "/images/george-blur.png"
   },
   {
+    name: "Benard Mweke",
+    position: "Senior Manager",
+    image: "/images/Ben.png",
+    blurDataURL: "/images/Ben.png"
+  },
+  {
     name: "Purity Ikapel",
-    position: "Manager",
+    position: "Supervisor",
     image: "/images/Ikapel.jpg",
     blurDataURL: "/images/Ikapel.jpg"
   },
-  {
-    name: "Benard Mweke",
-    position: "Supervisor",
-    image: "/images/Ben.png",
-    blurDataURL: "/images/Ben.png"
-  }
+
 ];
 
 const testimonials: Testimonial[] = [
