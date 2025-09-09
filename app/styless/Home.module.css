@@ -327,90 +327,373 @@
   padding: 1rem;
   border-radius: var(--border-radius-md);
   box-shadow: var(--shadow-sm);
-  max-width: 300px;
+  max-width: 400px;
   margin-left: auto;
   margin-right: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.paymentButton, .buyGoodsButton {
+  background-color: var(--primary-green);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--border-radius-md);
+  cursor: pointer;
+  transition: var(--transition-base);
+  font-weight: 600;
+}
+
+.paymentButton:hover, .buyGoodsButton:hover {
+  background-color: var(--dark-green);
+  transform: translateY(-2px);
+}
+
+/* M-Pesa Payment Styles */
+.mpesaPayment {
+  background: white;
+  padding: 2rem;
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-md);
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.mpesaPayment h3 {
+  color: var(--primary-green);
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.paymentForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.paymentInput {
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: var(--border-radius-sm);
+  font-size: 1rem;
+}
+
+.paymentInput:focus {
+  outline: none;
+  border-color: var(--primary-green);
+}
+
+.paymentStatus {
+  text-align: center;
+  font-weight: 500;
+  color: var(--primary-green);
+}
+
+/* Customer Registration Styles */
+.customerSection {
+  padding: 4rem 1rem;
+  background-color: #f9fafb;
+  text-align: center;
+}
+
+.customerRegistration {
+  background: white;
+  padding: 2rem;
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-md);
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.registrationForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.registrationInput {
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: var(--border-radius-sm);
+  font-size: 1rem;
+}
+
+.registrationInput:focus {
+  outline: none;
+  border-color: var(--primary-green);
+}
+
+.subscriptionLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--dark-gray);
+}
+
+.registrationButton {
+  background-color: var(--primary-green);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--border-radius-md);
+  cursor: pointer;
+  transition: var(--transition-base);
+  font-weight: 600;
+  margin-top: 1rem;
+}
+
+.registrationButton:hover {
+  background-color: var(--dark-green);
+}
+
+.registrationSuccess {
+  background-color: var(--light-green);
+  padding: 1.5rem;
+  border-radius: var(--border-radius-md);
+  color: var(--dark-green);
+  font-weight: 500;
+}
+
+/* Top Customers Styles */
+.topCustomers {
+  padding: 4rem 1rem;
+  background-color: var(--white);
+  text-align: center;
+}
+
+.topCustomers h3 {
+  color: var(--dark-green);
+  margin-bottom: 2rem;
+}
+
+.customersList {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.customerItem {
+  display: flex;
+  align-items: center;
+  background: var(--light-green);
+  padding: 1rem;
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition-base);
+}
+
+.customerItem:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+.customerRank {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--primary-green);
+  color: white;
+  border-radius: 50%;
+  font-weight: bold;
+  margin-right: 1rem;
+  flex-shrink: 0;
+}
+
+.customerInfo {
+  flex: 1;
+  text-align: left;
+}
+
+.customerInfo h4 {
+  margin: 0 0 0.25rem 0;
+  color: var(--dark-green);
+}
+
+.customerInfo p {
+  margin: 0 0 0.5rem 0;
+  color: var(--dark-gray);
+}
+
+.customerStats {
+  display: flex;
+  gap: 1rem;
+  font-size: 0.8rem;
+}
+
+.customerStats span {
+  background: rgba(255, 255, 255, 0.7);
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--border-radius-sm);
+}
+
+.customerBadge {
+  background: var(--primary-green);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: var(--border-radius-md);
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.goldCrown, .goldStar {
+  color: gold;
+  font-size: 1.5rem;
+}
+
+/* Meet the Team Section */
+.meetTheTeam {
+  padding: 4rem 1rem;
+  background-color: #E9EFEC;
+  text-align: center;
+}
+
+.teamRow {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.teamMember {
+  flex: 0 0 calc(20% - 2rem);
+  max-width: 200px;
+  background-color: #fff;
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-sm);
+  padding: 1.5rem 1rem;
+  transition: var(--transition-base);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.teamImageWrapper {
+  width: 150px;
+  height: 150px;
+  margin: 0 auto 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.teamImage {
+  border-radius: 50%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.teamInfo {
+  width: 100%;
+}
+
+.teamInfo h3 {
+  font-size: 1.25rem;
+  color: var(--primary-color);
+  margin-bottom: 0.5rem;
+}
+
+.teamInfo h4 {
+  font-size: 1rem;
+  color: var(--secondary-color);
+  margin-bottom: 0.5rem;
+}
+
+.teamInfo p {
+  font-size: 1rem;
+  color: var(--medium-gray);
+}
+
+.socialLinks {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.socialLinks a {
+  color: var(--primary-green);
+  font-size: 1.25rem;
+  transition: color 0.3s ease;
+}
+
+.socialLinks a:hover {
+  color: var(--dark-green);
+}
+
+/* Modal Styles */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modalContent {
+  background: white;
+  padding: 2rem;
+  border-radius: var(--border-radius-md);
+  position: relative;
+  max-width: 90%;
+  width: 400px;
+}
+
+.closeModal {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--dark-gray);
 }
 
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
-  .pricing {
-    padding: 2rem 1rem;
+  .teamRow {
+    flex-direction: column;
+    align-items: center;
   }
-
-  .pricingCategories {
-    grid-template-columns: 1fr;
-    max-width: 400px;
-    margin: 0 auto;
+  
+  .teamMember {
+    flex: 1 1 100%;
+    max-width: 300px;
   }
-
-  .categoryCard {
-    padding: 1.25rem;
+  
+  .customerItem {
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
   }
-
-  .priceItem {
-    padding: 0.4rem;
+  
+  .customerInfo {
+    text-align: center;
   }
-
-  .heroTitle {
-    font-size: 2.5rem;
+  
+  .customerStats {
+    justify-content: center;
   }
-
-  .heroDescription {
-    font-size: 1.25rem;
-  }
-
-  .ctaButton {
-    font-size: 0.875rem;
-  }
-
-  .featuresGrid,
-  .stepsGrid,
-  .pricingGrid,
-  .teamGrid,
-  .testimonialsGrid {
-    grid-template-columns: 1fr;
-  }
-
-  .homeHero {
-    height: 80vh;
-  }
-}
-
-/* Dark Mode Support */
-@media (prefers-color-scheme: dark) {
-  .pricing {
-    background: linear-gradient(135deg, #1a1f2e 0%, #2a3142 100%);
-  }
-
-  .categoryCard {
-    background: rgba(255, 255, 255, 0.05);
-    border-color: rgba(255, 255, 255, 0.1);
-  }
-
-  .categoryHeader h3,
-  .itemName {
-    color: #fff;
-  }
-
-  .itemDescription {
-    color: #aaa;
-  }
-
-  .itemPrice {
-    color: #66b3ff;
-  }
-
+  
   .paymentInfo {
-    background: linear-gradient(135deg, rgba(0, 102, 204, 0.1) 0%, rgba(0, 102, 204, 0.2) 100%);
-  }
-
-  .paymentInfo p {
-    color: #66b3ff;
-  }
-
-  .sectionTitle {
-    color: #ffffff;
+    flex-direction: column;
   }
 }
 
@@ -439,114 +722,6 @@
 .testimonialItem:hover {
   transform: translateY(-5px);
   box-shadow: var(--shadow-md);
-}
-
-/* Meet the Team Section */
-.meetTheTeam {
-  padding: 4rem 1rem;
-  background-color: #E9EFEC;
-  text-align: center;
-}
-
-.teamRow {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 1rem;
-}
-
-.teamMember {
-  flex: 1 1 calc(20% - 1rem);
-  max-width: 200px;
-  background-color: #fff;
-  border-radius: var(--border-radius-md);
-  box-shadow: var(--shadow-sm);
-  padding: 1rem;
-  transition: var(--transition-base);
-  text-align: center;
-  margin: 0 auto;
-}
-
-.teamImageContainer {
-  margin-bottom: 1rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.teamImage {
-  border-radius: 50%;
-  width: 100%;
-  height: auto;
-}
-
-.teamInfo h3 {
-  font-size: 1.25rem;
-  color: var(--primary-color);
-  margin-bottom: 0.5rem;
-}
-
-.teamInfo h4 {
-  font-size: 1rem;
-  color: var(--secondary-color);
-  margin-bottom: 0.5rem;
-}
-
-.teamInfo p {
-  font-size: 1rem;
-  color: var(--medium-gray);
-}
-
-.socialLinks a {
-  color: var(--primary-green);
-  margin: 0 0.5rem;
-  transition: color 0.3s ease;
-}
-
-.socialLinks a:hover {
-  color: var(--dark-green);
-}
-
-/* Update responsive styles */
-@media (max-width: 1200px) {
-  .teamMember {
-    width: calc(33.333% - 2rem);
-  }
-  
-  .teamImageContainer {
-    width: 150px;
-    height: 150px;
-  }
-}
-
-@media (max-width: 1024px) {
-  .teamRow {
-    gap: 1.5rem;
-  }
-  
-  .teamMember {
-    width: calc(50% - 1.5rem);
-  }
-}
-
-@media (max-width: 768px) {
-  .teamRow {
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .teamMember {
-    flex: 1 1 100%;
-    max-width: none;
-  }
-}
-
-@media (max-width: 480px) {
-  .teamMember {
-    width: 100%;
-    max-width: 320px;
-  }
 }
 
 /* Call to Action Section */
@@ -581,21 +756,6 @@
 .contactIcon {
   font-size: 1.5rem;
   color: var(--primary-green);
-}
-
-.paymentButton {
-  background: none;
-  border: none;
-  color: inherit;
-  cursor: pointer;
-  font: inherit;
-  padding: 0;
-  width: 100%;
-  text-align: center;
-  transition: opacity 0.2s ease;
-} 
-.paymentButton:hover {
-  opacity: 0.8;
 }
 
 /* Back to Top Button */

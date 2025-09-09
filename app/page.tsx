@@ -6,15 +6,12 @@ import React, { useState, useEffect } from 'react';
 import { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
-import { FaTshirt, FaWater, FaMapMarkerAlt, FaPhone, FaGift, FaSnowflake, FaLinkedin, FaTwitter, FaEnvelope, FaArrowUp } from 'react-icons/fa';
+import { FaTshirt, FaWater, FaMapMarkerAlt, FaPhone, FaGift, FaSnowflake, FaLinkedin, FaTwitter, FaEnvelope, FaArrowUp, FaCrown, FaStar } from 'react-icons/fa';
 import { MdLocalLaundryService, MdOutlineDryCleaning } from 'react-icons/md';
 import { IoShirt } from "react-icons/io5";
 import { GiWashingMachine, GiIronCross } from "react-icons/gi"; 
 import { motion, Variants } from 'framer-motion';
 import styles from './styless/Home.module.css';
-
-
-
 
 // Motion variants  
 const fadeInUp: Variants = {
@@ -59,7 +56,6 @@ interface PriceItem {
 interface Testimonial {
   id: string;
   content: string;
-  
   author: string;
 }
 
@@ -76,6 +72,17 @@ interface TeamMember {
   };
 }
 
+interface Customer {
+  id: string;
+  name: string;
+  phone: string;
+  email?: string;
+  visits: number;
+  totalSpent: number;
+  lastVisit: Date;
+  isSubscribed: boolean;
+}
+
 // Data arrays
 const features: Feature[] = [
   { 
@@ -87,7 +94,6 @@ const features: Feature[] = [
     title: 'Convenient Locations',  
     img: '/images/servicelogo.png', 
     description: 'Find us easily across Nairobi with locations close to you.'
-
   },
   { 
     title: '24/7 Availability', 
@@ -102,7 +108,6 @@ const steps: Step[] = [
     title: 'Bring Your Laundry',
     img: '/images/Dirttowel.png',
     description: 'Bring your dirty clothes to any MEL Laundry location.'
-
   },
   {
     icon: FaWater,
@@ -150,7 +155,6 @@ const pricingCategories: PriceCategory[] = [
         price: "1000",
         description: "Assorted clothes - complete service"
       },
-
       {
         name: "Washing Only (6kg)",
         price: "500",
@@ -180,7 +184,6 @@ const teamMembers: TeamMember[] = [
     position: "Investor/Director",
     image: "/images/kyre.png",
     blurDataURL: "/images/kyree-blur.png"
-
   },
   {
     name: "Angel Tamara",
@@ -188,7 +191,6 @@ const teamMembers: TeamMember[] = [
     image: "/images/Tamara.png",
     blurDataURL: "/images/tamara-blur.png"
   },
-
   {
     name: "George Dralagar",
     position: "Marketing Lead & Developer",
@@ -207,7 +209,6 @@ const teamMembers: TeamMember[] = [
     image: "/images/Ikapel.jpg",
     blurDataURL: "/images/Ikapel.jpg"
   },
-
 ];
 
 const testimonials: Testimonial[] = [
@@ -248,8 +249,211 @@ const winners = [
   { number: "07****3899", prize: "500" }
 ];
 
+// M-Pesa payment component
+const MpesaPayment: React.FC = () => {
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [amount, setAmount] = useState('');
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [paymentStatus, setPaymentStatus] = useState('');
+
+  const handlePayment = async () => {
+    setIsProcessing(true);
+    setPaymentStatus('Processing...');
+    
+    // Simulate M-Pesa API call
+    try {
+      // In a real implementation, you would call your backend API
+      // which would then initiate the M-Pesa payment
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      
+      // Simulate successful payment
+      setPaymentStatus('Payment successful! Check your phone to complete the transaction.');
+      
+      // Reset form after successful payment
+      setTimeout(() => {
+        setPhoneNumber('');
+        setAmount('');
+        setPaymentStatus('');
+        setIsProcessing(false);
+      }, 3000);
+    } catch (error) {
+      setPaymentStatus('Payment failed. Please try again.');
+      setIsProcessing(false);
+    }
+  };
+
+  return (
+    <div className={styles.mpesaPayment}>
+      <h3>Pay with M-Pesa</h3>
+      <div className={styles.paymentForm}>
+        <input
+          type="tel"
+          placeholder="Phone Number (e.g., 07XX XXX XXX)"
+          value={phoneNumber}
+          onChange={(e) => setPhoneNumber(e.target.value)}
+          className={styles.paymentInput}
+        />
+        <input
+          type="number"
+          placeholder="Amount (KSh)"
+          value={amount}
+          onChange={(e) => setAmount(e.target.value)}
+          className={styles.paymentInput}
+        />
+        <button 
+          onClick={handlePayment} 
+          disabled={isProcessing || !phoneNumber || !amount}
+          className={styles.paymentButton}
+        >
+          {isProcessing ? 'Processing...' : 'Pay with M-Pesa'}
+        </button>
+        {paymentStatus && <p className={styles.paymentStatus}>{paymentStatus}</p>}
+      </div>
+    </div>
+  );
+};
+
+// Customer registration component
+const CustomerRegistration: React.FC = () => {
+  const [name, setName] = useState('');
+  const [phone, setPhone] = useState('');
+  const [email, setEmail] = useState('');
+  const [isSubscribed, setIsSubscribed] = useState(true);
+  const [isRegistered, setIsRegistered] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    // In a real implementation, you would save this to a database
+    const customerData = {
+      name,
+      phone,
+      email,
+      isSubscribed,
+      visits: 1,
+      totalSpent: 0,
+      lastVisit: new Date()
+    };
+    
+    // Save to localStorage for demo purposes
+    const existingCustomers = JSON.parse(localStorage.getItem('melCustomers') || '[]');
+    existingCustomers.push({...customerData, id: Date.now().toString()});
+    localStorage.setItem('melCustomers', JSON.stringify(existingCustomers));
+    
+    setIsRegistered(true);
+    
+    // Reset form after submission
+    setTimeout(() => {
+      setName('');
+      setPhone('');
+      setEmail('');
+      setIsRegistered(false);
+    }, 3000);
+  };
+
+  return (
+    <div className={styles.customerRegistration}>
+      <h3>Join Our Loyalty Program</h3>
+      <p>Register for exclusive offers and rewards!</p>
+      
+      {isRegistered ? (
+        <div className={styles.registrationSuccess}>
+          <p>Thank you for registering! You'll receive our special offers soon.</p>
+        </div>
+      ) : (
+        <form onSubmit={handleSubmit} className={styles.registrationForm}>
+          <input
+            type="text"
+            placeholder="Full Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+            className={styles.registrationInput}
+          />
+          <input
+            type="tel"
+            placeholder="Phone Number"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            required
+            className={styles.registrationInput}
+          />
+          <input
+            type="email"
+            placeholder="Email (Optional)"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className={styles.registrationInput}
+          />
+          <label className={styles.subscriptionLabel}>
+            <input
+              type="checkbox"
+              checked={isSubscribed}
+              onChange={(e) => setIsSubscribed(e.target.checked)}
+            />
+            Receive promotional offers and updates
+          </label>
+          <button type="submit" className={styles.registrationButton}>
+            Join Now
+          </button>
+        </form>
+      )}
+    </div>
+  );
+};
+
+// Top customers component
+const TopCustomers: React.FC = () => {
+  const [topCustomers, setTopCustomers] = useState<Customer[]>([]);
+
+  useEffect(() => {
+    // In a real implementation, you would fetch this from your database
+    const customers = JSON.parse(localStorage.getItem('melCustomers') || '[]');
+    
+    // Sort by visits and total spent
+    const sortedCustomers = customers
+      .sort((a: Customer, b: Customer) => {
+        if (b.visits !== a.visits) return b.visits - a.visits;
+        return b.totalSpent - a.totalSpent;
+      })
+      .slice(0, 5); // Top 5 customers
+    
+    setTopCustomers(sortedCustomers);
+  }, []);
+
+  if (topCustomers.length === 0) return null;
+
+  return (
+    <div className={styles.topCustomers}>
+      <h3>Our Valued Customers</h3>
+      <div className={styles.customersList}>
+        {topCustomers.map((customer, index) => (
+          <div key={customer.id} className={styles.customerItem}>
+            <div className={styles.customerRank}>
+              {index === 0 ? <FaCrown className={styles.goldCrown} /> : `#${index + 1}`}
+            </div>
+            <div className={styles.customerInfo}>
+              <h4>{customer.name}</h4>
+              <p>{customer.phone}</p>
+              <div className={styles.customerStats}>
+                <span>{customer.visits} visits</span>
+                <span>KSh {customer.totalSpent} spent</span>
+              </div>
+            </div>
+            <div className={styles.customerBadge}>
+              {index === 0 && <FaStar className={styles.goldStar} />}
+              {index === 0 ? 'Top Customer' : 'Loyal Customer'}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
 const Home: React.FC = () => {
   const [showBackToTop, setShowBackToTop] = useState(false);
+  const [showMpesaModal, setShowMpesaModal] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -418,12 +622,35 @@ const Home: React.FC = () => {
           <motion.div className={styles.paymentInfo} variants={fadeInUp}>
             <button 
               className={styles.paymentButton}
+              onClick={() => setShowMpesaModal(true)}
+            >
+              Pay with M-Pesa
+            </button>
+            <button 
+              className={styles.buyGoodsButton}
               onClick={() => window.open('https://buygoods.co.ke/buy/4572688', '_blank')}
             >
               Buy Goods Till: 4572688
             </button>
           </motion.div>
         </motion.section>
+
+        {/* Customer Registration Section */}
+        <motion.section
+          className={styles.customerSection}
+          initial="initial"
+          whileInView="animate"
+          viewport={{ once: true }}
+          variants={staggerChildren}
+        >
+          <motion.h2 className={styles.sectionTitle} variants={fadeInUp}>
+            Join Our Loyalty Program
+          </motion.h2>
+          <CustomerRegistration />
+        </motion.section>
+
+        {/* Top Customers Section */}
+        <TopCustomers />
 
         {/* Meet the Team Section */}
         <motion.section
@@ -447,7 +674,7 @@ const Home: React.FC = () => {
                 variants={fadeInUp}
                 transition={{ duration: 0.3 }}
               >
-                <div className={styles.teamImageContainer}>
+                <div className={styles.teamImageWrapper}>
                   <Image 
                     src={member.image} 
                     alt={member.name} 
@@ -550,6 +777,21 @@ const Home: React.FC = () => {
             </Link>
           </motion.div>
         </motion.section>
+
+        {/* M-Pesa Modal */}
+        {showMpesaModal && (
+          <div className={styles.modalOverlay} onClick={() => setShowMpesaModal(false)}>
+            <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+              <button 
+                className={styles.closeModal}
+                onClick={() => setShowMpesaModal(false)}
+              >
+                &times;
+              </button>
+              <MpesaPayment />
+            </div>
+          </div>
+        )}
 
         {/* Back to Top Button */}
         <motion.button
