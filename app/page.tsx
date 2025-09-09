@@ -131,7 +131,7 @@ const pricingCategories: PriceCategory[] = [
       },
       {
         name: "Regular Mixed (Per kg)",
-        price: "99",
+        price: "125",
         description: "Price per kilogram of mixed clothes"
       }
     ]
