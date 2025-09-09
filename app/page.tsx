@@ -126,7 +126,7 @@ const pricingCategories: PriceCategory[] = [
     items: [
       {
         name: "Mixed Clothes Special",
-        price: "600",
+        price: "500",
         description: "Up to 6kg of mixed clothes"
       },
       {
@@ -142,12 +142,18 @@ const pricingCategories: PriceCategory[] = [
     items: [
       {
         name: "Full Load (6kg)",
-        price: "1200",
+        price: "500",
         description: "Assorted clothes - complete service"
       },
       {
+        name: "Full Load Machine wash and Quick Drying (6kg)",
+        price: "1000",
+        description: "Assorted clothes - complete service"
+      },
+
+      {
         name: "Washing Only (6kg)",
-        price: "600",
+        price: "500",
         description: "Washing service only"
       },
       {
@@ -158,6 +164,11 @@ const pricingCategories: PriceCategory[] = [
       {
         name: "Duvet Cover",
         price: { from: "300", to: "400" }
+      },
+      {
+        name: "Shoes (Per Pair)",
+        price: "150",
+        description: "Washing service only"
       },
     ]
   }
