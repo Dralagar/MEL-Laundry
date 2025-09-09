@@ -99,6 +99,7 @@ const Footer = () => {
           </Link>
         </ol>
         <p>&copy; {currentYear} MEL Laundry. All rights reserved.</p>
+        <p>Built by ReactNowDev</p>
       </div>
     </footer>
   );

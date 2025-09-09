@@ -127,7 +127,7 @@ const pricingCategories: PriceCategory[] = [
       {
         name: "Mixed Clothes Special",
         price: "600",
-        description: "Up to 8kg of mixed clothes"
+        description: "Up to 6kg of mixed clothes"
       },
       {
         name: "Regular Mixed (Per kg)",
@@ -141,12 +141,12 @@ const pricingCategories: PriceCategory[] = [
     icon: MdOutlineDryCleaning,
     items: [
       {
-        name: "Full Load (8kg)",
+        name: "Full Load (6kg)",
         price: "1200",
         description: "Assorted clothes - complete service"
       },
       {
-        name: "Washing Only (8kg)",
+        name: "Washing Only (6kg)",
         price: "600",
         description: "Washing service only"
       },
@@ -187,8 +187,8 @@ const teamMembers: TeamMember[] = [
   {
     name: "Benard Mweke",
     position: "Senior Manager",
-    image: "/images/Ben.png",
-    blurDataURL: "/images/Ben.png"
+    image: "/images/Benard.jpg",
+    blurDataURL: "/images/Benard.jpg"
   },
   {
     name: "Purity Ikapel",
