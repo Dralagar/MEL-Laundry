@@ -4,7 +4,7 @@ const nextConfig = {
   poweredByHeader: false,
   compress: true,
   turbopack: {
-    root: __dirname,
+    root: process.cwd(),
   },
   images: {
     remotePatterns: [
