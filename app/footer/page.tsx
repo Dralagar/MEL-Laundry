@@ -14,7 +14,7 @@ const Footer = () => {
         <div className={`${styles.footerSection} ${styles.brandSection}`} aria-label="Company branding">
           <Link href="/" aria-label="Home">
             <Image 
-              src="/images/washer.png" 
+              src="/images/Washer.png" 
               alt="MEL Laundry Logo" 
               width={100} 
               height={50}
@@ -50,8 +50,8 @@ const Footer = () => {
               </Link>
             </li>
             <li>
-              <Link href="tel:+254740630890" aria-label="Call us at +254740630890">
-                <FaPhone />  +254740630890
+              <Link href="tel:+254769003443" aria-label="Phone Number: Call us at +254769003443">
+                <FaPhone />  Phone Number: +254769003443
               </Link>
             </li>
             <li>
@@ -60,7 +60,7 @@ const Footer = () => {
               </Link>
             </li>
             <li>
-              <Link href="https://wa.me/+254740630890" target="_blank" rel="noopener noreferrer" aria-label="Chat with us on WhatsApp">
+              <Link href="https://wa.me/+254769003443" target="_blank" rel="noopener noreferrer" aria-label="Chat with us on WhatsApp">
                 <FaPhone /> WhatsApp Us
               </Link>
             </li>
@@ -94,8 +94,8 @@ const Footer = () => {
           </Link>
         </ol>
         <ol>
-          <Link href="tel:+254740630890" aria-label="Call us at +254740630890">
-            <FaPhone />  +254740630890
+          <Link href="tel:+254769003443" aria-label="Call us at +254769003443">
+            <FaPhone />  +254769003443
           </Link>
         </ol>
         <p>&copy; {currentYear} MEL Laundry. All rights reserved.</p>

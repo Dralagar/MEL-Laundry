@@ -167,7 +167,7 @@
 
 .serviceDetails p {
   font-size: clamp(1.05rem, 1.6vw, 1.25rem);
-  color: var(--text-color-light);
+  color: var(--dark-gray);
   margin-bottom: 2rem;
   line-height: 1.8;
   max-width: 70ch;
@@ -251,11 +251,11 @@
 }
 
 .ctaButton {
-  background: white;
-  color: var(--primary-color);
+  background: var(--primary-green);
+  color: #ffffff;
   padding: 1.1rem 2.5rem;
   border: none;
-  border-radius: 50px;
+  border-radius: 999px;
   cursor: pointer;
   font-size: clamp(1.1rem, 1.6vw, 1.25rem);
   font-weight: 700;
@@ -281,10 +281,10 @@
 }
 
 .ctaButton:hover {
-  background: var(--tertiary-color);
+  background: var(--dark-green);
   transform: translateY(-4px);
   box-shadow: 0 12px 30px rgba(0,0,0,0.2);
-  color: white;
+  color: #ffffff;
 }
 
 .ctaButton:hover::before {

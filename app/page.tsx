@@ -666,33 +666,24 @@ const Home: React.FC = () => {
             <p className={styles.teamSubtitle}>The passionate professionals behind MEL Laundry's success</p>
           </motion.div>
           
-          <div className={styles.teamRow}>
+          <div className={styles.teamGrid}>
             {teamMembers.map((member, index) => (
               <motion.div 
                 key={member.name}
-                className={styles.teamMember}
+                className={styles.teamMemberCard}
                 variants={fadeInUp}
                 transition={{ duration: 0.3 }}
+                whileHover={{ y: -5 }}
               >
-                <div className={styles.teamImageWrapper}>
+                <div className={styles.teamImageContainer}>
                   <Image 
                     src={member.image} 
                     alt={member.name} 
-                    width={150} 
-                    height={150} 
+                    fill
                     className={styles.teamImage}
                     placeholder="blur"
                     blurDataURL={member.blurDataURL}
                     unoptimized
-                    style={{ 
-                      objectFit: 'cover', 
-                      borderRadius: '50%', 
-                      transition: 'transform 0.3s ease',
-                      backgroundColor: '#f0f0f0'
-                    }}
-                    onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
-                    onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
-                    priority={index < 2}
                   />
                 </div>
                 <div className={styles.teamInfo}>
@@ -744,11 +735,11 @@ const Home: React.FC = () => {
           <div className={styles.contactInfo}>
             <motion.div className={styles.contactItem} variants={fadeInUp}>
               <FaMapMarkerAlt className={styles.contactIcon} />
-              <p>Shiloh Towers, Opposite CFF Donholm, Off Manyanja Rd, Nairobi, Kenya</p>
+              <p>Shiloh Towers, Opposite CFF Donholm, Savannah Road, Nairobi, Kenya</p>
             </motion.div>
             <motion.div className={styles.contactItem} variants={fadeInUp}>
               <FaPhone className={styles.contactIcon} />
-              <p>+254740630890</p>
+              <p>+254769003443</p>
             </motion.div>
             <motion.div className={styles.contactItem} variants={fadeInUp}>
               <FaMapMarkerAlt className={styles.contactIcon} />
