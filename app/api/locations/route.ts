@@ -1,14 +1,8 @@
-import dotenv from 'dotenv';
-import path from 'path';
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { MongoClient, ObjectId } from 'mongodb';
-
-// Load environment variables from .env file
-dotenv.config({ path: path.join(process.cwd(), '.env') });
 
 let client: MongoClient | null = null;
 
-// Singleton pattern for MongoDB client
 async function getMongoClient() {
   if (!client) {
     client = new MongoClient(process.env.MONGODB_URI || 'mongodb://localhost:27017/MEL');
@@ -17,13 +11,11 @@ async function getMongoClient() {
   return client;
 }
 
-type RouteContext = {
-  params: Promise<{ id: string }>;
-};
-
-export async function GET(request: Request, context: RouteContext) {
+export async function GET(request: NextRequest) {
   try {
-    const { id } = await context.params;
+    const { searchParams } = new URL(request.url);
+    const id = searchParams.get('id');
+
     const client = await getMongoClient();
     const db = client.db('mel');
     const collection = db.collection('locations');
@@ -44,7 +36,7 @@ export async function GET(request: Request, context: RouteContext) {
   }
 }
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
     const { name, address, city, state, zipCode, status } = body;
@@ -64,7 +56,7 @@ export async function POST(request: Request) {
       zipCode,
       status: status ?? 'Not yet launched',
       createdAt: new Date(),
-      updatedAt: new Date()
+      updatedAt: new Date(),
     });
 
     return NextResponse.json({ ...body, _id: newLocation.insertedId }, { status: 201 });
@@ -74,14 +66,14 @@ export async function POST(request: Request) {
   }
 }
 
-export async function PUT(
-  request: Request,
-  context: { params: Promise<{ id: string }> }
-) {
+export async function PUT(request: NextRequest) {
   try {
-    const { id } = await context.params;
     const body = await request.json();
-    const { name, address, city, state, zipCode, status } = body;
+    const { id, name, address, city, state, zipCode, status } = body;
+
+    if (!id) {
+      return NextResponse.json({ error: 'Missing id' }, { status: 400 });
+    }
 
     if (!name || !address || !city || !state || !zipCode) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
@@ -100,8 +92,8 @@ export async function PUT(
           state,
           zipCode,
           status,
-          updatedAt: new Date()
-        }
+          updatedAt: new Date(),
+        },
       },
       { returnDocument: 'after' }
     );
@@ -116,3 +108,4 @@ export async function PUT(
     return NextResponse.json({ error: 'Failed to update location' }, { status: 500 });
   }
 }
+

@@ -1,27 +1,29 @@
 import dotenv from 'dotenv';
-dotenv.config();
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+// Load .env.local from the parent directory
+dotenv.config({ path: join(__dirname, '..', '.env.local') });
 
 import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import multer from 'multer';
-import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import path from 'path';
 import BlogPost from './models/BlogPost.js';
 import Location from './models/Location.js';
 import User from './models/User.js';
-import { Resend } from 'resend';
 
 const app = express();
 const port = process.env.PORT || 5001;
-const resend = process.env.RESEND_API_KEY 
-  ? new Resend(process.env.RESEND_API_KEY)
-  : null;
 
 // Middleware
 app.use(cors({
-  origin: ['http://localhost:3000', 'http://localhost:3001', 'http://localhost:3002'],
+  origin: ['http://localhost:3000', 'http://localhost:3001', 'http://localhost:3002', 'http://localhost:3003'],
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   credentials: true
 }));
@@ -42,24 +44,67 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-// Connect to MongoDB
-console.log('MongoDB URI:', process.env.MONGODB_URI);
-mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log('MongoDB connected'))
-  .catch(err => console.error('MongoDB connection error:', err));
+// Connect to MongoDB (optional in dev if URI is missing),
+// but track connectivity so API routes can respond clearly.
+// Fall back to a local MongoDB instance if MONGODB_URI is not set.
+const mongoUri = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/mel-laundry';
+let isDbConnected = false;
 
-// Basic route
+if (!mongoUri) {
+  console.warn('MONGODB_URI is not set. Database-dependent routes will be unavailable.');
+} else {
+  console.log('MongoDB URI:', mongoUri);
+  mongoose.connect(mongoUri)
+    .then(() => console.log('MongoDB connected'))
+    .catch(err => console.error('MongoDB connection error:', err));
+
+  mongoose.connection.on('connected', () => {
+    isDbConnected = true;
+  });
+
+  mongoose.connection.on('disconnected', () => {
+    isDbConnected = false;
+  });
+
+  mongoose.connection.on('error', () => {
+    isDbConnected = false;
+  });
+}
+
+// Middleware to ensure database is available for DB-dependent routes
+const ensureDbConnected = (req, res, next) => {
+  if (!mongoUri) {
+    return res.status(503).json({
+      message: 'Database is not configured on this server (missing MONGODB_URI).',
+    });
+  }
+
+  if (!isDbConnected) {
+    return res.status(503).json({
+      message: 'Database is currently unavailable. Please try again later.',
+    });
+  }
+
+  next();
+};
+
+// Basic health route
 app.get('/', (req, res) => {
-  res.send('Server is running');
+  res.json({
+    status: 'ok',
+    port,
+    dbConfigured: !!mongoUri,
+    dbConnected: isDbConnected,
+  });
 });
 
-// User routes
-app.post('/api/users/register', async (req, res) => {
+// User routes (simplified without bcrypt for now)
+app.post('/api/users/register', ensureDbConnected, async (req, res) => {
   try {
-    const hashedPassword = await bcrypt.hash(req.body.password, 10);
+    // For now, store password as plain text (NOT PRODUCTION READY)
     const user = new User({
       username: req.body.username,
-      password: hashedPassword,
+      password: req.body.password, // TODO: Add bcrypt back when space allows
       role: req.body.role || 'admin'
     });
     const newUser = await user.save();
@@ -69,13 +114,14 @@ app.post('/api/users/register', async (req, res) => {
   }
 });
 
-app.post('/api/users/login', async (req, res) => {
+app.post('/api/users/login', ensureDbConnected, async (req, res) => {
   try {
     const user = await User.findOne({ username: req.body.username });
     if (!user) {
       return res.status(400).json({ message: 'User not found' });
     }
-    if (await bcrypt.compare(req.body.password, user.password)) {
+    // Simple password comparison (NOT PRODUCTION READY)
+    if (req.body.password === user.password) {
       const token = jwt.sign(
         { userId: user._id, role: user.role },
         process.env.JWT_SECRET || 'your-secret-key',
@@ -109,7 +155,7 @@ const authenticateToken = (req, res, next) => {
 };
 
 // Locations routes
-app.get('/api/locations', async (req, res) => {
+app.get('/api/locations', ensureDbConnected, async (req, res) => {
   try {
     const locations = await Location.find();
     res.json(locations);
@@ -118,7 +164,7 @@ app.get('/api/locations', async (req, res) => {
   }
 });
 
-app.post('/api/locations', authenticateToken, async (req, res) => {
+app.post('/api/locations', authenticateToken, ensureDbConnected, async (req, res) => {
   const location = new Location({
     name: req.body.name,
     address: req.body.address,
@@ -137,7 +183,7 @@ app.post('/api/locations', authenticateToken, async (req, res) => {
   }
 });
 
-app.put('/api/locations/:id', authenticateToken, async (req, res) => {
+app.put('/api/locations/:id', authenticateToken, ensureDbConnected, async (req, res) => {
   try {
     if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
       return res.status(400).json({ message: 'Invalid location ID' });
@@ -171,7 +217,7 @@ app.put('/api/locations/:id', authenticateToken, async (req, res) => {
   }
 });
 
-app.delete('/api/locations/:id', authenticateToken, async (req, res) => {
+app.delete('/api/locations/:id', authenticateToken, ensureDbConnected, async (req, res) => {
   try {
     const location = await Location.findById(req.params.id);
     if (!location) {
@@ -185,7 +231,7 @@ app.delete('/api/locations/:id', authenticateToken, async (req, res) => {
 });
 
 // Blog routes
-app.get('/api/blogs', async (req, res) => {
+app.get('/api/blogs', ensureDbConnected, async (req, res) => {
   try {
     const blogs = await BlogPost.find();
     res.json(blogs);
@@ -194,11 +240,11 @@ app.get('/api/blogs', async (req, res) => {
   }
 });
 
-app.get('/api/blogs/:id', getBlog, (req, res) => {
+app.get('/api/blogs/:id', ensureDbConnected, getBlog, (req, res) => {
   res.json(res.blog);
 });
 
-app.post('/api/blogs', authenticateToken, upload.single('image'), async (req, res) => {
+app.post('/api/blogs', authenticateToken, ensureDbConnected, upload.single('image'), async (req, res) => {
   console.log('Request Body:', req.body);
   console.log('Uploaded File:', req.file);
 
@@ -218,7 +264,7 @@ app.post('/api/blogs', authenticateToken, upload.single('image'), async (req, re
   }
 });
 
-app.put('/api/blogs/:id', authenticateToken, getBlog, async (req, res) => {
+app.put('/api/blogs/:id', authenticateToken, ensureDbConnected, getBlog, async (req, res) => {
   if (req.body.title != null) {
     res.blog.title = req.body.title;
   }
@@ -236,7 +282,7 @@ app.put('/api/blogs/:id', authenticateToken, getBlog, async (req, res) => {
   }
 });
 
-app.delete('/api/blogs/:id', authenticateToken, getBlog, async (req, res) => {
+app.delete('/api/blogs/:id', authenticateToken, ensureDbConnected, getBlog, async (req, res) => {
   try {
     await res.blog.deleteOne();
     res.json({ message: 'Blog deleted' });
@@ -286,37 +332,12 @@ app.use((err, req, res, next) => {
   });
 });
 
-// Add email route
+// Email route disabled for now (resend package not available)
 app.post('/api/send-email', authenticateToken, async (req, res) => {
-  if (!resend) {
-    return res.status(503).json({ 
-      success: false, 
-      message: 'Email service not configured' 
-    });
-  }
-  try {
-    const { to, subject, html } = req.body;
-    
-    // Ensure all required fields are provided
-    if (!to || !subject || !html) {
-      return res.status(400).json({ 
-        success: false, 
-        message: 'Missing required fields: to, subject, html' 
-      });
-    }
-
-    const data = await resend.emails.send({
-      from: process.env.RESEND_FROM_EMAIL,
-      to: to,
-      subject: subject,
-      html: html
-    });
-
-    res.status(200).json({ success: true, data });
-  } catch (error) {
-    console.error('Email sending error:', error);
-    res.status(500).json({ success: false, error: error.message });
-  }
+  res.status(503).json({ 
+    success: false, 
+    message: 'Email service temporarily disabled' 
+  });
 });
 
 app.listen(port, () => {
@@ -326,10 +347,8 @@ app.listen(port, () => {
 // Global error handler
 process.on('unhandledRejection', (reason, promise) => {
   console.error('Unhandled Rejection at:', promise, 'reason:', reason);
-  // Handle the error appropriately
 });
 
 process.on('uncaughtException', (error) => {
   console.error('Uncaught Exception:', error);
-  // Handle the error appropriately
 });

@@ -17,7 +17,7 @@ const nextConfig = {
   async rewrites() {
     const destination = process.env.PRODUCTION_API_URL
       ? `${process.env.PRODUCTION_API_URL}/api/:path*`
-      : 'http://localhost:5000/api/:path*';
+      : 'http://localhost:5001/api/:path*';
 
     if (!destination.startsWith('http')) {
       throw new Error('Invalid PRODUCTION_API_URL environment variable');
@@ -33,7 +33,7 @@ const nextConfig = {
   env: {
     NEXT_PUBLIC_API_URL: process.env.NODE_ENV === 'production' 
       ? process.env.PRODUCTION_API_URL 
-      : 'http://localhost:5000',
+      : 'http://localhost:5001',
   },
   async headers() {
     const allowedOrigin = process.env.NODE_ENV === 'production'

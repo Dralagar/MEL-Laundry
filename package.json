@@ -3,42 +3,24 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "concurrently \"next dev -p 3003\" \"nodemon server/index.js\"",
+    "dev": "concurrently \"next dev -p 3003\" \"node server/index.js\"",
     "dev:frontend": "next dev -p 3003",
-    "dev:backend": "nodemon server/index.js",
+    "dev:backend": "node server/index.js",
     "build": "next build",
     "start": "next start"
   },
   "dependencies": {
-    "@vercel/analytics": "^1.4.1",
-    "bcrypt": "^5.1.1",
+    "@vercel/analytics": "^1.6.1",
     "concurrently": "^8.2.2",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
-    "framer-motion": "^12.2.0",
     "jsonwebtoken": "^9.0.2",
-    "mongodb": "^6.11.0",
     "mongoose": "^8.8.2",
     "multer": "^1.4.5-lts.1",
-    "next": "^16.1.6",
-    "nodemailer": "^6.9.16",
+    "next": "^15.1.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-icons": "^5.0.1",
-    "react-slick": "^0.30.3",
-    "resend": "^4.0.1",
-    "slick-carousel": "^1.8.1",
-    "styled-components": "^6.1.15"
-  },
-  "devDependencies": {
-    "@types/node": "^20.6.3",
-    "@types/react": "^18.3.17",
-    "@types/react-dom": "^18.2.7",
-    "eslint": "^9.17.0",
-    "eslint-config-next": "^16.1.6",
-    "nodemon": "^3.1.7",
-    "tailwindcss": "^3.3.3",
-    "typescript": "^5.7.2"
+    "resend": "^4.0.1"
   }
 }
