@@ -77,7 +77,7 @@ const ServicePage: React.FC = () => {
   };
 
   const handleWhatsAppBooking = () => {
-    window.open("https://wa.me/+254702485568", "_blank");
+    window.open("https://wa.me/+254 769 003443", "_blank");
   };
 
   return (

@@ -1,11 +1,18 @@
 :root {
   /* Colors */
   --primary-color: #167130; /* Dark green for text */
+  --primary-green: #2ecc71; /* Accent green for CTAs and highlights */
+  --dark-green: #27ae60;
+  --light-green: #e8f6e8;
   --secondary-color: #6A9C89; /* Medium green for accents */
   --tertiary-color: #C4DAD2; /* Light green for backgrounds */
   --background-color: #F5F5F5; /* Light gray for better contrast */
   --text-color: #6c6868; /* Dark gray for text */
+  --dark-gray: #4a4a4a;
   --logo-color: #167130; /* Bright green for logo */
+  --gray: #6b7280; /* Neutral gray for backgrounds */
+  --dark-bg: #1a1a1a;
+  --light-text: #f5f5f5;
 
   /* Typography */
   --font-sans: 'Inter', 'Arial', 'Helvetica', sans-serif;
@@ -20,6 +27,7 @@
   --border-radius-sm: 8px;
   --border-radius-md: 12px;
   --border-radius-lg: 30px;
+  --border-radius-xl: 20px;
   
   /* Transitions */
   --transition-base: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -28,6 +36,7 @@
   --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.1);
   --shadow-md: 0 4px 6px rgba(46, 204, 113, 0.2);
   --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
 }
 
 /* Reset margin and padding for body and html */
@@ -192,12 +201,20 @@ button:hover, .button:hover {
   animation: fadeIn 0.5s ease-out forwards;
 }
 
+/* Page wrapper for inner pages (About, Contact, Blog, etc.) */
+.page-container {
+  width: 100%;
+  min-height: 100%;
+}
+
 /* Dark Mode */
 @media (prefers-color-scheme: dark) {
   :root {
     --black: #ffffff;
     --white: #1a1a1a;
     --gray: #2d2d2d;
+    --dark-bg: #1a1a1a;
+    --light-text: #f5f5f5;
   }
 }
 
