@@ -6,7 +6,7 @@ import React, { useState, useEffect } from 'react';
 import { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
-import { FaTshirt, FaWater, FaMapMarkerAlt, FaPhone, FaGift, FaSnowflake, FaLinkedin, FaTwitter, FaEnvelope, FaArrowUp, FaCrown, FaStar } from 'react-icons/fa';
+import { FaTshirt, FaWater, FaMapMarkerAlt, FaPhone, FaGift, FaSnowflake, FaLinkedin, FaTwitter, FaEnvelope, FaArrowUp, FaCrown, FaStar, FaPlay } from 'react-icons/fa';
 import { MdLocalLaundryService, MdOutlineDryCleaning } from 'react-icons/md';
 import { IoShirt } from "react-icons/io5";
 import { GiWashingMachine, GiIronCross } from "react-icons/gi"; 
@@ -42,6 +42,7 @@ interface Step {
 }
 
 interface PriceCategory {
+  id: string;
   title: string;
   icon: React.ComponentType<{ className?: string }>;
   items: PriceItem[];
@@ -126,6 +127,7 @@ const steps: Step[] = [
 // Update pricingCategories without the New Year offer
 const pricingCategories: PriceCategory[] = [
   {
+    id: "special-offers",
     title: "Special Offers",
     icon: GiWashingMachine,
     items: [
@@ -142,6 +144,7 @@ const pricingCategories: PriceCategory[] = [
     ]
   },
   {
+    id: "wash-dry-services",
     title: "Wash & Dry Services",
     icon: MdOutlineDryCleaning,
     items: [
@@ -183,7 +186,7 @@ const teamMembers: TeamMember[] = [
     name: "Kyree Abraham",
     position: "Investor/Director",
     image: "/images/kyre.png",
-    blurDataURL: "/images/kyree-blur.png"
+    blurDataURL: "/images/kyre-blur.png"
   },
   {
     name: "Angel Tamara",
@@ -229,90 +232,6 @@ const testimonials: Testimonial[] = [
   }
 ];
 
-// Define animation variants for the card
-const cardVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
-  hover: { scale: 1.05, transition: { duration: 0.3 } },
-};
-
-const winners = [
-  { number: "07****7314", prize: "500" },
-  { number: "07****8600", prize: "500" },
-  { number: "07****2615", prize: "500" },
-  { number: "07****7431", prize: "500" },
-  { number: "07****7097", prize: "500" },
-  { number: "07****0190", prize: "1000" },
-  { number: "07****3356", prize: "1000" },
-  { number: "07****7781", prize: "500" },
-  { number: "07****1349", prize: "500" },
-  { number: "07****3899", prize: "500" }
-];
-
-// M-Pesa payment component
-const MpesaPayment: React.FC = () => {
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [amount, setAmount] = useState('');
-  const [isProcessing, setIsProcessing] = useState(false);
-  const [paymentStatus, setPaymentStatus] = useState('');
-
-  const handlePayment = async () => {
-    setIsProcessing(true);
-    setPaymentStatus('Processing...');
-    
-    // Simulate M-Pesa API call
-    try {
-      // In a real implementation, you would call your backend API
-      // which would then initiate the M-Pesa payment
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      
-      // Simulate successful payment
-      setPaymentStatus('Payment successful! Check your phone to complete the transaction.');
-      
-      // Reset form after successful payment
-      setTimeout(() => {
-        setPhoneNumber('');
-        setAmount('');
-        setPaymentStatus('');
-        setIsProcessing(false);
-      }, 3000);
-    } catch (error) {
-      setPaymentStatus('Payment failed. Please try again.');
-      setIsProcessing(false);
-    }
-  };
-
-  return (
-    <div className={styles.mpesaPayment}>
-      <h3>Pay with M-Pesa</h3>
-      <div className={styles.paymentForm}>
-        <input
-          type="tel"
-          placeholder="Phone Number (e.g., 07XX XXX XXX)"
-          value={phoneNumber}
-          onChange={(e) => setPhoneNumber(e.target.value)}
-          className={styles.paymentInput}
-        />
-        <input
-          type="number"
-          placeholder="Amount (KSh)"
-          value={amount}
-          onChange={(e) => setAmount(e.target.value)}
-          className={styles.paymentInput}
-        />
-        <button 
-          onClick={handlePayment} 
-          disabled={isProcessing || !phoneNumber || !amount}
-          className={styles.paymentButton}
-        >
-          {isProcessing ? 'Processing...' : 'Pay with M-Pesa'}
-        </button>
-        {paymentStatus && <p className={styles.paymentStatus}>{paymentStatus}</p>}
-      </div>
-    </div>
-  );
-};
-
 // Customer registration component
 const CustomerRegistration: React.FC = () => {
   const [name, setName] = useState('');
@@ -352,100 +271,123 @@ const CustomerRegistration: React.FC = () => {
   };
 
   return (
-    <div className={styles.customerRegistration}>
-      <h3>Join Our Loyalty Program</h3>
-      <p>Register for exclusive offers and rewards!</p>
+    <div className={styles.registrationForm}>
+      <input
+        type="text"
+        placeholder="Your Name"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        required
+        className={styles.registrationInput}
+      />
+      <input
+        type="tel"
+        placeholder="Phone Number"
+        value={phone}
+        onChange={(e) => setPhone(e.target.value)}
+        required
+        className={styles.registrationInput}
+      />
+      <input
+        type="email"
+        placeholder="Email (Optional)"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        className={styles.registrationInput}
+      />
+      <label className={styles.subscriptionLabel}>
+        <input
+          type="checkbox"
+          checked={isSubscribed}
+          onChange={(e) => setIsSubscribed(e.target.checked)}
+        />
+        Send me special deals
+      </label>
+      <button type="submit" onClick={handleSubmit} className={styles.registrationButton}>
+        Join Now
+      </button>
       
-      {isRegistered ? (
+      {isRegistered && (
         <div className={styles.registrationSuccess}>
-          <p>Thank you for registering! You'll receive our special offers soon.</p>
+          <p>Welcome! You're entered to win.</p>
         </div>
-      ) : (
-        <form onSubmit={handleSubmit} className={styles.registrationForm}>
-          <input
-            type="text"
-            placeholder="Full Name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-            className={styles.registrationInput}
-          />
-          <input
-            type="tel"
-            placeholder="Phone Number"
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-            required
-            className={styles.registrationInput}
-          />
-          <input
-            type="email"
-            placeholder="Email (Optional)"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className={styles.registrationInput}
-          />
-          <label className={styles.subscriptionLabel}>
-            <input
-              type="checkbox"
-              checked={isSubscribed}
-              onChange={(e) => setIsSubscribed(e.target.checked)}
-            />
-            Receive promotional offers and updates
-          </label>
-          <button type="submit" className={styles.registrationButton}>
-            Join Now
-          </button>
-        </form>
       )}
     </div>
   );
 };
 
-// Top customers component
-const TopCustomers: React.FC = () => {
-  const [topCustomers, setTopCustomers] = useState<Customer[]>([]);
+// Promotional container component with 8fr/4fr flexbox (form left, video right)
+const PromotionalContainer: React.FC = () => {
+  const [currentVideo, setCurrentVideo] = useState(0);
+  
+  const videoContent = [
+    {
+      title: "Win Big This Week",
+      description: "Check our lottery winners and join the excitement!",
+      image: "/images/About.jpg"
+    },
+    {
+      title: "Exclusive Member Deals",
+      description: "Special offers available only for our loyal members.",
+      image: "/images/About.jpg"
+    },
+    {
+      title: "Success Stories",
+      description: "See what our customers love about MEL Laundry.",
+      image: "/images/About.jpg"
+    }
+  ];
 
   useEffect(() => {
-    // In a real implementation, you would fetch this from your database
-    const customers = JSON.parse(localStorage.getItem('melCustomers') || '[]');
-    
-    // Sort by visits and total spent
-    const sortedCustomers = customers
-      .sort((a: Customer, b: Customer) => {
-        if (b.visits !== a.visits) return b.visits - a.visits;
-        return b.totalSpent - a.totalSpent;
-      })
-      .slice(0, 5); // Top 5 customers
-    
-    setTopCustomers(sortedCustomers);
+    const interval = setInterval(() => {
+      setCurrentVideo((prev) => (prev + 1) % videoContent.length);
+    }, 5000);
+    return () => clearInterval(interval);
   }, []);
 
-  if (topCustomers.length === 0) return null;
-
   return (
-    <div className={styles.topCustomers}>
-      <h3>Our Valued Customers</h3>
-      <div className={styles.customersList}>
-        {topCustomers.map((customer, index) => (
-          <div key={customer.id} className={styles.customerItem}>
-            <div className={styles.customerRank}>
-              {index === 0 ? <FaCrown className={styles.goldCrown} /> : `#${index + 1}`}
+    <div className={styles.promotionalContainer}>
+      {/* Left Side - Registration Form (8fr) */}
+      <div className={styles.formSection}>
+        <div className={styles.formContainer}>
+          <h3>Join & Win</h3>
+          <p>Register for exclusive deals and weekly lottery!</p>
+          
+          <CustomerRegistration />
+        </div>
+      </div>
+
+      {/* Right Side - Dynamic Video Frame (4fr) */}
+      <div className={styles.videoSection}>
+        <div className={styles.videoHeader}>
+          <h3>Winners Hub</h3>
+          <p>Lottery results & special offers</p>
+        </div>
+        
+        {/* Dynamic Video Frame */}
+        <div className={styles.singleVideoFrame}>
+          <div className={styles.videoThumbnail}>
+            <Image
+              src={videoContent[currentVideo].image}
+              alt={videoContent[currentVideo].title}
+              fill
+              style={{ objectFit: 'cover' }}
+              className={styles.thumbnailImage}
+            />
+            <div className={styles.playButton}>
+              <FaPlay />
             </div>
-            <div className={styles.customerInfo}>
-              <h4>{customer.name}</h4>
-              <p>{customer.phone}</p>
-              <div className={styles.customerStats}>
-                <span>{customer.visits} visits</span>
-                <span>KSh {customer.totalSpent} spent</span>
-              </div>
-            </div>
-            <div className={styles.customerBadge}>
-              {index === 0 && <FaStar className={styles.goldStar} />}
-              {index === 0 ? 'Top Customer' : 'Loyal Customer'}
+            <div className={styles.videoIndicator}>
+              <span className={styles.indicatorDot}></span>
+              <span className={styles.indicatorDot}></span>
+              <span className={styles.indicatorDot}></span>
             </div>
           </div>
-        ))}
+          <div className={styles.videoInfo}>
+            <h4>{videoContent[currentVideo].title}</h4>
+            <p>{videoContent[currentVideo].description}</p>
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -453,7 +395,6 @@ const TopCustomers: React.FC = () => {
 
 const Home: React.FC = () => {
   const [showBackToTop, setShowBackToTop] = useState(false);
-  const [showMpesaModal, setShowMpesaModal] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -480,10 +421,10 @@ const Home: React.FC = () => {
             <Image
               src="/images/About.jpg"
               alt="MEL Laundry Professional Services"
-              layout="fill"
-              objectFit="cover"
-              objectPosition="center"
-              quality={100}
+              fill
+              style={{ objectFit: 'cover', objectPosition: 'center' }}
+              quality={85}
+              priority
             />
           </div>
           <div className={styles.heroOverlay}></div>
@@ -518,13 +459,16 @@ const Home: React.FC = () => {
           viewport={{ once: true }}
           variants={staggerChildren}
         >
-          <h2 className={styles.sectionTitle}>Our Features</h2>
+          <motion.h2 className={styles.sectionTitle} variants={fadeInUp}>
+            Our Features
+          </motion.h2>
           <div className={styles.featuresGrid}>
             {features.map((feature, index) => (
               <motion.div
                 key={index}
                 className={styles.featureCard}
                 variants={fadeInUp}
+                whileHover={{ scale: 1.05 }}
               >
                 <div className={styles.featureImageContainer}>
                   <Image
@@ -541,9 +485,9 @@ const Home: React.FC = () => {
           </div>
         </motion.section>
 
-        {/* Steps Section */}
+        {/* How It Works Section */}
         <motion.section
-          className={styles.howItWorks}
+          className={styles.howItWorksSection}
           initial="initial"
           whileInView="animate"
           viewport={{ once: true }}
@@ -554,18 +498,25 @@ const Home: React.FC = () => {
           </motion.h2>
           <div className={styles.stepsGrid}>
             {steps.map((step, index) => (
-              <motion.div key={index} className={styles.stepItem} variants={fadeInUp}>
-                {React.createElement(step.icon, { className: styles.icon })}
-                <h3 className={styles.itemTitle}>{step.title}</h3>
-                <p className={styles.itemDescription}>{step.description}</p>
-                <Image
-                  src={step.img}
-                  alt={step.title}
-                  width={64}
-                  height={64}
-                  objectFit="cover"
-                  objectPosition="center"
-                />
+              <motion.div
+                key={index}
+                className={styles.stepCard}
+                variants={fadeInUp}
+                whileHover={{ scale: 1.05 }}
+              >
+                <div className={styles.stepIcon}>
+                  <step.icon />
+                </div>
+                <div className={styles.stepImageContainer}>
+                  <Image
+                    src={step.img}
+                    alt={step.title}
+                    fill
+                    className={styles.stepImage}
+                  />
+                </div>
+                <h3 className={styles.stepTitle}>{step.title}</h3>
+                <p className={styles.stepDescription}>{step.description}</p>
               </motion.div>
             ))}
           </div>
@@ -573,8 +524,7 @@ const Home: React.FC = () => {
 
         {/* Pricing Section */}
         <motion.section
-          id="pricing"
-          className={styles.pricing}
+          className={styles.pricingSection}
           initial="initial"
           whileInView="animate"
           viewport={{ once: true }}
@@ -583,59 +533,42 @@ const Home: React.FC = () => {
           <motion.h2 className={styles.sectionTitle} variants={fadeInUp}>
             Our Services & Pricing
           </motion.h2>
-          <motion.p className={styles.pricingSubtitle} variants={fadeInUp}>
+          <p className={styles.pricingSubtitle}>
             Professional laundry services at competitive prices
-          </motion.p>
-          
-          <motion.div className={styles.pricingCategories} variants={staggerChildren}>
+          </p>
+          <div className={styles.pricingGrid}>
             {pricingCategories.map((category, index) => (
               <motion.div
                 key={index}
-                className={styles.categoryCard}
+                className={styles.pricingCategory}
                 variants={fadeInUp}
               >
-                <div className={styles.categoryHeader}>
-                  {React.createElement(category.icon, { className: styles.categoryIcon })}
-                  <h3>{category.title}</h3>
+                <div className={styles.pricingHeader}>
+                  <category.icon className={styles.pricingIcon} />
+                  <h3 className={styles.pricingTitle}>{category.title}</h3>
                 </div>
-                <div className={styles.priceList}>
+                <div className={styles.pricingItems}>
                   {category.items.map((item, itemIndex) => (
-                    <div key={itemIndex} className={styles.priceItem}>
-                      <div className={styles.priceItemInfo}>
-                        <span className={styles.itemName}>{item.name}</span>
-                        {item.description && (
-                          <span className={styles.itemDescription}>{item.description}</span>
-                        )}
-                      </div>
-                      <span className={styles.itemPrice}>
+                    <div key={itemIndex} className={styles.pricingItem}>
+                      <h4 className={styles.pricingItemName}>{item.name}</h4>
+                      {item.description && (
+                        <p className={styles.pricingItemDescription}>{item.description}</p>
+                      )}
+                      <p className={styles.pricingItemPrice}>
                         {typeof item.price === 'string' 
                           ? `KSh ${item.price}`
-                          : `KSh ${item.price.from} - ${item.price.to}`}
-                      </span>
+                          : `KSh ${item.price.from} - ${item.price.to}`
+                        }
+                      </p>
                     </div>
                   ))}
                 </div>
               </motion.div>
             ))}
-          </motion.div>
-          
-          <motion.div className={styles.paymentInfo} variants={fadeInUp}>
-            <button 
-              className={styles.paymentButton}
-              onClick={() => setShowMpesaModal(true)}
-            >
-              Pay with M-Pesa
-            </button>
-            <button 
-              className={styles.buyGoodsButton}
-              onClick={() => window.open('https://buygoods.co.ke/buy/4572688', '_blank')}
-            >
-              Buy Goods Till: 4572688
-            </button>
-          </motion.div>
+          </div>
         </motion.section>
 
-        {/* Customer Registration Section */}
+        {/* Promotional Container Section - 9fr/3fr Grid */}
         <motion.section
           className={styles.customerSection}
           initial="initial"
@@ -646,56 +579,45 @@ const Home: React.FC = () => {
           <motion.h2 className={styles.sectionTitle} variants={fadeInUp}>
             Join Our Loyalty Program
           </motion.h2>
-          <CustomerRegistration />
+          <PromotionalContainer />
         </motion.section>
 
-        {/* Top Customers Section */}
-        <TopCustomers />
-
-        {/* Meet the Team Section */}
+        {/* Team Section */}
         <motion.section
-          id="team"
-          className={styles.meetTheTeam}
+          className={styles.teamSection}
           initial="initial"
           whileInView="animate"
           viewport={{ once: true }}
           variants={staggerChildren}
         >
-          <motion.div className={styles.teamHeader} variants={fadeInUp}>
-            <h2 className={styles.sectionTitle}>Meet Our Team</h2>
-            <p className={styles.teamSubtitle}>The passionate professionals behind MEL Laundry's success</p>
-          </motion.div>
-          
+          <motion.h2 className={styles.sectionTitle} variants={fadeInUp}>
+            Meet Our Team
+          </motion.h2>
+          <p className={styles.teamSubtitle}>
+            The passionate professionals behind MEL Laundry's success
+          </p>
           <div className={styles.teamGrid}>
             {teamMembers.map((member, index) => (
-              <motion.div 
-                key={member.name}
-                className={styles.teamMemberCard}
+              <motion.div
+                key={index}
+                className={styles.teamMember}
                 variants={fadeInUp}
-                transition={{ duration: 0.3 }}
-                whileHover={{ y: -5 }}
+                whileHover={{ scale: 1.02 }}
               >
-                <div className={styles.teamImageContainer}>
-                  <Image 
-                    src={member.image} 
-                    alt={member.name} 
+                <div className={styles.memberImageContainer}>
+                  <Image
+                    src={member.image}
+                    alt={member.name}
                     fill
-                    className={styles.teamImage}
+                    className={styles.memberImage}
                     placeholder="blur"
                     blurDataURL={member.blurDataURL}
-                    unoptimized
+                    style={{ objectFit: 'cover', objectPosition: 'top center' }}
                   />
+                  <div className={styles.imageOverlay}></div>
                 </div>
-                <div className={styles.teamInfo}>
-                  <h3>{member.name}</h3>
-                  <h4>{member.position}</h4>
-                  {member.bio && <p>{member.bio}</p>}
-                  <div className={styles.socialLinks}>
-                    {member.socialLinks?.linkedin && <a href={member.socialLinks.linkedin} target="_blank" rel="noopener noreferrer"><FaLinkedin /></a>}
-                    {member.socialLinks?.twitter && <a href={member.socialLinks.twitter} target="_blank" rel="noopener noreferrer"><FaTwitter /></a>}
-                    {member.socialLinks?.email && <a href={`mailto:${member.socialLinks.email}`}><FaEnvelope /></a>}
-                  </div>
-                </div>
+                <h3 className={styles.memberName}>{member.name}</h3>
+                <p className={styles.memberPosition}>{member.position}</p>
               </motion.div>
             ))}
           </div>
@@ -703,7 +625,7 @@ const Home: React.FC = () => {
 
         {/* Testimonials Section */}
         <motion.section
-          className={styles.homeTestimonials}
+          className={styles.testimonialsSection}
           initial="initial"
           whileInView="animate"
           viewport={{ once: true }}
@@ -713,10 +635,15 @@ const Home: React.FC = () => {
             What Our Customers Say
           </motion.h2>
           <div className={styles.testimonialsGrid}>
-            {testimonials.map((testimonial) => (
-              <motion.div key={testimonial.id} className={styles.testimonialItem} variants={fadeInUp}>
-                <p>{testimonial.content}</p>
-                <h4>- {testimonial.author}</h4>
+            {testimonials.map((testimonial, index) => (
+              <motion.div
+                key={testimonial.id}
+                className={styles.testimonialCard}
+                variants={fadeInUp}
+                whileHover={{ scale: 1.05 }}
+              >
+                <p className={styles.testimonialContent}>"{testimonial.content}"</p>
+                <p className={styles.testimonialAuthor}>- {testimonial.author}</p>
               </motion.div>
             ))}
           </div>
@@ -768,21 +695,6 @@ const Home: React.FC = () => {
             </Link>
           </motion.div>
         </motion.section>
-
-        {/* M-Pesa Modal */}
-        {showMpesaModal && (
-          <div className={styles.modalOverlay} onClick={() => setShowMpesaModal(false)}>
-            <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
-              <button 
-                className={styles.closeModal}
-                onClick={() => setShowMpesaModal(false)}
-              >
-                &times;
-              </button>
-              <MpesaPayment />
-            </div>
-          </div>
-        )}
 
         {/* Back to Top Button */}
         <motion.button

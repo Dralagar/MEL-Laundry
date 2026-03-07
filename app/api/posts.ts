@@ -3,7 +3,7 @@ import mongoose, { ConnectOptions, Error } from 'mongoose';
 import BlogPost from '../../server/models/BlogPost';
 
 const connectDB = async () => {
-  if (mongoose.connections[0].readyState) return;
+  if (mongoose.connections[0]?.readyState) return;
   try {
     await mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/blogDB', {
       useNewUrlParser: true,

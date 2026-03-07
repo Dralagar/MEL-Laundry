@@ -33,6 +33,7 @@ const Footer = () => {
             <li><Link href="/about" aria-label="Learn more About Us">About Us</Link></li>
             <li><Link href="/service" aria-label="Explore our Services">Services</Link></li>
             <li><Link href="/locations" aria-label="Find our Locations">Locations</Link></li>
+            <li><Link href="/blog" aria-label="Read our Blog">Blog</Link></li>
             <li><Link href="/contact" aria-label="Contact Us">Contact</Link></li>
           </ul>
         </div>

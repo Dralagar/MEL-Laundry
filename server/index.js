@@ -55,19 +55,28 @@ if (!mongoUri) {
 } else {
   console.log('MongoDB URI:', mongoUri);
   mongoose.connect(mongoUri)
-    .then(() => console.log('MongoDB connected'))
-    .catch(err => console.error('MongoDB connection error:', err));
+    .then(() => {
+      console.log('MongoDB connected successfully');
+      isDbConnected = true;
+    })
+    .catch(err => {
+      console.error('MongoDB connection error:', err.message);
+      console.log('Continuing without database connection...');
+    });
 
   mongoose.connection.on('connected', () => {
     isDbConnected = true;
+    console.log('MongoDB connection established');
   });
 
   mongoose.connection.on('disconnected', () => {
     isDbConnected = false;
+    console.log('MongoDB connection disconnected');
   });
 
-  mongoose.connection.on('error', () => {
+  mongoose.connection.on('error', (err) => {
     isDbConnected = false;
+    console.error('MongoDB connection error:', err.message);
   });
 }
 
@@ -114,6 +123,31 @@ app.post('/api/users/register', ensureDbConnected, async (req, res) => {
   }
 });
 
+// Create default admin user if not exists
+app.post('/api/users/create-admin', async (req, res) => {
+  try {
+    const existingAdmin = await User.findOne({ username: 'admin' });
+    if (existingAdmin) {
+      return res.status(400).json({ message: 'Admin user already exists' });
+    }
+
+    const adminUser = new User({
+      username: 'admin',
+      password: 'meladmin2024', // Change this in production!
+      role: 'admin'
+    });
+    
+    await adminUser.save();
+    res.status(201).json({ 
+      message: 'Admin user created successfully',
+      username: 'admin',
+      password: 'meladmin2024'
+    });
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
+
 app.post('/api/users/login', ensureDbConnected, async (req, res) => {
   try {
     const user = await User.findOne({ username: req.body.username });
@@ -155,7 +189,25 @@ const authenticateToken = (req, res, next) => {
 };
 
 // Locations routes
-app.get('/api/locations', ensureDbConnected, async (req, res) => {
+app.get('/api/locations', async (req, res) => {
+  // Return fallback data if database is not connected
+  if (!isDbConnected) {
+    return res.json([{
+      _id: '1',
+      name: 'MEL Laundry - Donholm CFF',
+      address: 'Donholm CFF Plaza, Ground Floor',
+      city: 'Nairobi',
+      state: 'Nairobi County',
+      zipCode: '00100',
+      image: '/images/inside.jpg',
+      status: 'active',
+      phone: '+254 769 003443',
+      hours: 'Mon-Fri: 8AM-8PM, Sat-Sun: 9AM-6PM',
+      description: 'Our flagship location offering premium laundry services with state-of-the-art equipment and professional staff.',
+      coordinates: { lat: -1.2921, lng: 36.8219 }
+    }]);
+  }
+
   try {
     const locations = await Location.find();
     res.json(locations);
@@ -231,7 +283,46 @@ app.delete('/api/locations/:id', authenticateToken, ensureDbConnected, async (re
 });
 
 // Blog routes
-app.get('/api/blogs', ensureDbConnected, async (req, res) => {
+app.get('/api/blogs', async (req, res) => {
+  // Return fallback data if database is not connected
+  if (!isDbConnected) {
+    return res.json([
+      {
+        _id: '1',
+        id: '1',
+        title: 'Welcome to MEL Laundry Blog',
+        summary: 'Discover professional laundry tips and tricks from our experts.',
+        content: 'Welcome to our official blog where we share valuable insights about laundry care, fabric maintenance, and the latest trends in the industry.',
+        author: 'MEL Laundry Team',
+        date: '2024-01-15',
+        image: '/images/blog/welcome.jpg',
+        tags: ['laundry', 'tips', 'professional']
+      },
+      {
+        _id: '2',
+        id: '2',
+        title: 'How to Care for Delicate Fabrics',
+        summary: 'Learn the best practices for washing and maintaining delicate clothing items.',
+        content: 'Delicate fabrics require special attention and care. In this guide, we walk you through the process of handling silk, wool, and other sensitive materials.',
+        author: 'Sarah Johnson',
+        date: '2024-01-10',
+        image: '/images/blog/delicate.jpg',
+        tags: ['delicate', 'fabrics', 'care']
+      },
+      {
+        _id: '3',
+        id: '3',
+        title: 'Eco-Friendly Laundry Practices',
+        summary: 'Discover sustainable laundry methods that are good for your clothes and the environment.',
+        content: 'Making small changes to your laundry routine can have a big impact on the environment. Learn about eco-friendly detergents and energy-saving techniques.',
+        author: 'Green Living Team',
+        date: '2024-01-05',
+        image: '/images/blog/eco.jpg',
+        tags: ['eco-friendly', 'sustainability', 'environment']
+      }
+    ]);
+  }
+
   try {
     const blogs = await BlogPost.find();
     res.json(blogs);
@@ -240,22 +331,57 @@ app.get('/api/blogs', ensureDbConnected, async (req, res) => {
   }
 });
 
-app.get('/api/blogs/:id', ensureDbConnected, getBlog, (req, res) => {
-  res.json(res.blog);
+app.get('/api/blogs/:id', async (req, res) => {
+  // Return fallback data if database is not connected
+  if (!isDbConnected) {
+    const fallbackBlogs = [
+      {
+        _id: '1',
+        id: '1',
+        title: 'Welcome to MEL Laundry Blog',
+        summary: 'Discover professional laundry tips and tricks from our experts.',
+        content: 'Welcome to our official blog where we share valuable insights about laundry care, fabric maintenance, and the latest trends in the industry. Our team of experts is dedicated to helping you achieve the best results for your clothing while extending their lifespan.',
+        author: 'MEL Laundry Team',
+        date: '2024-01-15',
+        image: '/images/blog/welcome.jpg',
+        tags: ['laundry', 'tips', 'professional']
+      }
+    ];
+    
+    const blog = fallbackBlogs.find(b => b._id === req.params.id || b.id === req.params.id);
+    if (!blog) {
+      return res.status(404).json({ message: 'Blog post not found' });
+    }
+    return res.json(blog);
+  }
+
+  try {
+    const blog = await BlogPost.findById(req.params.id);
+    if (!blog) {
+      return res.status(404).json({ message: 'Blog post not found' });
+    }
+    res.json(blog);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
 });
 
 app.post('/api/blogs', authenticateToken, ensureDbConnected, upload.single('image'), async (req, res) => {
   console.log('Request Body:', req.body);
   console.log('Uploaded File:', req.file);
 
-  const blog = new BlogPost({
-    title: req.body.title,
-    content: req.body.content,
-    author: req.body.author,
-    image: req.file ? req.file.path : null
-  });
-
   try {
+    const blog = new BlogPost({
+      title: req.body.title,
+      content: req.body.content,
+      summary: req.body.summary,
+      author: req.body.author || 'MEL Laundry Team',
+      date: req.body.date || new Date().toISOString().split('T')[0],
+      tags: req.body.tags ? req.body.tags.split(',').map(tag => tag.trim()) : [],
+      status: req.body.status || 'draft',
+      image: req.file ? req.file.path : null
+    });
+
     const newBlog = await blog.save();
     res.status(201).json(newBlog);
   } catch (err) {
@@ -264,20 +390,31 @@ app.post('/api/blogs', authenticateToken, ensureDbConnected, upload.single('imag
   }
 });
 
-app.put('/api/blogs/:id', authenticateToken, ensureDbConnected, getBlog, async (req, res) => {
-  if (req.body.title != null) {
-    res.blog.title = req.body.title;
-  }
-  if (req.body.content != null) {
-    res.blog.content = req.body.content;
-  }
-  if (req.body.author != null) {
-    res.blog.author = req.body.author;
-  }
+app.put('/api/blogs/:id', authenticateToken, ensureDbConnected, async (req, res) => {
   try {
-    const updatedBlog = await res.blog.save();
+    const blog = await BlogPost.findById(req.params.id);
+    if (!blog) {
+      return res.status(404).json({ message: 'Blog post not found' });
+    }
+
+    // Update fields
+    if (req.body.title != null) blog.title = req.body.title;
+    if (req.body.content != null) blog.content = req.body.content;
+    if (req.body.summary != null) blog.summary = req.body.summary;
+    if (req.body.author != null) blog.author = req.body.author;
+    if (req.body.date != null) blog.date = req.body.date;
+    if (req.body.tags != null) {
+      blog.tags = Array.isArray(req.body.tags) 
+        ? req.body.tags 
+        : req.body.tags.split(',').map(tag => tag.trim());
+    }
+    if (req.body.status != null) blog.status = req.body.status;
+    if (req.file) blog.image = req.file.path;
+
+    const updatedBlog = await blog.save();
     res.json(updatedBlog);
   } catch (err) {
+    console.error('Error updating blog:', err);
     res.status(400).json({ message: err.message });
   }
 });
@@ -332,12 +469,48 @@ app.use((err, req, res, next) => {
   });
 });
 
-// Email route disabled for now (resend package not available)
-app.post('/api/send-email', authenticateToken, async (req, res) => {
-  res.status(503).json({ 
-    success: false, 
-    message: 'Email service temporarily disabled' 
-  });
+// Email route with Resend
+app.post('/api/send-email', async (req, res) => {
+  try {
+    const { name, email, subject, message } = req.body;
+    
+    if (!name || !email || !subject || !message) {
+      return res.status(400).json({ 
+        success: false, 
+        message: 'All fields are required' 
+      });
+    }
+
+    const { Resend } = await import('resend');
+    const resend = new Resend(process.env.RESEND_API_KEY);
+
+    const emailContent = `
+      Name: ${name}
+      Email: ${email}
+      Subject: ${subject}
+      
+      Message:
+      ${message}
+    `;
+
+    await resend.emails.send({
+      from: process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev',
+      to: ['support@mellaundry.com'], // Replace with your actual email
+      subject: `Contact Form: ${subject}`,
+      text: emailContent,
+    });
+
+    res.json({ 
+      success: true, 
+      message: 'Email sent successfully' 
+    });
+  } catch (error) {
+    console.error('Email error:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: 'Failed to send email' 
+    });
+  }
 });
 
 app.listen(port, () => {

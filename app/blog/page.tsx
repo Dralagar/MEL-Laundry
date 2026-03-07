@@ -1,164 +1,251 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
-import Head from 'next/head';
-import styles from '../styless/Blog.module.css';
+import React, { useEffect, useMemo, useState } from 'react';
 import { FaCalendarAlt, FaArrowRight, FaSearch, FaTags } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+import Link from 'next/link';
+import styles from '../styless/Blog.module.css';
 
 interface Post {
   id: string;
   title: string;
   summary: string;
-  image: string;
-  date: string;
-  tags: string[];
+  image?: string;
+  date?: string;
+  tags?: string[];
 }
 
-const BlogPage: React.FC = () => {
+const fallbackPosts: Post[] = [
+  {
+    id: '1',
+    title: 'Welcome to MEL Laundry',
+    summary:
+      'Discover our premium laundry services and how we make your life easier.',
+    image: '/images/blog/welcome.jpg',
+    date: '2024-01-15',
+    tags: ['Welcome', 'Services']
+  },
+  {
+    id: '2',
+    title: 'Laundry Care Tips',
+    summary:
+      'Learn how to properly care for your clothes and extend their lifespan.',
+    image: '/images/blog/care-tips.jpg',
+    date: '2024-01-10',
+    tags: ['Tips', 'Care']
+  },
+  {
+    id: '3',
+    title: 'Eco-Friendly Laundry Practices',
+    summary:
+      'Discover sustainable laundry methods that are good for your clothes and the environment.',
+    image: '/images/blog/eco.jpg',
+    date: '2024-01-05',
+    tags: ['Eco-Friendly', 'Sustainability', 'Environment']
+  }
+];
+
+export default function BlogPage() {
+  const [posts, setPosts] = useState<Post[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedTag, setSelectedTag] = useState('');
-  const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
   useEffect(() => {
-    const fetchPosts = async () => {
+    async function fetchPosts() {
       try {
-        const response = await fetch('/api/posts');
-        if (!response.ok) {
-          throw new Error(`Failed to fetch posts: ${response.status}`);
-        }
-        const data = await response.json();
-        setPosts(data);
-      } catch (error: unknown) {
-        const errorMessage = error instanceof Error 
-          ? error.message 
-          : 'An unexpected error occurred while fetching posts';
-        setError(errorMessage);
-        if (error instanceof Error) {
-          console.error('Fetch error:', error.message);
-        } else {
-          console.error('Fetch error:', errorMessage);
-        }
+        const res = await fetch('http://localhost:5001/api/blogs');
+
+        if (!res.ok) throw new Error('Failed to fetch posts');
+
+        const data = await res.json();
+
+        setPosts(data?.length ? data : fallbackPosts);
+      } catch (err) {
+        console.warn('Fallback posts used:', err);
+        setPosts(fallbackPosts);
+        setError('API unavailable. Showing sample posts.');
       } finally {
         setLoading(false);
       }
-    };
+    }
 
     fetchPosts();
   }, []);
 
-  const allTags = Array.from(new Set(posts.flatMap(post => post.tags)));
+  const allTags = useMemo(() => {
+    return Array.from(new Set(posts.flatMap((post) => post.tags ?? [])));
+  }, [posts]);
 
-  const filteredPosts = posts.filter(post => 
-    post.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
-    (selectedTag === '' || post.tags.includes(selectedTag))
-  );
+  const formatReadingTime = (summary: string) => {
+    const wordsPerMinute = 200;
+    const words = summary.split(/\s+/).length;
+    const minutes = Math.ceil(words / wordsPerMinute);
+    return `${minutes} min read`;
+  };
 
-  if (loading) return (
-    <div className={styles.loadingContainer}>
-      <p>Loading blog posts...</p>
-    </div>
-  );
-  
-  if (error) return (
-    <div className={styles.errorContainer}>
-      <p>Error: {error}</p>
-      <button onClick={() => window.location.reload()}>Try Again</button>
-    </div>
-  );
+  const formatDate = (dateString: string) => {
+    const options: Intl.DateTimeFormatOptions = { 
+      year: 'numeric', 
+      month: 'short', 
+      day: 'numeric',
+      timeZone: 'UTC'
+    };
+    return new Date(dateString).toLocaleDateString('en-US', options);
+  };
+
+  const filteredPosts = useMemo(() => {
+    return posts.filter((post) => {
+      const titleMatch = post.title
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase());
+
+      const tagMatch =
+        !selectedTag || (post.tags ?? []).includes(selectedTag);
+
+      return titleMatch && tagMatch;
+    });
+  }, [posts, searchTerm, selectedTag]);
+
+  if (loading) {
+    return (
+      <div className={styles.blogContainer}>
+        <p>Loading posts...</p>
+      </div>
+    );
+  }
 
   return (
-    <div className="page-container">
-      <Head>
-        <title>MEL Laundry Blog - Latest Updates and Tips</title>
-        <meta name="description" content="Stay updated with the latest news, tips, and insights from MEL Laundry. Explore our blog for helpful articles and updates." />
-        <meta name="keywords" content="MEL Laundry, blog, laundry tips, updates, news" />
-        <meta name="robots" content="index, follow" />
-      </Head>
-      <div className={styles.blogContainer}>
-        <div className={styles.searchAndFilter}>
-          <div className={styles.searchBar}>
-            <FaSearch className={styles.searchIcon} />
+    <main className={styles.blogContainer}>
+      {/* HERO */}
+      <section className={styles.blogHero}>
+        <div className={styles.heroImageWrapper}>
+          <Image
+            src="/images/About.jpg"
+            alt="MEL Laundry Blog - Tips and insights for better laundry care"
+            fill
+            className={styles.heroImage}
+            quality={90}
+            priority
+            sizes="100vw"
+          />
+        </div>
+        <div className={styles.heroOverlay}></div>
+        <div className={styles.heroContent}>
+          <h1>MEL Laundry Blog</h1>
+          <p>
+            Laundry tips, service updates, and insights to help you care for your
+            clothes better.
+          </p>
+        </div>
+      </section>
+
+      {/* SEARCH + FILTER */}
+      <section className={styles.blogPosts}>
+        <div className={styles.sectionHeader}>
+          <h2 className={styles.sectionTitle}>Latest Articles</h2>
+          <Link href="/admin" className={styles.postBlogButton}>
+            Post Blog
+          </Link>
+        </div>
+
+        <div style={{ marginBottom: '2rem', display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+          
+          <div style={{ position: 'relative', flex: 2 }}>
+            <FaSearch className={styles.icon} />
+
             <input
               type="text"
               placeholder="Search posts..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className={styles.searchInput}
-              aria-label="Search blog posts"
+              style={{
+                width: '100%',
+                padding: '0.7rem 1rem 0.7rem 2rem',
+                borderRadius: '6px',
+                border: '1px solid #ddd'
+              }}
             />
           </div>
-          <div className={styles.tagFilter}>
-            <FaTags className={styles.tagIcon} />
+
+          <div style={{ flex: 1 }}>
             <select
               value={selectedTag}
               onChange={(e) => setSelectedTag(e.target.value)}
-              className={styles.tagSelect}
-              aria-label="Filter posts by tag"
+              style={{
+                width: '100%',
+                padding: '0.7rem',
+                borderRadius: '6px',
+                border: '1px solid #ddd'
+              }}
             >
               <option value="">All Tags</option>
-              {allTags.map(tag => (
-                <option key={tag} value={tag}>{tag}</option>
+
+              {allTags.map((tag) => (
+                <option key={tag}>{tag}</option>
               ))}
             </select>
           </div>
         </div>
 
-        <section className={styles.blogPosts}>
-          <h2 className={styles.sectionTitle}>Latest Blog Posts</h2>
-          {filteredPosts.length === 0 ? (
-            <div className={styles.noPosts}>
-              <p>No blog posts found matching your criteria.</p>
-            </div>
-          ) : (
-            <div className={styles.postsGrid}>
-              {filteredPosts.map((post, index) => (
-                <motion.article 
-                  key={post.id} 
-                  className={styles.blogPost}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                >
-                  <div className={styles.blogPostImageContainer}>
-                    <Image 
-                      src={post.image} 
-                      alt={`Image for ${post.title}`} 
-                      className={styles.blogPostImage} 
-                      layout="responsive" 
-                      width={500}
-                      height={300}
-                      quality={100}
-                    />
-                  </div>
-                  <div className={styles.blogPostContent}>
-                    <h3 className={styles.blogPostTitle}>{post.title}</h3>
-                    <p className={styles.blogPostSummary}>{post.summary}</p>
-                    <div className={styles.blogPostTags}>
-                      {post.tags.map((tag: string) => (
-                        <span key={tag} className={styles.tag}>{tag}</span>
-                      ))}
-                    </div>
-                    <div className={styles.blogPostMeta}>
-                      <span className={styles.blogPostDate}>
-                        <FaCalendarAlt className={styles.icon} /> {post.date}
-                      </span>
-                      <a href={`/blog/${post.id}`} className={styles.readMoreButton} aria-label={`Read more about ${post.title}`}>
-                        Read More <FaArrowRight className={styles.icon} />
-                      </a>
-                    </div>
-                  </div>
-                </motion.article>
-              ))}
-            </div>
-          )}
-        </section>
-      </div>
-    </div>
-  );
-};
+        {/* POSTS GRID */}
+        <div className={styles.postsGrid}>
+          {filteredPosts.map((post, index) => (
+            <motion.article
+              key={post.id}
+              className={styles.blogPost}
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.05 }}
+              whileHover={{ y: -4 }}
+            >
+              <div className={styles.blogPostImageContainer}>
+                <Image
+                  src={post.image ?? '/images/blog/placeholder.jpg'}
+                  alt={post.title}
+                  width={400}
+                  height={200}
+                  className={styles.blogPostImage}
+                />
+              </div>
 
-export default BlogPage;
+              <div className={styles.blogPostContent}>
+                <h3 className={styles.blogPostTitle}>{post.title}</h3>
+
+                <p className={styles.blogPostSummary}>
+                  {post.summary}
+                </p>
+
+                <div className={styles.blogPostMeta}>
+                  <span className={styles.blogPostDate}>
+                    <FaCalendarAlt className={styles.icon} />
+                    {post.date ? formatDate(post.date) : 'No date'}
+                  </span>
+                  <span className={styles.readingTime}>
+                    {formatReadingTime(post.summary)}
+                  </span>
+
+                  <Link
+                    href={`/blog/${post.id}`}
+                    className={styles.readMoreButton}
+                  >
+                    Read
+                    <FaArrowRight className={styles.icon} />
+                  </Link>
+                </div>
+              </div>
+            </motion.article>
+          ))}
+        </div>
+
+        {error && (
+          <p style={{ marginTop: '2rem', color: '#cc8800' }}>
+            ⚠ {error}
+          </p>
+        )}
+      </section>
+    </main>
+  );
+}

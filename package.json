@@ -7,7 +7,13 @@
     "dev:frontend": "next dev -p 3003",
     "dev:backend": "node server/index.js",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "lint": "next lint",
+    "lint:fix": "next lint --fix",
+    "type-check": "tsc --noEmit",
+    "build:production": "npm run lint && npm run type-check && npm run build",
+    "preview": "next build && next start",
+    "analyze": "ANALYZE=true next build"
   },
   "dependencies": {
     "@vercel/analytics": "^1.6.1",
@@ -15,12 +21,31 @@
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
+    "framer-motion": "^12.35.0",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.8.2",
     "multer": "^1.4.5-lts.1",
     "next": "^15.1.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-icons": "^5.6.0",
     "resend": "^4.0.1"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/jsonwebtoken": "^9.0.7",
+    "@types/multer": "^1.4.12",
+    "@types/node": "^22.10.5",
+    "@types/react": "^18.2.48",
+    "@types/react-dom": "^18.2.18",
+    "@typescript-eslint/eslint-plugin": "^8.19.1",
+    "@typescript-eslint/parser": "^8.19.1",
+    "eslint": "^8.57.0",
+    "eslint-config-next": "^15.1.6",
+    "typescript": "^5.7.3"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
   }
 }

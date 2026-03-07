@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { FaTshirt, FaTruck, FaWind } from 'react-icons/fa';
 import { GiWashingMachine } from 'react-icons/gi';
 import { IconType } from 'react-icons';
+import Image from 'next/image';
 import styles from '../styless/Service.module.css';
 
 interface Service {
@@ -82,9 +83,20 @@ const ServicePage: React.FC = () => {
 
   return (
     <div className={styles.pageContainer}>
-      <h1 className={styles.mainHeading}>Our Services</h1>
       <div className={styles.heroContainer}>
+        <div className={styles.heroImageWrapper}>
+          <Image
+            src="/images/inside.jpg"
+            alt="MEL Laundry Services - Modern cleaning facilities"
+            fill
+            className={styles.heroImage}
+            quality={90}
+            priority
+            sizes="100vw"
+          />
+        </div>
         <div className={styles.imageOverlay}></div>
+        <h1 className={styles.mainHeading}>Our Services</h1>
       </div>
 
       <div className={styles.serviceButtons}>

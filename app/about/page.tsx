@@ -138,7 +138,7 @@ export default function AboutPage() {
                 aria-controls={`${key}-panel`}
                 role="tab"
               >
-                {TAB_CONTENTS[key].title}
+                {TAB_CONTENTS[key]?.title}
               </button>
             ))}
           </div>
@@ -155,10 +155,10 @@ export default function AboutPage() {
               transition={tabTransition}
               className={styles.contentSection}
             >
-              <h2>{content.title}</h2>
-              <p>{content.content}</p>
-              <ul className={styles.featureList} aria-label={`${content.title} highlights`}>
-                {content.list.map((item, index) => (
+              <h2>{content?.title}</h2>
+              <p>{content?.content}</p>
+              <ul className={styles.featureList} aria-label={`${content?.title} highlights`}>
+                {content?.list?.map((item, index) => (
                   <motion.li
                     key={`${activeTab}-${index}`}
                     variants={fadeInUp}

@@ -14,17 +14,32 @@
 /* ---------------------- Hero Section ---------------------- */
 .heroContainer {
   position: relative;
-  height: 60vh;
+  min-height: 100vh;
+  height: 100dvh; /* Dynamic viewport height for mobile */
   display: flex;
   justify-content: center;
   align-items: center;
   overflow: hidden;
-  background-image: url('/images/inside.jpg');
-  background-size: cover;
-  background-position: center;
   border-radius: var(--border-radius-xl);
-  margin: 2rem 0 3rem;
+  margin: 0 0 3rem;
   box-shadow: var(--shadow-lg);
+}
+
+.heroImageWrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.heroImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
 }
 
 .imageOverlay {
@@ -34,21 +49,25 @@
   width: 100%;
   height: 100%;
   background: linear-gradient(to bottom, 
-    rgba(0, 0, 0, 0.2) 0%, 
-    rgba(0, 0, 0, 0.5) 50%, 
-    rgba(0, 0, 0, 0.7) 100%);
+    rgba(0, 0, 0, 0.3) 0%, 
+    rgba(0, 0, 0, 0.6) 50%, 
+    rgba(0, 0, 0, 0.8) 100%);
+  z-index: 2;
 }
 
 .mainHeading {
-  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-size: clamp(2rem, 6vw, 4rem);
   color: white;
   text-align: center;
   margin: 0;
   padding: 0;
   font-weight: 700;
   position: relative;
-  z-index: 2;
-  text-shadow: 0 4px 12px rgba(0,0,0,0.5);
+  z-index: 3;
+  text-shadow: 2px 4px 12px rgba(0,0,0,0.7);
+  max-width: min(90%, 800px);
+  line-height: 1.1;
+  letter-spacing: -0.5px;
 }
 
 /* ---------------------- Service Buttons ---------------------- */
@@ -298,8 +317,14 @@
   }
   
   .heroContainer {
-    height: 50vh;
-    margin: 1rem 0 2rem;
+    min-height: 100vh;
+    height: 100dvh;
+    margin: 0 0 2rem;
+  }
+  
+  .mainHeading {
+    font-size: clamp(1.8rem, 7vw, 3rem);
+    padding: 0 1rem;
   }
   
   .serviceButtons {
@@ -318,9 +343,19 @@
   }
 }
 
+@media (max-width: 480px) {
+  .mainHeading {
+    font-size: clamp(1.5rem, 8vw, 2.5rem);
+  }
+  
+  .heroContainer {
+    margin: 0 0 1.5rem;
+  }
+}
+
 @media (min-width: 1024px) {
   .heroContainer {
-    height: 70vh;
+    min-height: 90vh;
   }
 }
 
