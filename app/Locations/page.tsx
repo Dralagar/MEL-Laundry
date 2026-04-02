@@ -124,7 +124,7 @@ export default function LocationsPage() {
           <p className={styles.heroDescription}>
             {locations.length === 1 
               ? `Visit our ${locations[0].name} location`
-              : `Find your nearest MEL Laundry service center`
+              : 'Find your nearest MEL Laundry service center'
             }
           </p>
         </div>
@@ -136,7 +136,7 @@ export default function LocationsPage() {
           <div className={styles.noLocations}>
             <FaMapMarkerAlt className={styles.noLocationsIcon} />
             <h2>No Locations Available</h2>
-            <p>We're currently expanding. Check back soon for new locations!</p>
+            <p>We&apos;re currently expanding. Check back soon for new locations!</p>
           </div>
         ) : (
           <>
