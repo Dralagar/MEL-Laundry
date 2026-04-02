@@ -114,7 +114,7 @@ const steps: Step[] = [
     icon: FaWater,
     title: 'Wash',
     img: '/images/wash.png',
-    description: 'Use our high-efficiency washing machines to clean your clothes.'
+    description: 'Use our high-efficiency washing machines to clean your clothes.'  
   },
   {
     icon: MdLocalLaundryService,
@@ -343,7 +343,7 @@ const PromotionalContainer: React.FC = () => {
       setCurrentVideo((prev) => (prev + 1) % videoContent.length);
     }, 5000);
     return () => clearInterval(interval);
-  }, []);
+  }, [videoContent.length]);
 
   return (
     <div className={styles.promotionalContainer}>
@@ -485,7 +485,7 @@ const Home: React.FC = () => {
           </div>
         </motion.section>
 
-        {/* How It Works Section */}
+        {/* How It Works Section - Icons Centrally Aligned */}
         <motion.section
           className={styles.howItWorksSection}
           initial="initial"
@@ -504,9 +504,15 @@ const Home: React.FC = () => {
                 variants={fadeInUp}
                 whileHover={{ scale: 1.05 }}
               >
-                <div className={styles.stepIcon}>
-                  <step.icon />
+                {/* Icon Centered at Top */}
+                <div className={styles.stepIconWrapper}>
+                  <step.icon className={styles.stepIcon} />
                 </div>
+                
+                {/* Title */}
+                <h3 className={styles.stepTitle}>{step.title}</h3>
+                
+                {/* Image Container */}
                 <div className={styles.stepImageContainer}>
                   <Image
                     src={step.img}
@@ -515,7 +521,8 @@ const Home: React.FC = () => {
                     className={styles.stepImage}
                   />
                 </div>
-                <h3 className={styles.stepTitle}>{step.title}</h3>
+                
+                {/* Description */}
                 <p className={styles.stepDescription}>{step.description}</p>
               </motion.div>
             ))}

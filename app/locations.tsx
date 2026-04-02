@@ -36,7 +36,7 @@ const Locations: React.FC = () => {
 
   if (loading) return (
     <div className="flex justify-center items-center min-h-screen">
-      <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+      <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary-green"></div>
     </div>
   );
 
@@ -50,7 +50,7 @@ const Locations: React.FC = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-3xl font-bold mb-6">Our Locations</h1>
+      <h1 className="text-3xl font-bold mb-6 text-dark-green">Our Locations</h1>
       
       {locations.length === 0 ? (
         <div className="text-center py-8">
@@ -66,18 +66,18 @@ const Locations: React.FC = () => {
               {location.image && (
                 <div className="relative w-full h-48">
                   <Image 
-                    src={`http://localhost:5000/${location.image}`}
+                    src={`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}/${location.image}`}
                     alt={location.name}
                     fill
                     className="object-cover"
                     onError={(e: any) => {
-                      e.target.src = '/placeholder-image.jpg'; // Add a placeholder image
+                      e.target.src = '/images/placeholder.jpg';
                     }}
                   />
                 </div>
               )}
               <div className="p-4">
-                <h2 className="text-xl font-semibold mb-2">{location.name}</h2>
+                <h2 className="text-xl font-semibold mb-2 text-dark-green">{location.name}</h2>
                 <p className="text-gray-600">{location.address}</p>
               </div>
             </div>
@@ -87,7 +87,7 @@ const Locations: React.FC = () => {
       
       <Link 
         href="/" 
-        className="inline-block mt-8 px-6 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors"
+        className="inline-block mt-8 px-6 py-2 bg-primary-green text-white rounded-md hover:bg-dark-green transition-colors"
       >
         Back to Home
       </Link>
@@ -96,4 +96,3 @@ const Locations: React.FC = () => {
 };
 
 export default Locations;
-

@@ -157,7 +157,6 @@ export default function Contact() {
               transition={{ type: "spring", stiffness: 300 }}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
             >
               <FaMapMarkerAlt className={styles.icon} aria-hidden="true" />
               <h3 className={styles.cardHeading}>Our Office</h3>
@@ -169,7 +168,6 @@ export default function Contact() {
               transition={{ type: "spring", stiffness: 300 }}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
             >
               <FaEnvelope className={styles.icon} aria-hidden="true" />
               <h3 className={styles.cardHeading}>Email Us</h3>
@@ -181,7 +179,6 @@ export default function Contact() {
               transition={{ type: "spring", stiffness: 300 }}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
             >
               <FaPhone className={styles.icon} aria-hidden="true" />
               <h3 className={styles.cardHeading}>Call Us</h3>
@@ -193,7 +190,6 @@ export default function Contact() {
               transition={{ type: "spring", stiffness: 300 }}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 }}
             >
               <FaClock className={styles.icon} aria-hidden="true" />
               <h3 className={styles.cardHeading}>Business Hours</h3>
