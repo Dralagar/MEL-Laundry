@@ -61,14 +61,16 @@ export default function LocationsPage() {
   }, []);
 
   const handleGetDirections = (location: Location) => {
-    if (location.coordinates) {
+    if (location?.coordinates) {
       const url = `https://www.google.com/maps/dir/?api=1&destination=${location.coordinates.lat},${location.coordinates.lng}`;
       window.open(url, '_blank');
     }
   };
 
   const handleCallLocation = (phone: string) => {
-    window.open(`tel:${phone}`, '_self');
+    if (phone) {
+      window.open(`tel:${phone}`, '_self');
+    }
   };
 
   if (loading) {
@@ -103,6 +105,9 @@ export default function LocationsPage() {
     );
   }
 
+  // Get the first location safely
+  const firstLocation = locations.length > 0 ? locations[0] : null;
+
   return (
     <div className={styles.locationsContainer}>
       {/* Hero Section */}
@@ -122,8 +127,8 @@ export default function LocationsPage() {
         <div className={styles.heroContent}>
           <h1 className={styles.heroTitle}>Our Locations</h1>
           <p className={styles.heroDescription}>
-            {locations.length === 1 && locations[0]?.name 
-              ? `Visit our ${locations[0].name} location`
+            {locations.length === 1 && firstLocation?.name 
+              ? `Visit our ${firstLocation.name} location`
               : 'Find your nearest MEL Laundry service center'
             }
           </p>
@@ -141,7 +146,7 @@ export default function LocationsPage() {
         ) : (
           <>
             {/* Single Location Layout */}
-            {locations.length === 1 && locations[0] && (
+            {locations.length === 1 && firstLocation && (
               <motion.div 
                 className={styles.singleLocationHero}
                 initial={{ opacity: 0, y: 20 }}
@@ -150,8 +155,8 @@ export default function LocationsPage() {
               >
                 <div className={styles.locationImageWrapper}>
                   <Image
-                    src={locations[0].image || '/images/inside.jpg'}
-                    alt={locations[0].name || 'MEL Laundry Location'}
+                    src={firstLocation.image || '/images/inside.jpg'}
+                    alt={firstLocation.name || 'MEL Laundry Location'}
                     fill
                     className={styles.locationImage}
                     quality={90}
@@ -162,7 +167,7 @@ export default function LocationsPage() {
                 
                 <div className={styles.locationContent}>
                   <div className={styles.locationHeader}>
-                    <h2 className={styles.locationName}>{locations[0].name || 'MEL Laundry'}</h2>
+                    <h2 className={styles.locationName}>{firstLocation.name || 'MEL Laundry'}</h2>
                     <span className={`${styles.statusBadge} ${styles.statusActive}`}>
                       <FaStar className={styles.statusIcon} />
                       Active
@@ -170,7 +175,7 @@ export default function LocationsPage() {
                   </div>
                   
                   <p className={styles.locationDescription}>
-                    {locations[0].description || 'Your trusted laundry service provider with professional equipment and excellent customer service.'}
+                    {firstLocation.description || 'Your trusted laundry service provider with professional equipment and excellent customer service.'}
                   </p>
                   
                   <div className={styles.locationDetails}>
@@ -178,27 +183,27 @@ export default function LocationsPage() {
                       <FaMapMarkerAlt className={styles.detailIcon} />
                       <div>
                         <h3>Address</h3>
-                        <p>{locations[0].address || 'Address not available'}</p>
-                        <p>{locations[0].city || 'Nairobi'}, {locations[0].state || 'Nairobi County'} {locations[0].zipCode || '00100'}</p>
+                        <p>{firstLocation.address || 'Address not available'}</p>
+                        <p>{firstLocation.city || 'Nairobi'}, {firstLocation.state || 'Nairobi County'} {firstLocation.zipCode || '00100'}</p>
                       </div>
                     </div>
                     
-                    {locations[0].phone && (
+                    {firstLocation.phone && (
                       <div className={styles.detailItem}>
                         <FaPhone className={styles.detailIcon} />
                         <div>
                           <h3>Phone</h3>
-                          <p>{locations[0].phone}</p>
+                          <p>{firstLocation.phone}</p>
                         </div>
                       </div>
                     )}
                     
-                    {locations[0].hours && (
+                    {firstLocation.hours && (
                       <div className={styles.detailItem}>
                         <FaClock className={styles.detailIcon} />
                         <div>
                           <h3>Hours</h3>
-                          <p>{locations[0].hours}</p>
+                          <p>{firstLocation.hours}</p>
                         </div>
                       </div>
                     )}
@@ -206,16 +211,16 @@ export default function LocationsPage() {
                   
                   <div className={styles.actionButtons}>
                     <button 
-                      onClick={() => handleGetDirections(locations[0])}
+                      onClick={() => firstLocation && handleGetDirections(firstLocation)}
                       className={styles.primaryButton}
                     >
                       <FaDirections className={styles.buttonIcon} />
                       Get Directions
                     </button>
                     
-                    {locations[0].phone && (
+                    {firstLocation.phone && (
                       <button 
-                        onClick={() => handleCallLocation(locations[0].phone!)}
+                        onClick={() => handleCallLocation(firstLocation.phone!)}
                         className={styles.secondaryButton}
                       >
                         <FaPhone className={styles.buttonIcon} />
