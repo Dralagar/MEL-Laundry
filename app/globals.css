@@ -1,6 +1,9 @@
 /* ===============================
    GLOBAL VARIABLES & RESET
 ================================ */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
   /* MEL Laundry Brand Colors */
