@@ -46,13 +46,13 @@ export default function AdminDashboard() {
   // Authentication state
   const [loginForm, setLoginForm] = useState({ username: '', password: '' });
 
-  // Blog form state
+  // Blog form state - FIXED: Added null check for date
   const [blogForm, setBlogForm] = useState<BlogPost>({
     title: '',
     content: '',
     summary: '',
     author: 'MEL Laundry Team',
-    date: new Date().toISOString().split('T')[0],
+    date: new Date().toISOString().split('T')[0] || '',
     tags: [],
     status: 'draft'
   });
@@ -191,10 +191,68 @@ export default function AdminDashboard() {
       content: '',
       summary: '',
       author: 'MEL Laundry Team',
-      date: new Date().toISOString().split('T')[0],
+      date: new Date().toISOString().split('T')[0] || '',
       tags: [],
       status: 'draft'
     });
+  };
+
+  const handleEditLocation = (location: Location) => {
+    setEditingLocation(location);
+    setLocationForm(location);
+    setShowLocationForm(true);
+  };
+
+  const handleDeleteLocation = async (id: string) => {
+    if (!confirm('Are you sure you want to delete this location?')) return;
+
+    try {
+      const token = localStorage.getItem('adminToken');
+      const response = await fetch(`http://localhost:5001/api/locations/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+
+      if (response.ok) {
+        fetchData();
+      } else {
+        setError('Failed to delete location');
+      }
+    } catch (err) {
+      setError('Failed to delete location');
+    }
+  };
+
+  const handleSaveLocation = async () => {
+    try {
+      const token = localStorage.getItem('adminToken');
+      const url = editingLocation ? 
+        `http://localhost:5001/api/locations/${editingLocation._id}` : 
+        'http://localhost:5001/api/locations';
+      
+      const method = editingLocation ? 'PUT' : 'POST';
+      
+      const response = await fetch(url, {
+        method,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(locationForm)
+      });
+
+      if (response.ok) {
+        setShowLocationForm(false);
+        setEditingLocation(null);
+        fetchData();
+      } else {
+        setError('Failed to save location');
+      }
+    } catch (err) {
+      setError('Failed to save location');
+    }
   };
 
   if (!isAuthenticated) {
@@ -373,28 +431,38 @@ export default function AdminDashboard() {
               </button>
             </div>
 
-            <div className={styles.locationGrid}>
-              {locations.map((location) => (
-                <motion.div
-                  key={location._id}
-                  className={styles.locationCard}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                >
-                  <h3>{location.name}</h3>
-                  <p>{location.address}</p>
-                  <p>{location.city}, {location.state} {location.zipCode}</p>
-                  <div className={styles.locationActions}>
-                    <button className={styles.editButton}>
-                      <FaEdit /> Edit
-                    </button>
-                    <button className={styles.deleteButton}>
-                      <FaTrash /> Delete
-                    </button>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
+            {loading ? (
+              <div className={styles.loading}>Loading...</div>
+            ) : (
+              <div className={styles.locationGrid}>
+                {locations.map((location) => (
+                  <motion.div
+                    key={location._id}
+                    className={styles.locationCard}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                  >
+                    <h3>{location.name}</h3>
+                    <p>{location.address}</p>
+                    <p>{location.city}, {location.state} {location.zipCode}</p>
+                    <div className={styles.locationActions}>
+                      <button 
+                        onClick={() => handleEditLocation(location)}
+                        className={styles.editButton}
+                      >
+                        <FaEdit /> Edit
+                      </button>
+                      <button 
+                        onClick={() => handleDeleteLocation(location._id!)}
+                        className={styles.deleteButton}
+                      >
+                        <FaTrash /> Delete
+                      </button>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            )}
           </div>
         )}
 
@@ -479,6 +547,16 @@ export default function AdminDashboard() {
               </div>
 
               <div className={styles.formGroup}>
+                <label>Tags (comma separated)</label>
+                <input
+                  type="text"
+                  value={blogForm.tags.join(', ')}
+                  onChange={(e) => setBlogForm({...blogForm, tags: e.target.value.split(',').map(tag => tag.trim())})}
+                  placeholder="laundry, tips, cleaning"
+                />
+              </div>
+
+              <div className={styles.formGroup}>
                 <label>Status</label>
                 <select
                   value={blogForm.status}
@@ -496,6 +574,133 @@ export default function AdminDashboard() {
                 className={styles.saveButton}
               >
                 <FaSave /> {editingBlog ? 'Update' : 'Publish'} Blog Post
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Location Form Modal */}
+      {showLocationForm && (
+        <div className={styles.modal}>
+          <div className={styles.modalContent}>
+            <div className={styles.modalHeader}>
+              <h3>{editingLocation ? 'Edit Location' : 'Add New Location'}</h3>
+              <button
+                onClick={() => {
+                  setShowLocationForm(false);
+                  setEditingLocation(null);
+                }}
+                className={styles.closeButton}
+              >
+                <FaTimes />
+              </button>
+            </div>
+
+            <div className={styles.modalBody}>
+              <div className={styles.formGroup}>
+                <label>Location Name</label>
+                <input
+                  type="text"
+                  value={locationForm.name}
+                  onChange={(e) => setLocationForm({...locationForm, name: e.target.value})}
+                  required
+                />
+              </div>
+
+              <div className={styles.formGroup}>
+                <label>Address</label>
+                <input
+                  type="text"
+                  value={locationForm.address}
+                  onChange={(e) => setLocationForm({...locationForm, address: e.target.value})}
+                  required
+                />
+              </div>
+
+              <div className={styles.formRow}>
+                <div className={styles.formGroup}>
+                  <label>City</label>
+                  <input
+                    type="text"
+                    value={locationForm.city}
+                    onChange={(e) => setLocationForm({...locationForm, city: e.target.value})}
+                    required
+                  />
+                </div>
+
+                <div className={styles.formGroup}>
+                  <label>State</label>
+                  <input
+                    type="text"
+                    value={locationForm.state}
+                    onChange={(e) => setLocationForm({...locationForm, state: e.target.value})}
+                    required
+                  />
+                </div>
+
+                <div className={styles.formGroup}>
+                  <label>Zip Code</label>
+                  <input
+                    type="text"
+                    value={locationForm.zipCode}
+                    onChange={(e) => setLocationForm({...locationForm, zipCode: e.target.value})}
+                    required
+                  />
+                </div>
+              </div>
+
+              <div className={styles.formRow}>
+                <div className={styles.formGroup}>
+                  <label>Phone</label>
+                  <input
+                    type="tel"
+                    value={locationForm.phone}
+                    onChange={(e) => setLocationForm({...locationForm, phone: e.target.value})}
+                    required
+                  />
+                </div>
+
+                <div className={styles.formGroup}>
+                  <label>Hours</label>
+                  <input
+                    type="text"
+                    value={locationForm.hours}
+                    onChange={(e) => setLocationForm({...locationForm, hours: e.target.value})}
+                    placeholder="Mon-Fri: 8AM-8PM, Sat-Sun: 9AM-6PM"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div className={styles.formGroup}>
+                <label>Description</label>
+                <textarea
+                  value={locationForm.description}
+                  onChange={(e) => setLocationForm({...locationForm, description: e.target.value})}
+                  rows={3}
+                  required
+                />
+              </div>
+
+              <div className={styles.formGroup}>
+                <label>Status</label>
+                <select
+                  value={locationForm.status}
+                  onChange={(e) => setLocationForm({...locationForm, status: e.target.value as 'active' | 'inactive'})}
+                >
+                  <option value="active">Active</option>
+                  <option value="inactive">Inactive</option>
+                </select>
+              </div>
+            </div>
+
+            <div className={styles.modalFooter}>
+              <button
+                onClick={handleSaveLocation}
+                className={styles.saveButton}
+              >
+                <FaSave /> {editingLocation ? 'Update' : 'Add'} Location
               </button>
             </div>
           </div>
