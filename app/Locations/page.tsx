@@ -122,7 +122,7 @@ export default function LocationsPage() {
         <div className={styles.heroContent}>
           <h1 className={styles.heroTitle}>Our Locations</h1>
           <p className={styles.heroDescription}>
-            {locations.length === 1 
+            {locations.length === 1 && locations[0]?.name 
               ? `Visit our ${locations[0].name} location`
               : 'Find your nearest MEL Laundry service center'
             }
@@ -141,7 +141,7 @@ export default function LocationsPage() {
         ) : (
           <>
             {/* Single Location Layout */}
-            {locations.length === 1 && (
+            {locations.length === 1 && locations[0] && (
               <motion.div 
                 className={styles.singleLocationHero}
                 initial={{ opacity: 0, y: 20 }}
@@ -151,7 +151,7 @@ export default function LocationsPage() {
                 <div className={styles.locationImageWrapper}>
                   <Image
                     src={locations[0].image || '/images/inside.jpg'}
-                    alt={locations[0].name}
+                    alt={locations[0].name || 'MEL Laundry Location'}
                     fill
                     className={styles.locationImage}
                     quality={90}
@@ -162,7 +162,7 @@ export default function LocationsPage() {
                 
                 <div className={styles.locationContent}>
                   <div className={styles.locationHeader}>
-                    <h2 className={styles.locationName}>{locations[0].name}</h2>
+                    <h2 className={styles.locationName}>{locations[0].name || 'MEL Laundry'}</h2>
                     <span className={`${styles.statusBadge} ${styles.statusActive}`}>
                       <FaStar className={styles.statusIcon} />
                       Active
@@ -178,8 +178,8 @@ export default function LocationsPage() {
                       <FaMapMarkerAlt className={styles.detailIcon} />
                       <div>
                         <h3>Address</h3>
-                        <p>{locations[0].address}</p>
-                        <p>{locations[0].city}, {locations[0].state} {locations[0].zipCode}</p>
+                        <p>{locations[0].address || 'Address not available'}</p>
+                        <p>{locations[0].city || 'Nairobi'}, {locations[0].state || 'Nairobi County'} {locations[0].zipCode || '00100'}</p>
                       </div>
                     </div>
                     
@@ -241,22 +241,22 @@ export default function LocationsPage() {
                     <div className={styles.cardImageWrapper}>
                       <Image
                         src={location.image || '/images/inside.jpg'}
-                        alt={location.name}
+                        alt={location.name || 'MEL Laundry Location'}
                         fill
                         className={styles.cardImage}
                         quality={90}
                         sizes="(max-width: 768px) 100vw, 33vw"
                       />
                       <span className={`${styles.statusBadge} ${location.status === 'active' ? styles.statusActive : styles.statusInactive}`}>
-                        {location.status}
+                        {location.status || 'active'}
                       </span>
                     </div>
                     
                     <div className={styles.cardContent}>
-                      <h3 className={styles.cardTitle}>{location.name}</h3>
-                      <p className={styles.cardAddress}>{location.address}</p>
+                      <h3 className={styles.cardTitle}>{location.name || 'MEL Laundry'}</h3>
+                      <p className={styles.cardAddress}>{location.address || 'Address not available'}</p>
                       <p className={styles.cardCity}>
-                        {location.city}, {location.state} {location.zipCode}
+                        {location.city || 'Nairobi'}, {location.state || 'Nairobi County'} {location.zipCode || '00100'}
                       </p>
                       
                       {location.phone && (
