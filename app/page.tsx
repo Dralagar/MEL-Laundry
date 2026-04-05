@@ -185,7 +185,7 @@ const teamMembers: TeamMember[] = [
   {
     name: "Kyrre Abraham",
     position: "Investor/Director",
-    image: "/images/kyrre.png",
+    image: "/images/kyre.png",
     blurDataURL: "/images/kyre-blur.png"
   },
   {
