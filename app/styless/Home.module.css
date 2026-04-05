@@ -872,6 +872,9 @@
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .stepCard:hover {
@@ -879,17 +882,24 @@
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
 }
 
+/* Centralized Icon Wrapper */
+.stepIconWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
 .stepIcon {
   font-size: 3rem;
   color: var(--primary-green);
-  margin-bottom: 1rem;
 }
 
 .stepImageContainer {
   position: relative;
   width: 100px;
   height: 100px;
-  margin: 0 auto 1.5rem;
+  margin: 1rem auto;
   border-radius: 12px;
   overflow: hidden;
 }
@@ -994,6 +1004,146 @@
   font-size: 1.2rem;
   font-weight: 700;
   color: var(--primary-green);
+}
+
+/* ---------------------- Service Card with Scrolling Images ---------------------- */
+.serviceCardSection {
+  padding: 2rem 1rem;
+  margin: 2rem auto;
+  max-width: 1200px;
+}
+
+.serviceCard {
+  background: white;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.serviceCard:hover {
+  transform: translateY(-5px);
+}
+
+.serviceCardHeader {
+  background: linear-gradient(135deg, var(--primary-green), var(--dark-green));
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.serviceCardHeader h3 {
+  color: white;
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+}
+
+.serviceCardHeader p {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1rem;
+}
+
+/* Scrolling Image Gallery */
+.imageScroller {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background: #f5f5f5;
+}
+
+.scrollingContainer {
+  display: flex;
+  animation: scrollImages 20s linear infinite;
+  width: fit-content;
+}
+
+.scrollItem {
+  flex-shrink: 0;
+  width: 300px;
+  height: 200px;
+  position: relative;
+  margin: 0 8px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.scrollImage {
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.scrollItem:hover .scrollImage {
+  transform: scale(1.05);
+}
+
+@keyframes scrollImages {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* Pause animation on hover */
+.imageScroller:hover .scrollingContainer {
+  animation-play-state: paused;
+}
+
+.serviceContent {
+  padding: 1.5rem;
+}
+
+.servicePrice {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--primary-green);
+  margin-bottom: 0.5rem;
+}
+
+.serviceDescription {
+  color: var(--text-light);
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.serviceButton {
+  display: inline-block;
+  background: var(--primary-green);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.serviceButton:hover {
+  background: var(--dark-green);
+  transform: translateY(-2px);
+}
+
+/* Responsive adjustments for service card */
+@media (max-width: 768px) {
+  .scrollItem {
+    width: 250px;
+    height: 160px;
+  }
+  
+  .servicePrice {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .scrollItem {
+    width: 200px;
+    height: 140px;
+  }
+  
+  .serviceCardHeader h3 {
+    font-size: 1.3rem;
+  }
 }
 
 /* ---------------------- Testimonials Section ---------------------- */

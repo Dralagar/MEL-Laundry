@@ -119,7 +119,7 @@ const steps: Step[] = [
   {
     icon: MdLocalLaundryService,
     title: 'Dry',
-    img: '/images/Dryclothes.jpeg',
+    img: '/images/Dryclothe.jpeg',
     description: 'Dry your clothes quickly with our powerful dryers.'
   }
 ];
@@ -207,9 +207,9 @@ const teamMembers: TeamMember[] = [
     blurDataURL: "/images/Benard.jpg"
   },
   {
-    name: "Purity Ikapel",
+    name: " Priscar",
     position: "Supervisor",
-    image: "/images/Ikapel.jpg",
+    image: "/images/priscar.png",  
     blurDataURL: "/images/Ikapel.jpg"
   },
 ];
