@@ -209,7 +209,7 @@ const teamMembers: TeamMember[] = [
   {
     name: " Priscar",
     position: "Supervisor",
-    image: "/images/priscar.png",  
+    image: "/images/Priscar.png",  
     blurDataURL: "/images/Ikapel.jpg"
   },
 ];
