@@ -183,9 +183,9 @@ const pricingCategories: PriceCategory[] = [
 
 const teamMembers: TeamMember[] = [
   {
-    name: "Kyree Abraham",
+    name: "Kyrre Abraham",
     position: "Investor/Director",
-    image: "/images/kyre.png",
+    image: "/images/kyrre.png",
     blurDataURL: "/images/kyre-blur.png"
   },
   {
