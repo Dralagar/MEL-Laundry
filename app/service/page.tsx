@@ -86,7 +86,7 @@ const ServicePage: React.FC = () => {
       <div className={styles.heroContainer}>
         <div className={styles.heroImageWrapper}>
           <Image
-            src="/images/inside.jpg"
+            src="/images/Inside.jpg"
             alt="MEL Laundry Services - Modern cleaning facilities"
             fill
             className={styles.heroImage}
